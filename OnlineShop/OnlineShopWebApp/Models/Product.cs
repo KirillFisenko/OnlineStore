@@ -2,7 +2,7 @@
 {
     public class Product
     {
-        private static int instanceCounter = 0;
+        private static int instanceCounter = 2506;
         public int Id { get; }
         public string Name { get; }
         public decimal Cost { get; }
@@ -19,8 +19,7 @@
 
         public override string ToString()
         {
-            return $"{Id}\n{Name}\n{Cost}";
+            return $"ID: {Id}\n{Name}\n{Cost} р.";
         }
     }
 }
-

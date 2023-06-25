@@ -2,39 +2,16 @@
 using OnlineShopWebApp.Models;
 using System.Diagnostics;
 
-
 namespace OnlineShopWebApp.Controllers
-{    
+{
     public class HomeController : Controller
-    {        
-        private readonly ProductRepository productRepository;
-        public HomeController()
-        {
-            productRepository = new ProductRepository();
-        }
+    {
+        private readonly ProductRepository productRepository = new ProductRepository();       
 
-        public string Index(int id)
+        public string Index()
         {
             var products = productRepository.GetAll();
-            var result = "";
-            if (id == 0)
-            {                
-                foreach(var product in products)
-                {
-                    result += product + "\n\n";
-                }                
-            }
-            else
-            {                
-                foreach (var product in products)
-                {
-                    if(product.Id == id)
-                    {
-                        result += product + "\n" + product.Description; break;
-                    }                    
-                }                
-            }
-            return result;
+            return string.Join("\n\n", products);
         }
 
         public IActionResult Privacy()
