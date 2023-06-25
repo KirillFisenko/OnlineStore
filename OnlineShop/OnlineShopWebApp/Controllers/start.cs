@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Controllers
 {
-    public class start : Controller
+    public class Start : Controller
     {
         public string Hello()
         {
@@ -38,7 +38,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 result = "Добрый вечер";
             }
-
+            
             return result;
         }
     }
