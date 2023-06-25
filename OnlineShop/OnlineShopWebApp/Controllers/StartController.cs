@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Controllers
 {
-    public class Start : Controller
+    public class StartController : Controller
     {
         public string Hello()
         {

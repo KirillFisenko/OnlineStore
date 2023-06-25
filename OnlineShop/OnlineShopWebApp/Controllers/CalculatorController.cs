@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Controllers
 {
-    public class Calculator : Controller
+    public class CalculatorController : Controller
     {
         public string Index(double a, double b, string c = "+")
         {
@@ -16,4 +16,4 @@ namespace OnlineShopWebApp.Controllers
             }
         }
     }
-}
+} 
