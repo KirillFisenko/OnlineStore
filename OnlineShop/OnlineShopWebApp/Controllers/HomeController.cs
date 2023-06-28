@@ -8,10 +8,10 @@ namespace OnlineShopWebApp.Controllers
     {
         private readonly ProductRepository productRepository = new ProductRepository();       
 
-        public string Index()
+        public IActionResult Index()
         {
-            var products = productRepository.GetAll();
-            return string.Join("\n\n", products);
+            var products = productRepository.GetAll();                       
+            return View(products);
         }
 
         public IActionResult Privacy()

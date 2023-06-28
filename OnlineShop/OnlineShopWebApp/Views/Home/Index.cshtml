@@ -1,6 +1,8 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
+@string.Join("\n\n", Model);
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
