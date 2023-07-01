@@ -16,11 +16,6 @@
             Description = description;
             Link = link;
             instanceCounter++;
-        }
-
-        public override string ToString()
-        {
-            return $"ID: {Id}\n{Name}\n{Cost} р.";
-        }
+        }        
     }
 }
