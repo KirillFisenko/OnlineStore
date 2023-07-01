@@ -2,6 +2,7 @@
 @{
 	ViewData["Title"] = "Home Page";
 }
+@string.Join("\n\n", Model);
 
 <div class="row">
 	@foreach (var product in Model)
