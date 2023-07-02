@@ -1,16 +1,20 @@
 ﻿@model List<Basket>;
 
 <div class="row">
-	@foreach (var basket in Model)
-	{
-		<div class="col-3 card shadow-lg">
-			
-			<div class="card-body">				
-				<h5>@basket.ProductName</h5>				
-				<h5>@basket.ProductCount</h5>
-				<h5>@basket.ProductCost руб.</h5>
-				<a class="btn btn-outline-dark" href="/home/index" role="button">Продолжить покупки</a>
-			</div>
-		</div>
-	}
+	<table>
+		<tr>
+			<td>Название товара</td>
+			<td>Количество товара</td>
+			<td>Цена товара</td>
+		</tr>
+		@foreach (var basket in Model)
+		{
+			<tr>
+				<td>@basket.ProductName</td>
+				<td>@basket.ProductCount</td>
+				<td>@basket.ProductCost руб.</td>
+			</tr>
+		}
+	</table>
+	<a class="btn btn-outline-dark" href="/home/index" role="button">Продолжить покупки</a>
 </div>

@@ -6,10 +6,15 @@ namespace OnlineShopWebApp.Controllers
 	public class BasketController : Controller
 	{
 		private readonly BasketRepository basketRepository = new BasketRepository();
-		public IActionResult Index(Product product)
+		public IActionResult Index()
 		{
-			var result = basketRepository.AddProductToBasket(product);
-			return View(result);
+			var products = basketRepository.GetAll();
+			return View((object)products);
+		}
+
+		public void Add(Product product)
+		{
+			basketRepository.AddProductToBasket(product);
 		}
 	}
 }
