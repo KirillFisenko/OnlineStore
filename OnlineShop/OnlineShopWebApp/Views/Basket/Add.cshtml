@@ -1,0 +1,13 @@
+﻿@model Product;
+
+<div class="row">
+    <div class="col-6">
+        <p>Товар успешно добавлен в корзину</p>
+        <h6>@Model.Name</h6>
+        <h5>@Model.Cost руб.</h5>
+    </div>
+    <div class="col-6">
+        <a class="btn btn-outline-dark" href="/home/index" role="button">Продолжить покупки</a>
+        <a class="btn btn-outline-dark" href="/basket/index" role="button">Перейти в корзину</a>
+    </div>
+</div>

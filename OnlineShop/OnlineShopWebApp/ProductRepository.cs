@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
 	public class ProductRepository
 	{
-		private static List<Product> products = new List<Product>()
+        public static List<Product> products = new List<Product>()
 			{
 
 			new Product(
@@ -49,9 +49,10 @@ namespace OnlineShopWebApp
 			return products;
 		}
 
-		public Product TryGetById(int id)
+		public Product GetById(int id)
 		{
 			return products.FirstOrDefault(product => product.Id == id);
 		}
-	}
+        
+    }
 }
