@@ -10,7 +10,7 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Index()
         {
-            var products = productRepository.GetAll();
+            var products = productRepository.GetAllProducts();
             return View((object)products);
         }
     }

@@ -8,7 +8,7 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Index(int id)
         {
-            var result = productRepository.GetById(id);
+            var result = productRepository.GetProductById(id);
             return View((object)result);
         }
     }

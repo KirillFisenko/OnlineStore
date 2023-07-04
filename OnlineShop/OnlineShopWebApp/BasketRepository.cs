@@ -1,4 +1,5 @@
 ﻿using OnlineShopWebApp.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -11,7 +12,7 @@ namespace OnlineShopWebApp
         public Basket GetUserBasket(User user)
         {
             return baskets.FirstOrDefault(basket => basket.UserBasket == user);
-        }
-       
+        }        
+
     }
 }

@@ -44,12 +44,12 @@ namespace OnlineShopWebApp
 				)
 			};
 
-		public List<Product> GetAll()
+		public List<Product> GetAllProducts()
 		{
 			return products;
 		}
 
-		public Product GetById(int id)
+		public Product GetProductById(int id)
 		{
 			return products.FirstOrDefault(product => product.Id == id);
 		}

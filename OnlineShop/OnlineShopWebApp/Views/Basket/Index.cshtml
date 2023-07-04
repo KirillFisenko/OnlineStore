@@ -1,4 +1,4 @@
-﻿@model List<Basket>;
+﻿@model List<Product>;
 
 <div class="row">
     <table>
@@ -7,20 +7,21 @@
             <td>Количество товара</td>
             <td>Цена товара</td>
         </tr>
-        @foreach (var basket in Model)
+        @foreach (var product in Model)
         {
             <tr>
-                <td>@basket.ProductName</td>
-                <td>@basket.ProductCount</td>
-                <td>@basket.ProductCost руб.</td>
+                <td>@product.Name</td>
+                <td>@Model.Count(x => x == product)</td>
+                <td>@product.Cost руб.</td>
             </tr>
         }
         <tr>
             <td></td>
             <td><b>Общая сумма:</b></td>
-            <td><b>@Model.Sum(product => product.ProductCost * product.ProductCount) руб.</b></td>
+            <td><b></b></td>
         </tr>
     </table>
     <p></p>
     <a class="btn btn-outline-dark" href="/home/index" role="button">Продолжить покупки</a>
+    <a class="btn btn-outline-dark" href="#" role="button">Оформить заказ</a>
 </div>
