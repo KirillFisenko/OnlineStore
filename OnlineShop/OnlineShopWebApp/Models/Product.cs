@@ -7,14 +7,14 @@
         public string Name { get; }
         public decimal Cost { get; }
         public string Description { get; }
-        public string Link { get; }
-        public Product(string name, decimal cost, string description, string link)
+        public string ImagePath { get; }
+        public Product(string name, decimal cost, string description, string imagePath)
         {
             Id = instanceCounter;
             Name = name;
             Cost = cost;
             Description = description;
-            Link = link;
+            ImagePath = imagePath;
             instanceCounter++;
         }        
     }
