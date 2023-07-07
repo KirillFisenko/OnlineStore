@@ -6,7 +6,7 @@ namespace OnlineShopWebApp.Controllers
 {
 	public class CartController : Controller
 	{
-		public readonly ProductRepository productRepository = new ProductRepository();
+		public readonly CartsRepository CartsRepository = new CartsRepository();
 		public IActionResult Index()
 		{					
 			

@@ -2,8 +2,8 @@
 
 namespace OnlineShopWebApp
 {
-	static public class CartsRepository
+	public class CartsRepository
 	{
-		private static List<Cart> carts = new List<Cart>();
+		public static List<Cart> carts = new List<Cart>();
 	}
 }
