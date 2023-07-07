@@ -8,7 +8,8 @@ namespace OnlineShopWebApp.Controllers
 	{
 		public readonly ProductRepository productRepository = new ProductRepository();
 		public IActionResult Index()
-		{								
+		{					
+			
             return View();
 		}
 
