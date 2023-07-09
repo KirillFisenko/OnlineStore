@@ -4,14 +4,19 @@ using System.Diagnostics;
 
 namespace OnlineShopWebApp.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ProductsRepository productRepository = new ProductsRepository();       
+	public class HomeController : Controller
+	{
+		private readonly ProductsRepository productRepository;
 
-        public IActionResult Index()
-        {
-            var products = productRepository.GetAllProducts();
-            return View((object)products);
-        }
-    }
+		public HomeController()
+		{
+			productRepository = new ProductsRepository();
+		}
+
+		public IActionResult Index()
+		{
+			var products = productRepository.GetAllProducts();
+			return View((object)products);
+		}
+	}
 }

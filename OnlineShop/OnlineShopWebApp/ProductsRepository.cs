@@ -49,7 +49,7 @@ namespace OnlineShopWebApp
 			return products;
 		}
 
-		public Product GetProductById(int id)
+		public Product TryGetById(int id)
 		{
 			return products.FirstOrDefault(product => product.Id == id);
 		}        

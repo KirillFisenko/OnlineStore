@@ -9,7 +9,7 @@
 		{
 			get
 			{
-				return Items.Sum(x => x.Cost);
+				return Items.Sum(item => item.Cost);
 			}
 		}
 	}	
