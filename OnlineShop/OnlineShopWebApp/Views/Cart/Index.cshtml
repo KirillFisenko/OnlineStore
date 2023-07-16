@@ -28,7 +28,11 @@ else
 								</div>
 							</td>
 							<td>@item.Product.Cost руб.</td>
-							<td>@item.Amount</td>
+							<td>
+								@item.Amount
+								<a class="btn btn-primary" href="/cart/add?productId=@item.Product.Id">+</a>
+								<a class="btn btn-primary" href="/cart/del?productId=@item.Product.Id">-</a>
+							</td>
 							<td>@item.Cost руб.</td>
 						</tr>
 					}
