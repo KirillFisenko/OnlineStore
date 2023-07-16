@@ -46,17 +46,7 @@ namespace OnlineShopWebApp
 		public List<Product> products
 		{
 			get { return _products; }
-		}
-
-		public List<Product> GetAllProducts()
-		{
-			return _products;
-		}
-
-		public Product TryGetById(int id)
-		{
-			return _products.FirstOrDefault(product => product.Id == id);
-		}
+		}		
 	}
 
 	public interface IProductsRepository
