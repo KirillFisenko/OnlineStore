@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
 	public class ProductsRepository
 	{
-        public static List<Product> products = new List<Product>()
+        public List<Product> products = new List<Product>()
 			{
 
 			new Product(
