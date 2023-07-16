@@ -4,9 +4,9 @@ using OnlineShopWebApp.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<ProductsRepository>();
-builder.Services.AddSingleton<CartsRepository>();
-builder.Services.AddSingleton<Constants>();
+builder.Services.AddSingleton<IProductsRepository, InMemoryProductsRepository>();
+builder.Services.AddSingleton<ICartsRepository, InMemoryCartsRepository>();
+builder.Services.AddSingleton<IConstants, InMemoryConstants>();
 
 var app = builder.Build();
 
