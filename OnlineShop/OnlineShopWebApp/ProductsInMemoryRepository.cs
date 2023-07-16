@@ -2,9 +2,9 @@
 
 namespace OnlineShopWebApp
 {
-	public class InMemoryProductsRepository : IProductsRepository
+	public class ProductsInMemoryRepository : IProductsRepository
 	{
-		public List<Product> _products = new List<Product>()
+		public List<Product> products = new List<Product>()
 			{
 
 			new Product(
@@ -43,15 +43,6 @@ namespace OnlineShopWebApp
 					"/images/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp"
 				)
 			};
-		public List<Product> products
-		{
-			get { return _products; }
-		}		
-	}
-
-	public interface IProductsRepository
-	{
-		List<Product> products { get; }
 
 		public List<Product> GetAllProducts()
 		{

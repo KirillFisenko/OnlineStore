@@ -8,24 +8,23 @@ namespace OnlineShopWebApp.Controllers
 	{
 		private readonly IProductsRepository productRepository;
 		private readonly ICartsRepository cartsRepository;
-		private readonly IConstants constants;
-		public CartController(IProductsRepository productRepository, ICartsRepository cartsRepository, IConstants constants)
+		
+		public CartController(IProductsRepository productRepository, ICartsRepository cartsRepository)
 		{
 			this.productRepository = productRepository;
-			this.cartsRepository = cartsRepository;
-			this.constants = constants;
+			this.cartsRepository = cartsRepository;			
 		}		
 
 		public IActionResult Index()
 		{
-			var cart = cartsRepository.TryGetByUserId(constants.UserId);
+			var cart = cartsRepository.TryGetByUserId(Constants.UserId);
 			return View(cart);
 		}
 
 		public IActionResult Add(int productId)
 		{
 			var product = productRepository.TryGetById(productId);
-			cartsRepository.Add(product, constants.UserId);
+			cartsRepository.Add(product, Constants.UserId);
 			return RedirectToAction("Index");
 		}
 	}

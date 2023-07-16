@@ -2,19 +2,9 @@
 
 namespace OnlineShopWebApp
 {
-	public class InMemoryCartsRepository : ICartsRepository
+	public class CartsInMemoryRepository : ICartsRepository
 	{
-		public List<Cart> _carts = new List<Cart>();
-
-		public List<Cart> carts
-		{
-			get { return _carts; }
-		}
-	}
-
-	public interface ICartsRepository
-	{
-		public List<Cart> carts { get; }
+		public List<Cart> carts = new List<Cart>();
 
 		public Cart TryGetByUserId(string userId)
 		{
