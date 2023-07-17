@@ -54,21 +54,14 @@ namespace OnlineShopWebApp
 		public void Del(Product product, string userId)
 		{
 			var existingCart = TryGetByUserId(userId);
-			if (existingCart == null)
+			var existingCartItem = existingCart.Items.FirstOrDefault(item => item.Product.Id == product.Id);
+			if (existingCartItem.Amount != 0)
 			{
-				return;
+				existingCartItem.Amount--;
 			}
 			else
 			{
-				var existingCartItem = existingCart.Items.FirstOrDefault(item => item.Product.Id == product.Id);
-				if (existingCartItem != null)
-				{
-					existingCartItem.Amount--;
-				}
-				else
-				{
-					return;
-				}
+
 			}
 		}
 	}
