@@ -8,7 +8,9 @@
 		<h6>@Model.Name</h6>
 		<h5>@string.Format("{0:### ### ###}", Model.Cost) р</h5>
 		<p style="font-size:12px">@Model.Description</p>
-		<a class="btn btn-outline-success" href="/cart/add?productId=@Model.Id" role="button">Добавить в корзину</a>
-		<a class="btn btn-outline-secondary" href="/home/index" role="button">Продолжить покупки</a>
+		<div class="text-center">
+			<a class="btn btn-outline-warning btn-lg" style="margin: 5px" href="/cart/add?productId=@Model.Id" role="button">Добавить в корзину</a>
+			<a class="btn btn-outline-secondary" style="margin: 5px" href="/home/index" role="button">Продолжить покупки</a>
+		</div>
 	</div>
 </div>

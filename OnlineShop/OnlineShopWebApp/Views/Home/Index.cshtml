@@ -11,7 +11,10 @@
 				</a>
 				<h5>@string.Format("{0:### ### ###}", product.Cost) р</h5>
 				<p style="font-size:10px">@product.Description</p>
-				<a class="btn btn-outline-success" href="/cart/add?productId=@product.Id" role="button">Добавить в корзину</a>
+				<div class="text-center">
+					<a class="btn btn-outline-warning btn-lg" style="margin: 5px"  href="/cart/add?productId=@product.Id" role="button">Добавить в корзину</a>
+					<a class="btn btn-outline-secondary btn-lg" style="margin: 5px" href="/product/index/@product.Id" role="button">Подробнее о товаре</a>
+				</div>
 			</div>
 		</div>
 	}
