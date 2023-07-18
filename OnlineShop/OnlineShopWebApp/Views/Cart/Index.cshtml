@@ -35,7 +35,7 @@ else
 							<td>
 								@item.Amount
 								<a class="btn btn-outline-secondary btn-sm" href="/cart/add?productId=@item.Product.Id">+</a>
-								<a class="btn btn-outline-secondary btn-sm" href="/cart/del?productId=@item.Product.Id">-</a>
+								<a class="btn btn-outline-secondary btn-sm" href="/cart/decreaseAmount?productId=@item.Product.Id">-</a>
 							</td>
 							<td>@item.Cost руб.</td>
 						</tr>

@@ -28,10 +28,10 @@ namespace OnlineShopWebApp.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public IActionResult Del(int productId)
+		public IActionResult DecreaseAmount(int productId)
 		{
 			var product = productRepository.TryGetById(productId);
-			cartsRepository.Del(product, Constants.UserId);
+			cartsRepository.DecreaseAmount(product, Constants.UserId);
 			return RedirectToAction("Index");
 		}
 
