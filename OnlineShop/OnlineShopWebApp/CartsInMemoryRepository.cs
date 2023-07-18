@@ -53,8 +53,12 @@ namespace OnlineShopWebApp
 
 		public void DecreaseAmount(Product product, string userId)
 		{
-			var existingCart = TryGetByUserId(userId);
-			var existingCartItem = existingCart.Items.FirstOrDefault(item => item.Product.Id == product.Id);
+			var existingCart = TryGetByUserId(userId);			
+			var existingCartItem = existingCart?.Items?.FirstOrDefault(item => item.Product.Id == product.Id);
+			if(existingCartItem == null)
+			{
+				return;
+			}
 			existingCartItem.Amount--;
 			if (existingCartItem.Amount == 0)
 			{
