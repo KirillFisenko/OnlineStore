@@ -1,11 +1,11 @@
 ﻿@model Cart;
 
 @if (Model == null)
-{	
+{
 	<div class="text-center">
 		<h3 class="shadow p-3 mb-5 bg-body-tertiary rounded p-3 mb-2 bg-warning-subtle text-emphasis-warning">Корзина пустая</h3>
 		<p></p>
-		<a class="btn btn-outline-secondary btn-lg" href="/home/index" role="button">Перейти к покупкам</a>		
+		<a class="btn btn-outline-secondary btn-lg" href="/home/index" role="button">Перейти к покупкам</a>
 	</div>
 }
 else
@@ -15,10 +15,10 @@ else
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Название</th>
-						<th>Цена</th>
-						<th>Количество</th>
-						<th>Стоимость</th>
+						<th class="col-5">Название</th>
+						<th class="col-2">Цена</th>
+						<th class="col-2">Количество</th>
+						<th class="col-3">Стоимость</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,25 +31,25 @@ else
 									<img class="img-fluid" src="@item.Product.ImagePath">
 								</div>
 							</td>
-							<td>@item.Product.Cost руб.</td>
+							<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
 							<td>
 								@item.Amount
 								<a class="btn btn-outline-secondary btn-sm" href="/cart/add?productId=@item.Product.Id">+</a>
 								<a class="btn btn-outline-secondary btn-sm" href="/cart/decreaseAmount?productId=@item.Product.Id">-</a>
 							</td>
-							<td>@item.Cost руб.</td>
+							<td>@string.Format("{0:### ### ###}", item.Cost) р</td>
 						</tr>
 					}
 				</tbody>
 			</table>
 			<div class="text-end">
-				<h4>Итого: @Model.Cost руб.</h4>
+				<h4>Итого: @string.Format("{0:### ### ###}", Model.Cost) р</h4>
 			</div>
 			<div class="text-center">
 				<a class="btn btn-outline-secondary btn-lg" href="/home/index" role="button">Продолжить покупки</a>
 				<a class="btn btn-outline-success btn-lg" href="/order/index" role="button">Перейти к оформлению</a>
 				<a class="btn btn-outline-warning btn-lg" href="/cart/clear" role="button">Очистить корзину</a>
-			</div>			
+			</div>
 		</div>
 	</div>
 }

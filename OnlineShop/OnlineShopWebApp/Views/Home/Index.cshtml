@@ -3,13 +3,13 @@
 <div class="row">
 	@foreach (var product in Model)
 	{
-		<div class="col-3 card shadow-lg">
+		<div class="col-3 card shadow-lg" style="margin: 5px; padding: 10px">
 			<img class="card-img-top" src="@product.ImagePath">
 			<div class="card-body">
 				<a style="color:navy" href="/product/index/@product.Id">
 					<h6>@product.Name</h6>
 				</a>
-				<h5>@product.Cost руб.</h5>
+				<h5>@string.Format("{0:### ### ###}", product.Cost) р</h5>
 				<p style="font-size:10px">@product.Description</p>
 				<a class="btn btn-outline-success" href="/cart/add?productId=@product.Id" role="button">Добавить в корзину</a>
 			</div>
