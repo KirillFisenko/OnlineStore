@@ -5,7 +5,7 @@
 	@*форма заказа*@
 	<div class="col-5 card shadow-lg">
 		<h4>Ваш заказ</h4>
-		<table class="table" style="font-size:12px">
+		<table class="table" style="font-size: 12px">
 			<thead>
 				<tr>
 					<th class="col-5">Название</th>
@@ -37,30 +37,26 @@
 	@*форма данных покупателя*@
 	<div class="col-6 card shadow-lg">
 		<form>
-			<div class="form-group" style="margin:10px">
-				<label for="exampleFormControlInput1">ФИО*</label>
-				<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Фисенко Кирилл Андреевич">
+			<div class="form-group" style="margin: 10px">
+				<label for="name">ФИО*</label>
+				<input type="text" class="form-control" id="name" placeholder="Фисенко Кирилл Андреевич">
 			</div>
-			<div class="form-group" style="margin:10px">
-				<label for="exampleFormControlInput2">Email*</label>
-				<input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+			<div class="form-group" style="margin: 10px">
+				<label for="email">Email*</label>
+				<input type="text" class="form-control" id="email" placeholder="name@example.com">
 			</div>
-			<div class="form-group" style="margin:10px">
-				<label for="exampleFormControlInput3">Телефон*</label>
-				<input type="email" class="form-control" id="exampleFormControlInput3" placeholder="+7 (926) 546-3469">
+			<div class="form-group" style="margin: 10px">
+				<label for="phone">Телефон*</label>
+				<input type="text" class="form-control" id="phone" placeholder="+7 (926) 546-3469">
 			</div>
-			<div class="form-group" style="margin:10px">
-				<label for="exampleFormControlInput4">Адрес*</label>
-				<input type="email" class="form-control" id="exampleFormControlInput4" placeholder="г. Москва, ул. Тверская, д. 1">
-			</div>
-			<div class="form-group" style="margin:10px">
-				<label for="exampleFormControlTextarea1">Комментарии к заказу</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-			</div>
+			<div class="form-group" style="margin: 10px">
+				<label for="adress">Адрес*</label>
+				<input type="text" class="form-control" id="adress" placeholder="г. Москва, ул. Тверская, д. 1">
+			</div>			
 		</form>
 	</div>
 	<div class="text-center" style="margin:30px">
-		<a class="btn btn-outline-secondary btn-lg" href="/home/index" role="button">Продолжить покупки</a>
-		<a class="btn btn-outline-success btn-lg" href="/order/buy" role="button">Оформить заказ</a>
+		<a class="btn btn-outline-secondary btn-lg" asp-controller="home" asp-action="index">Продолжить покупки</a>
+		<a class="btn btn-outline-success btn-lg" asp-controller="order" asp-action="buy">Оформить заказ</a>
 	</div>
 </div>

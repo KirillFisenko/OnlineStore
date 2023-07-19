@@ -5,7 +5,7 @@
 	<div class="text-center">
 		<h3 class="shadow p-3 mb-5 bg-body-tertiary rounded p-3 mb-2 bg-warning-subtle text-emphasis-warning">Корзина пустая</h3>
 		<p></p>
-		<a class="btn btn-outline-secondary btn-lg" href="/home/index" role="button">Перейти к покупкам</a>
+		<a class="btn btn-outline-secondary btn-lg" asp-controller="home" asp-action="index">Перейти к покупкам</a>
 	</div>
 }
 else
@@ -26,7 +26,7 @@ else
 					{
 						<tr>
 							<td>
-								<a style="color:navy" href="/product/index/@item.Product.Id"><p>@item.Product.Name</p>	</a>
+								<a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@item.Product.Id"><p>@item.Product.Name</p></a>
 								<div class="col-1">
 									<img class="img-fluid" src="@item.Product.ImagePath">
 								</div>
@@ -34,8 +34,8 @@ else
 							<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
 							<td>
 								@item.Amount
-								<a class="btn btn-outline-secondary btn-sm" href="/cart/add?productId=@item.Product.Id">+</a>
-								<a class="btn btn-outline-secondary btn-sm" href="/cart/decreaseAmount?productId=@item.Product.Id">-</a>
+								<a class="btn btn-outline-secondary btn-sm" asp-controller="cart" asp-action="add" asp-route-productid="@item.Product.Id">+</a>
+								<a class="btn btn-outline-secondary btn-sm" asp-controller="cart" asp-action="decreaseAmount" asp-route-productid="@item.Product.Id">-</a>
 							</td>
 							<td>@string.Format("{0:### ### ###}", item.Cost) р</td>
 						</tr>
@@ -46,9 +46,9 @@ else
 				<h4>Итого: @string.Format("{0:### ### ###}", Model.Cost) р</h4>
 			</div>
 			<div class="text-center">
-				<a class="btn btn-outline-secondary btn-lg" href="/home/index" role="button">Продолжить покупки</a>
-				<a class="btn btn-outline-success btn-lg" href="/order/index" role="button">Перейти к оформлению</a>
-				<a class="btn btn-outline-warning btn-lg" href="/cart/clear" role="button">Очистить корзину</a>
+				<a class="btn btn-outline-secondary btn-lg" asp-controller="home" asp-action="index">Продолжить покупки</a>
+				<a class="btn btn-outline-success btn-lg" asp-controller="order" asp-action="index">Перейти к оформлению</a>
+				<a class="btn btn-outline-warning btn-lg" asp-controller="cart" asp-action="clear">Очистить корзину</a>
 			</div>
 		</div>
 	</div>

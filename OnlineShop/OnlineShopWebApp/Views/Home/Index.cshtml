@@ -3,17 +3,15 @@
 <div class="row">
 	@foreach (var product in Model)
 	{
-		<div class="col-3 card shadow-lg" style="margin: 5px; padding: 10px">
-			<img class="card-img-top" src="@product.ImagePath">
+		<div class="col-3 card shadow-lg" style="margin: 5px">
+			<img class="card-img-top" src="@product.ImagePath" style="margin: 5px">
 			<div class="card-body">
-				<a style="color:navy" href="/product/index/@product.Id">
-					<h6>@product.Name</h6>
-				</a>
+				<a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><h6>@product.Name</h6></a>
 				<h5>@string.Format("{0:### ### ###}", product.Cost) р</h5>
 				<p style="font-size:10px">@product.Description</p>
 				<div class="text-center">
-					<a class="btn btn-outline-warning btn-lg" style="margin: 5px"  href="/cart/add?productId=@product.Id" role="button">Добавить в корзину</a>
-					<a class="btn btn-outline-secondary btn-lg" style="margin: 5px" href="/product/index/@product.Id" role="button">Подробнее о товаре</a>
+					<a class="btn btn-outline-warning btn-lg" style="margin: 5px" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id">Добавить в корзину</a>
+					<a class="btn btn-outline-secondary btn-lg" style="margin: 5px" asp-controller="product" asp-action="index" asp-route-id="@product.Id">Подробнее о товаре</a>
 				</div>
 			</div>
 		</div>
