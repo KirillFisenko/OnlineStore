@@ -1,5 +1,4 @@
 using OnlineShopWebApp;
-using OnlineShopWebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
