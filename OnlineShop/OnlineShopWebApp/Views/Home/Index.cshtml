@@ -1,19 +1,21 @@
 ﻿@model List<Product>;
 
 <div class="row">
-	@foreach (var product in Model)
-	{
-		<div class="col-3 card shadow-lg" style="margin: 5px">
-			<img class="card-img-top" src="@product.ImagePath" style="margin: 5px">
-			<div class="card-body">
-				<a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><h6>@product.Name</h6></a>
-				<h5>@string.Format("{0:### ### ###}", product.Cost) р</h5>
-				<p style="font-size:10px">@product.Description</p>
-				<div class="text-center">
-					<a class="btn btn-outline-warning btn-lg" style="margin: 5px" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id">Добавить в корзину</a>
-					<a class="btn btn-outline-secondary btn-lg" style="margin: 5px" asp-controller="product" asp-action="index" asp-route-id="@product.Id">Подробнее о товаре</a>
-				</div>
-			</div>
-		</div>
-	}
+    @foreach (var product in Model)
+    {
+        <div class="col-3 card shadow-lg" style="margin: 5px">
+            <img class="card-img-top" src="@product.ImagePath" style="margin: 5px">
+            <div class="card-body">
+                <a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><h6>@product.Name</h6></a>
+                <h5>@string.Format("{0:### ### ###}", product.Cost) р</h5>
+                <p style="font-size:10px">@product.Description</p>
+                <div class="btn-group btn-group-sm">
+                    <a class="btn btn-outline-primary" style="margin: 5px" asp-controller="product" asp-action="index" asp-route-id="@product.Id">подробнее</a>
+                    <a class="btn btn-outline-danger" style="margin: 5px" asp-controller="favourites" asp-action="add" asp-route-id="@product.Id">в избранное</a>
+                    <a class="btn btn-outline-info" style="margin: 5px" asp-controller="compare" asp-action="add" asp-route-id="@product.Id">к сравнению</a>
+                    <a class="btn btn-outline-warning" style="margin: 5px" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id">в корзину</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

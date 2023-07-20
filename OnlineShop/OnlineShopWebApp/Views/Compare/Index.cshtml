@@ -1,0 +1,44 @@
+﻿@model List<Product>;
+
+@if (Model.Count() == 0)
+{
+    <div class="text-center">
+        <h3 class="shadow p-3 mb-5 bg-body-tertiary rounded p-3 mb-2 bg-warning-subtle text-emphasis-warning">В избранном еще нет товаров</h3>
+        <p></p>
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="home" asp-action="index">Перейти к покупкам</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><p>@product.Name</p></a>
+                                <div class="col-1"><img class="img-fluid" src="@product.ImagePath"></div>
+                            </td>
+                            <td>@string.Format("{0:### ### ###}", product.Cost) р</td>
+                            <td> <a class="btn btn-outline-warning btn-lg" style="margin: 5px" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id">Добавить в корзину</a></td>
+                            <td><a class="btn btn-outline-secondary" style="margin: 5px" asp-controller="compare" asp-action="del" asp-route-id="@product.Id">Удалить из сравнения</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-center">
+                <a class="btn btn-outline-secondary btn-lg" asp-controller="home" asp-action="index">Продолжить покупки</a>
+                <a class="btn btn-outline-warning btn-lg" asp-controller="compare" asp-action="clear">Очистить список сравнения</a>
+            </div>
+        </div>
+    </div>
+}
