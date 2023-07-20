@@ -1,11 +1,11 @@
 using OnlineShopWebApp;
-using OnlineShopWebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
 builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
+builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
 
 var app = builder.Build();
 

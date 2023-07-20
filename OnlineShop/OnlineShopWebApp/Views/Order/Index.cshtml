@@ -1,0 +1,62 @@
+﻿@model Cart;
+
+<div class="row">
+
+	@*форма заказа*@
+	<div class="col-5 card shadow-lg">
+		<h4>Ваш заказ</h4>
+		<table class="table" style="font-size: 12px">
+			<thead>
+				<tr>
+					<th class="col-5">Название</th>
+					<th class="col-2">Цена</th>
+					<th class="col-2">Количество</th>
+					<th class="col-3">Стоимость</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Items)
+				{
+					<tr>
+						<td>@item.Product.Name</td>
+						<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
+						<td>
+							@item.Amount
+						</td>
+						<td>@string.Format("{0:### ### ###}", item.Cost) р</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="text-end">
+			<h6>Итого: @string.Format("{0:### ### ###}", Model.Cost) р</h6>
+		</div>
+	</div>
+	<div class="col-1"></div>
+
+	@*форма данных покупателя*@
+	<div class="col-6 card shadow-lg">
+		<form>
+			<div class="form-group" style="margin: 10px">
+				<label for="name">ФИО*</label>
+				<input type="text" class="form-control" id="name" placeholder="Фисенко Кирилл Андреевич">
+			</div>
+			<div class="form-group" style="margin: 10px">
+				<label for="email">Email*</label>
+				<input type="text" class="form-control" id="email" placeholder="name@example.com">
+			</div>
+			<div class="form-group" style="margin: 10px">
+				<label for="phone">Телефон*</label>
+				<input type="text" class="form-control" id="phone" placeholder="+7 (926) 546-3469">
+			</div>
+			<div class="form-group" style="margin: 10px">
+				<label for="adress">Адрес*</label>
+				<input type="text" class="form-control" id="adress" placeholder="г. Москва, ул. Тверская, д. 1">
+			</div>			
+		</form>
+	</div>
+	<div class="text-center" style="margin:30px">
+		<a class="btn btn-outline-secondary btn-lg" asp-controller="home" asp-action="index">Продолжить покупки</a>
+		<a class="btn btn-outline-success btn-lg" asp-controller="order" asp-action="buy">Оформить заказ</a>
+	</div>
+</div>
