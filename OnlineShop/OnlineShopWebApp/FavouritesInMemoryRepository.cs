@@ -8,7 +8,10 @@ namespace OnlineShopWebApp
 
 		public void Add(Product product)
 		{
-			favourites.Add(product);
+			if (!favourites.Contains(product))
+			{
+                favourites.Add(product);
+            }			
 		}
 
         public void Del(Product product)

@@ -8,7 +8,10 @@ namespace OnlineShopWebApp
 
 		public void Add(Product product)
 		{
-			compare.Add(product);
+			if (!compare.Contains(product))
+			{
+                compare.Add(product);
+            }			
 		}
 
 		public void Del(Product product)

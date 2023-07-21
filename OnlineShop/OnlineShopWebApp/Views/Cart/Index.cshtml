@@ -29,11 +29,7 @@ else
 							<td>
 								<a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@item.Product.Id"><p>@item.Product.Name</p></a>
 							</td>
-							<td>
-
-								<img class="img-fluid col-6 text-start" src="@item.Product.ImagePath">
-								
-							</td>
+							<td><img class="img-fluid col-6 text-start" src="@item.Product.ImagePath"></td>
 							<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
 							<td>
 								@item.Amount

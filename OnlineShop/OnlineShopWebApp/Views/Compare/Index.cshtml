@@ -12,11 +12,18 @@ else
     <h4>Сравнение</h4>
     <div class="row">
         <div class="col">
-            <table class="table">
+            <table class="table" style="font-size:15px">
                 <thead>
                     <tr>
-                        <th>Название</th>
-                        <th></th>
+                        <th>Название</th>                        
+                        <th>Интерфейс</th>
+                        <th>Частота графического процессора</th>
+                        <th>Частота графического процессора (Boost)</th>
+                        <th>Объём памяти</th>
+                        <th>Тип памяти</th>
+                        <th>Частота видеопамяти</th>
+                        <th>Шина памяти (разрядность)</th>
+                        <th>Разъёмы</th>
                         <th>Цена</th>
                         <th></th>
                     </tr>
@@ -25,12 +32,19 @@ else
                     @foreach (var product in Model)
                     {
                         <tr>
-                            <td class="col-4"><a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><p>@product.Name</p></a></td>
-                            <td><div class="col-2 text-start"><img class="img-fluid" src="@product.ImagePath"></div></td>
+                            <td class="col-4"><a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><p>@product.Name</p></a></td>                            
+                            <td>@product.Interface</td>
+                            <td>@product.FrequencyGPU</td>
+                            <td>@product.FrequencyGPUBoost</td>
+                            <td>@product.MemoryCapacity</td>
+                            <td>@product.MemoryType</td>
+                            <td>@product.FrequencyMemory</td>
+                            <td>@product.MemoryBus</td>
+                            <td>@product.Connectors</td>                            
                             <td class="col-3">@string.Format("{0:### ### ###}", product.Cost) р</td>
                             <td class="col-3 text-end">
-                                <a class="btn btn-outline-warning" asp-controller="compare" asp-action="del" asp-route-id="@product.Id"><i class="bi bi-trash-fill"> Удалить</i></a>
-                                <a class="btn btn-warning" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id"> <i class="bi bi-cart"> В корзину </i> </a>
+                                <a class="btn btn-outline-warning" title="Удалить из списка" asp-controller="compare" asp-action="del" asp-route-id="@product.Id"><i class="bi bi-trash-fill"></i></a>
+                                <a class="btn btn-warning" title="Добавить в корзину" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id"> <i class="bi bi-cart"></i> </a>
                             </td>
                         </tr>
                     }

@@ -21,7 +21,7 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Add(int id)
 		{
-			var product = productRepository.TryGetById(id);
+			var product = productRepository.TryGetById(id);			
             compareRepository.Add(product);
             return RedirectToAction("Index");
         }
