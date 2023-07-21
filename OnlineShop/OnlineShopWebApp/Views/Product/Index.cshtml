@@ -1,16 +1,21 @@
 ﻿@model Product;
 
 <div class="row">
-	<div class="col-6">
-		<img class="card-img-top" src="@Model.ImagePath">
-	</div>
-	<div class="col-6">
-		<h6>@Model.Name</h6>
-		<h5>@string.Format("{0:### ### ###}", Model.Cost) р</h5>
-		<p style="font-size: 12px">@Model.Description</p>
-		<div class="text-center">
-			<a class="btn btn-outline-warning btn-lg" style="margin: 5px" asp-controller="cart" asp-action="add" asp-route-productid="@Model.Id">Добавить в корзину</a>
-			<a class="btn btn-outline-secondary" style="margin: 5px" asp-controller="home" asp-action="index">Продолжить покупки</a>
-		</div>
-	</div>
+    <div class="col-6">
+        <img class="card-img-top" src="@Model.ImagePath">
+    </div>
+    <div class="col-6">
+        <h3>@Model.Name</h3>
+        <h5>@string.Format("{0:### ### ###}", Model.Cost) р</h5>
+        <p>@Model.Description</p>        
+        <div class="text-center" style="margin:10px">
+            <a class="btn btn-warning" asp-controller="cart" asp-action="add" asp-route-productid="@Model.Id"> <i class="bi bi-cart"> В корзину </i> </a>
+            <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="add" asp-route-id="@Model.Id"> <i class="bi bi-heart"> В избранное</i> </a>
+            <a class="btn btn-outline-warning" asp-controller="compare" asp-action="add" asp-route-id="@Model.Id"> <i class="bi bi-clipboard2-plus"> Сравнить</i> </a>
+        </div>
+        
+        <div class="text-center" style="margin:20px">
+            <a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+        </div>
+    </div>
 </div>
