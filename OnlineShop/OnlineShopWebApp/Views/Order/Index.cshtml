@@ -36,27 +36,27 @@
 
 	@*форма данных покупателя*@
 	<div class="col-6 card shadow-lg">
-		<form>
+		<form method="post">
 			<div class="form-group" style="margin: 10px">
 				<label for="name">ФИО*</label>
-				<input type="text" class="form-control" id="name" placeholder="Фисенко Кирилл Андреевич">
+				<input type="text" name="name" class="form-control" id="name" placeholder="Фисенко Кирилл Андреевич">
 			</div>
 			<div class="form-group" style="margin: 10px">
 				<label for="email">Email*</label>
-				<input type="text" class="form-control" id="email" placeholder="name@example.com">
+				<input type="text" name="email" class="form-control" id="email" placeholder="name@example.com">
 			</div>
 			<div class="form-group" style="margin: 10px">
 				<label for="phone">Телефон*</label>
-				<input type="text" class="form-control" id="phone" placeholder="+7 (926) 546-3469">
+				<input type="text" name="phone" class="form-control" id="phone" placeholder="+7 (926) 546-3469">
 			</div>
 			<div class="form-group" style="margin: 10px">
-				<label for="adress">Адрес*</label>
-				<input type="text" class="form-control" id="adress" placeholder="г. Москва, ул. Тверская, д. 1">
-			</div>			
+				<label for="address">Адрес*</label>
+				<input type="text" name="address" class="form-control" id="address" placeholder="г. Москва, ул. Тверская, д. 1">
+			</div>
+			<div class="text-center" style="margin:40px">
+				<a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+				<button class="btn btn-outline-success" type="submit" asp-controller="order" asp-action="buy"><i class="bi bi-check-circle-fill"> Оформить заказ</i></button>
+			</div>
 		</form>
-	</div>
-	<div class="text-center" style="margin:40px">		
-		<a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
-		<a class="btn btn-outline-success" asp-controller="order" asp-action="buy"><i class="bi bi-check-circle-fill"> Оформить заказ</i></a>
 	</div>
 </div>
