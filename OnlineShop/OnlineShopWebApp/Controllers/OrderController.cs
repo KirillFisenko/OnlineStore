@@ -26,7 +26,7 @@ namespace OnlineShopWebApp.Controllers
             var cart = cartsRepository.TryGetByUserId(Constants.UserId);
             ordersRepository.Add(cart);
             cartsRepository.Clear(Constants.UserId);
-            return View();
+            return View(order);
         }        
     }
 }
