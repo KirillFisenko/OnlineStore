@@ -1,0 +1,16 @@
+﻿<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 nav">
+        <div class="container-fluid">
+            <a class="nav-link btn-lg" asp-area="" asp-controller="home" asp-action="index">Интернет-магазин комплектующих ProPC</a>
+            <nav class="nav justify-content-center">
+                <a class="nav-link" asp-area="" asp-controller="favourites" asp-action="index"> <i class="bi bi-heart"></i> Избранное</a>
+                <a class="nav-link" asp-area="" asp-controller="compare" asp-action="index"> <i class="bi bi-clipboard2-plus"></i> Список сравнения</a>
+                <a class="nav-link" asp-area="" asp-controller="cart" asp-action="index">
+                    <i class="bi bi-cart4"></i>
+                    Корзина
+                    <span class="badge rounded-pill bg-danger">@await Component.InvokeAsync("Cart")</span>
+                </a>
+            </nav>
+        </div>
+    </nav>
+</header>
