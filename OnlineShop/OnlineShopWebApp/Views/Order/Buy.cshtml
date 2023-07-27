@@ -1,6 +1,62 @@
 ﻿@model Order;
 
 <div class="text-center">
-<h4>Уважаемый @Model.Name, ваш заказ @Model.Id успешно создан!</h4>
-<a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+    <h4>Уважаемый @Model.Name, ваш заказ № @Model.Id успешно создан!</h4>
+</div>
+<br />  
+<div class="row">
+    <div class="col-5 card shadow-lg">
+        <h4>Ваш заказ</h4>
+        <table class="table" style="font-size: 12px">
+            <thead>
+                <tr>
+                    <th class="col-5">Название</th>
+                    <th class="col-2">Цена</th>
+                    <th class="col-2">Количество</th>
+                    <th class="col-3">Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cart.Items)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
+                        <td>@item.Amount</td>
+                        <td>@string.Format("{0:### ### ###}", item.Cost) р</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-end">
+            <h6>Итого: @string.Format("{0:### ### ###}", Model.Cart.Cost) р</h6>
+        </div>
+    </div>
+    <div class="col-1"></div>
+
+    <div class="col-6 card shadow-lg">
+        <h4>Данные заказчика</h4>
+        <table class="table" style="font-size: 12px">
+            <thead>
+                <tr>
+                    <th class="col-5">ФИО</th>
+                    <th class="col-2">Телефон</th>
+                    <th class="col-2">E-mail</th>
+                    <th class="col-3">Адрес</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.Phone</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.Address</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<div class="text-center">
+    <a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
 </div>
