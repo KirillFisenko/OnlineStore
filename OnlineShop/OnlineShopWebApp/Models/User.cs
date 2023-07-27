@@ -1,13 +1,26 @@
-﻿namespace OnlineShopWebApp.Models
+﻿using System.Data.SqlTypes;
+
+namespace OnlineShopWebApp.Models
 {
     public class User
     {
-        public Guid Id { get; set; }        
-        public string Name { get; set; }        
-        public User(string name)
+        public Guid Id { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string CheckBox { get; set; }
+        public bool RememberMe
         {
-            Name = name;   
-            Id = Guid.NewGuid();
+            get
+            {
+                if (CheckBox == "on")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }
