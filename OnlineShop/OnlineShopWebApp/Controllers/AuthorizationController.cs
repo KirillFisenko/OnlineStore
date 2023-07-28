@@ -15,5 +15,16 @@ namespace OnlineShopWebApp.Controllers
         {
             return Redirect("~/Home/Index");
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddNewUser(User user)
+        {
+            return Redirect("~/Home/Index");
+        }
     }
 }

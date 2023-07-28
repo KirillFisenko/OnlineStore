@@ -7,6 +7,8 @@ namespace OnlineShopWebApp.Models
         public Guid Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+
+        public string RepeatPassword { get; set; }
         public string CheckBox { get; set; }
         public bool RememberMe
         {
