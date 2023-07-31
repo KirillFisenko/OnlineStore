@@ -10,25 +10,23 @@ namespace OnlineShopWebApp.Controllers
         }
 
         public IActionResult GetOrders()
-        {
-            var orders = "Заказы";
+        {            
             return View();
         }
 
         public IActionResult GetUsers()
-        {
-            return View("Пользователи");
+        {            
+            return View();
         }
 
         public IActionResult GetRoles()
         {
-            return View("Роли");
+            return View();
         }
 
         public IActionResult GetProducts()
         {
-            return View("Продукты");
+            return View();
         }
-
     }
 }

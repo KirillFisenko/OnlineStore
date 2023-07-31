@@ -1,14 +1,7 @@
-﻿@model string
-<div class="row">
-    <div class="col-3 list-group-flush">
-        <a class="list-group-item" asp-controller="administrator" asp-action="GetOrders"> <i class="bi bi-cart4"></i> Заказы </a>
-        <a class="list-group-item" asp-controller="administrator" asp-action="GetUsers"> <i class="bi bi-people"></i> Пользователи </a>
-        <a class="list-group-item" asp-controller="administrator" asp-action="GetRoles"> <i class="bi bi-person-gear"></i> Роли </a>
-        <a class="list-group-item" asp-controller="administrator" asp-action="GetProducts"> <i class="bi bi-basket2"></i> Продукты </a>
-    </div>
-    <div class="col-1">
-    </div>
-    <div class="col-8">
-        @Model
+﻿<div class="row">
+    @await Html.PartialAsync("MenuAdministrator")
+    
+    <div class="col-9">
+        <h3 class="text-center">Заказы</h3>
     </div>
 </div>
