@@ -1,7 +1,7 @@
 ﻿@model Order;
 
 <div class="text-center">
-    <h4>Уважаемый @Model.Name, ваш заказ № @Model.Id успешно создан!</h4>
+    <h4>Уважаемый @Model.User.Name, ваш заказ № @Model.Id успешно создан!</h4>
 </div>
 <br />  
 <div class="row">
@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Cart.Items)
+                @foreach (var item in Model.Items)
                 {
                     <tr>
                         <td>@item.Product.Name</td>
@@ -29,7 +29,7 @@
             </tbody>
         </table>
         <div class="text-end">
-            <h6>Итого: @string.Format("{0:### ### ###}", Model.Cart.Cost) р</h6>
+            <h6>Итого: @string.Format("{0:### ### ###}", Model.Items.Sum(x => x.Cost)) р</h6>
         </div>
     </div>
     <div class="col-1"></div>
@@ -47,10 +47,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Model.Name</td>
-                    <td>@Model.Phone</td>
-                    <td>@Model.Email</td>
-                    <td>@Model.Address</td>
+                    <td>@Model.User.Name</td>
+                    <td>@Model.User.Phone</td>
+                    <td>@Model.User.Email</td>
+                    <td>@Model.User.Address</td>
                 </tr>
             </tbody>
         </table>
