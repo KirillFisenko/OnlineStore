@@ -9,7 +9,7 @@
     <div class="col-9">
         <h3 class="text-center">Продукты</h3>
         <br />
-        <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="del"><i class="bi bi-database-add"> Добавить новый продукт </i></a>
+        <a class="btn btn-outline-warning" asp-controller="product" asp-action="add"><i class="bi bi-database-add"> Добавить новый продукт </i></a>
         <div class="row">
             <div class="col">
                 <table class="table">
@@ -32,7 +32,7 @@
                                 <td><div class="col-2 text-start"><img class="img-fluid" src="@product.ImagePath"></div></td>
                                 <td class="col-2">@string.Format("{0:### ### ###}", product.Cost) р</td>
                                 <td class="col-4 text-end">
-                                    <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="del" asp-route-id="@product.Id"><i class="bi bi-pencil"> Редактировать </i></a>
+                                    <a class="btn btn-outline-warning" asp-controller="product" asp-action="edit" asp-route-id="@product.Id"><i class="bi bi-pencil"> Редактировать </i></a>
                                     <a class="btn btn-warning" asp-controller="product" asp-action="del" asp-route-id="@product.Id"> <i class="bi bi-trash-fill"> Удалить </i> </a>
                                 </td>
                             </tr>

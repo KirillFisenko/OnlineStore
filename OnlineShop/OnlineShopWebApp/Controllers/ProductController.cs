@@ -21,6 +21,6 @@ namespace OnlineShopWebApp.Controllers
         {
             productRepository.Del(id);
             return RedirectToAction("Products", "Admin");
-        }
+        }       
     }
 }
