@@ -4,20 +4,20 @@
     <div class="row mb-3">
         <label for="login" class="col-sm-1 col-form-label">Логин</label>
         <div class="col-sm-3">
-            <input name="Login" type="email" class="form-control" id="login" placeholder="Email">
+            <input name="username" type="email" class="form-control" id="login" placeholder="Email">
         </div>
     </div>
     <div class="row mb-3">
         <label for="password" class="col-sm-1 col-form-label">Пароль</label>
         <div class="col-sm-3">
-            <input name="Password" type="password" class="form-control" id="password" placeholder="*********">
+            <input name="password" type="password" class="form-control" id="password" placeholder="*********">
         </div>
     </div>
     <div class="row mb-3">
         <label for="password" class="col-sm-1 col-form-label">Повторите пароль</label>
         <div class="col-sm-3">
-            <input name="RepeatPassword" type="password" class="form-control" id="password" placeholder="*********">
+            <input name="confirmPassword" type="password" class="form-control" id="password" placeholder="*********">
         </div>
     </div>        
-    <button type="submit" class="btn btn-outline-primary" asp-controller="authorization" asp-action="AddNewUser">Зарегистрироваться</button>
+    <button type="submit" class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
 </form>

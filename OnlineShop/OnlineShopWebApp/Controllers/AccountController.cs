@@ -3,17 +3,17 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-    public class AuthorizationController : Controller
+    public class AccountController : Controller
     {        
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Enter(User user)
+        public IActionResult Login(Login user)
         {
-            return Redirect("~/Home/Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register()
@@ -22,9 +22,9 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewUser(User user)
+        public IActionResult Register(Register register)
         {
-            return Redirect("~/Home/Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
