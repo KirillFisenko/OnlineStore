@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Controllers
 {
-    public class AdministratorController : Controller
+    public class AdminController : Controller
     {        
         public IActionResult Index()
         {
