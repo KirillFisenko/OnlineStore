@@ -1,0 +1,46 @@
+﻿@{
+    int i = 1;
+}
+@model List<Product>;
+
+<div class="row">
+    @await Html.PartialAsync("MenuAdministrator")
+
+    <div class="col-9">
+        <h3 class="text-center">Продукты</h3>
+        <br />
+        <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="del"><i class="bi bi-database-add"> Добавить новый продукт </i></a>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Название</th>
+                            <th></th>
+                            <th>Цена</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td> @i </td>
+                                <td class="col-3"><a style="color:navy" asp-controller="product" asp-action="index" asp-route-id="@product.Id"><p>@product.Name</p></a></td>
+                                <td><div class="col-2 text-start"><img class="img-fluid" src="@product.ImagePath"></div></td>
+                                <td class="col-2">@string.Format("{0:### ### ###}", product.Cost) р</td>
+                                <td class="col-4 text-end">
+                                    <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="del" asp-route-id="@product.Id"><i class="bi bi-pencil"> Редактировать </i></a>
+                                    <a class="btn btn-warning" asp-controller="product" asp-action="del" asp-route-id="@product.Id"> <i class="bi bi-trash-fill"> Удалить </i> </a>
+                                </td>
+                            </tr>
+                            i += 1;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

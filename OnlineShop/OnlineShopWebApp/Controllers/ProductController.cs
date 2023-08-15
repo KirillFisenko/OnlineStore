@@ -16,5 +16,11 @@ namespace OnlineShopWebApp.Controllers
             var result = productRepository.TryGetById(id);
             return View(result);
         }
+
+        public IActionResult Del(int id)
+        {
+            productRepository.Del(id);
+            return RedirectToAction("Products", "Admin");
+        }
     }
 }

@@ -53,5 +53,11 @@ namespace OnlineShopWebApp
 		{
 			return products.FirstOrDefault(product => product.Id == id);
 		}
-	}
+
+        public void Del(int id)
+        {
+            var product = TryGetById(id);
+            products.Remove(product);
+        }
+    }
 }
