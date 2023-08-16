@@ -4,23 +4,23 @@
 	{
 		private static int instanceCounter = 2506;
 		public int Id { get; }
-		public string Name { get; }
-		public decimal Cost { get; }
-		public string Description { get; }
-		public string ImagePath { get; }
+		public string Name { get; set; }
+		public decimal Cost { get; set; }
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
 
-		//спецификация
-		public string Interface { get; }
-		public string FrequencyGPU { get; }
-		public string FrequencyGPUBoost { get; }
-		public string MemoryCapacity { get; }
-        public string MemoryType { get; }
-        public string FrequencyMemory { get; }
-		public string MemoryBus { get; }
-		public string Connectors { get; }
-		//спецификация
+        //спецификация
+        public string Interface { get; set; }
+        public string FrequencyGPU { get; set; }
+        public string FrequencyGPUBoost { get; set; }
+        public string MemoryCapacity { get; set; }
+        public string MemoryType { get; set; }
+        public string FrequencyMemory { get; set; }
+        public string MemoryBus { get; set; }
+        public string Connectors { get; set; }
+        //спецификация
 
-		public Product(string name, decimal cost, string description, string imagePath)
+        public Product(string name, decimal cost, string description, string imagePath)
 		{
 			Id = instanceCounter;
 			Name = name;

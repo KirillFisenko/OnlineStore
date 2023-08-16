@@ -1,4 +1,5 @@
-﻿using OnlineShopWebApp.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp
 {
@@ -58,6 +59,6 @@ namespace OnlineShopWebApp
         {
             var product = TryGetById(id);
             products.Remove(product);
-        }
+        }        
     }
 }
