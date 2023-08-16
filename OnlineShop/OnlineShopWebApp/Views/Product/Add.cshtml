@@ -1,37 +1,35 @@
-﻿@model Product
-
-<form method="post">
-    <h4>Редактирование товара</h4>
+﻿<form method="post">
+    <h4>Добавление товара</h4>
     <br />
     <div class="row">
         <label for="name" class="col-sm-2 col-form-label">название товара:</label>
         <div class="col-sm-8">
-            <input name="Name" type="text" class="form-control" id="name" value="@Model.Name">
+            <input name="Name" type="text" class="form-control" id="name">
         </div>
     </div>
     <br />
     <div class="row">
         <label for="cost" class="col-sm-2 col-form-label">цена товара, руб.:</label>
         <div class="col-sm-8">
-            <input name="Cost" type="text" class="form-control" id="cost" value="@Model.Cost">
+            <input name="Cost" type="text" class="form-control" id="cost">
         </div>
     </div>
     <br />
     <div class="row">
         <label for="imagePath" class="col-sm-2 col-form-label">изорбражение товара:</label>
         <div class="col-sm-8">
-            <input name="ImagePath" type="text" class="form-control" id="imagePath" value="@Model.ImagePath">
+            <input name="ImagePath" type="text" class="form-control" id="imagePath">
         </div>
     </div>
     <br />
     <div class="row">
         <label for="description" class="col-sm-2 col-form-label">описание товара:</label>
         <div class="col-sm-8">
-            <input name="Description" type="text" class="form-control" id="description" value="@Model.Description">
+            <input name="Description" type="text" class="form-control" id="description">
         </div>
     </div>
     <br />
     <br />
-    <button type="submit" class="btn btn-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id">Сохранить</button>
+    <button type="submit" class="btn btn-primary" asp-controller="Product" asp-action="Add">Сохранить</button>
     <a class="btn btn-outline-primary" asp-controller="Admin" asp-action="Products">Отмена</a>
 </form>

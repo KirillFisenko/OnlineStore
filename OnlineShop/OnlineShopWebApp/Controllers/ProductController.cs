@@ -31,13 +31,26 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(ProductEdit newProduct, int id)
+        public IActionResult Edit(ProductEdit productEdit, int id)
         {
             var currentProduct = productRepository.TryGetById(id);
-            currentProduct.Name = newProduct.Name;
-            currentProduct.Cost = newProduct.Cost;
-            currentProduct.Description = newProduct.Description;
-            currentProduct.ImagePath = newProduct.ImagePath;
+            currentProduct.Name = productEdit.Name;
+            currentProduct.Cost = productEdit.Cost;
+            currentProduct.Description = productEdit.Description;
+            currentProduct.ImagePath = productEdit.ImagePath;
+            return RedirectToAction("Products", "Admin");
+        }
+
+        public IActionResult Add()
+        {            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(ProductEdit newProduct)
+        {
+            var products = productRepository.GetAllProducts();
+            products.Add(new Product(newProduct.Name, newProduct.Cost, newProduct.Description, newProduct.ImagePath));
             return RedirectToAction("Products", "Admin");
         }
     }
