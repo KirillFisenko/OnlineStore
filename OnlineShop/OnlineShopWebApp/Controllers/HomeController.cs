@@ -16,5 +16,17 @@ namespace OnlineShopWebApp.Controllers
 			var products = productRepository.GetAllProducts();
 			return View(products);
 		}
-	}
+
+		[HttpPost]
+        public IActionResult Search(string name)
+        {            
+            if (name != null)
+			{
+                var products = productRepository.GetAllProducts();
+                var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
+                return View(findProducts);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+    }
 }
