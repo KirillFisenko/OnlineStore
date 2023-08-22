@@ -1,0 +1,33 @@
+﻿@model Cart;
+
+@*форма заказа*@
+<div class="col-5 card shadow-lg">
+    <h4>Ваш заказ</h4>
+    <table class="table" style="font-size: 12px">
+        <thead>
+            <tr>
+                <th class="col-5">Название</th>
+                <th class="col-2">Цена</th>
+                <th class="col-2">Количество</th>
+                <th class="col-3">Сумма</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
+                    <td>
+                        @item.Amount
+                    </td>
+                    <td>@string.Format("{0:### ### ###}", item.Cost) р</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-end">
+        <h6>Итого: @string.Format("{0:### ### ###}", Model.Cost) р</h6>
+    </div>
+</div>
+<div class="col-1"></div>

@@ -1,9 +1,10 @@
 ﻿@model Register
 
-<form method="post">
-    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+<form method="post">    
     <h4>Регистрация</h4>
     <br />
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+
     <div class="row mb-3">
         <label asp-for="UserName" class="col-sm-1 col-form-label">Логин</label><br />
         <div class="col-sm-3">

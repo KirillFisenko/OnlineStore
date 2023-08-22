@@ -32,12 +32,12 @@ namespace OnlineShopWebApp.Controllers
             if (register.UserName == register.Password)
             {
                 ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
-            }
-            if (ModelState.IsValid)
+            }           
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                return View();
             }
-            return RedirectToAction("Register", "Account");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
