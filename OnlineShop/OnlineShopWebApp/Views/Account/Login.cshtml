@@ -1,18 +1,25 @@
-﻿<form method="post">    
+﻿@model Login
+
+<form method="post">
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
     <h4>Вход</h4>
     <br />
     <div class="row mb-3">
-        <label for="login" class="col-sm-1 col-form-label">Логин</label>
+        <label asp-for="UserName" class="col-sm-1 col-form-label">Логин</label><br />
         <div class="col-sm-3">
-            <input name="username" type="email" class="form-control" id="login" placeholder="Email">
+        <input asp-for="UserName" type="email" class="form-control" />
+        <span asp-validation-for="UserName" />
         </div>
     </div>
+
     <div class="row mb-3">
-        <label for="password" class="col-sm-1 col-form-label">Пароль</label>
+        <label asp-for="Password" class="col-sm-1 col-form-label">Пароль</label><br />
         <div class="col-sm-3">
-            <input name="password" type="password" class="form-control" id="password" placeholder="*********">
+            <input asp-for="Password" type="password" class="form-control"/>
+            <span asp-validation-for="Password" />
         </div>
-    </div>    
+    </div>
+    
     <div class="row mb-3">
         <div class="col-sm offset">
             <div class="form-check">

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
     public class AccountController : Controller
-    {        
+    {
         public IActionResult Login()
         {
             return View();
@@ -13,7 +14,11 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Login(Login user)
         {
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         public IActionResult Register()
@@ -24,7 +29,15 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Register(Register register)
         {
-            return RedirectToAction("Index", "Home");
+            if (register.UserName == register.Password)
+            {
+                ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+            }
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Register", "Account");
         }
     }
 }
