@@ -8,7 +8,7 @@ namespace OnlineShopWebApp.Models
 		public int Id { get; }
 
         [Required(ErrorMessage = "Не указано имя товара")]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Наименование должно содержать от 3 до 30 символов")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "Наименование должно содержать от 3 до 60 символов")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Не указана цена товара")]
