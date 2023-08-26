@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
@@ -33,7 +34,12 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Edit(ProductEdit productEdit, int id)
         {
-            var currentProduct = productRepository.TryGetById(id);
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+
+			var currentProduct = productRepository.TryGetById(id);
             currentProduct.Name = productEdit.Name;
             currentProduct.Cost = productEdit.Cost;
             currentProduct.Description = productEdit.Description;
@@ -48,8 +54,13 @@ namespace OnlineShopWebApp.Controllers
 
         [HttpPost]
         public IActionResult Add(ProductEdit newProduct)
-        {
-            var products = productRepository.GetAllProducts();
+        {			
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+			
+			var products = productRepository.GetAllProducts();
             products.Add(new Product(newProduct.Name, newProduct.Cost, newProduct.Description, newProduct.ImagePath));
             return RedirectToAction("Products", "Admin");
         }
