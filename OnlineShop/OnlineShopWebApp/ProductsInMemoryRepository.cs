@@ -59,6 +59,20 @@ namespace OnlineShopWebApp
         {
             var product = TryGetById(id);
             products.Remove(product);
-        }        
+        }
+
+        public void Add(Product product)
+        {
+            products.Add(product);
+        }
+
+        public void Update(Product product)
+        {
+            var currentProduct = TryGetById(product.Id);
+            currentProduct.Name = product.Name;
+            currentProduct.Cost = product.Cost;
+            currentProduct.Description = product.Description;
+            currentProduct.ImagePath = product.ImagePath;
+        }
     }
 }

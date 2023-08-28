@@ -4,8 +4,8 @@ namespace OnlineShopWebApp.Models
 {
 	public class Product
 	{
-		private static int instanceCounter = 2506;
-		public int Id { get; }
+		private static int instanceCounter = 1;
+		public int Id { get; set; }
 
         [Required(ErrorMessage = "Не указано наименование товара")]
         [StringLength(70, MinimumLength = 3, ErrorMessage = "Наименование должно содержать от 3 до 70 символов")]
@@ -21,37 +21,19 @@ namespace OnlineShopWebApp.Models
 
         [Required(ErrorMessage = "Не указан путь изображения товара")]
 		[StringLength(100, MinimumLength = 1, ErrorMessage = "Путь должен содержать от 1 до 100 символов")]
-		public string ImagePath { get; set; }
+		public string ImagePath { get; set; }		
 
-        //спецификация
-        public string Interface { get; set; }
-        public string FrequencyGPU { get; set; }
-        public string FrequencyGPUBoost { get; set; }
-        public string MemoryCapacity { get; set; }
-        public string MemoryType { get; set; }
-        public string FrequencyMemory { get; set; }
-        public string MemoryBus { get; set; }
-        public string Connectors { get; set; }
-        //спецификация
-
-        public Product(string name, decimal cost, string description, string imagePath)
+		public Product()
 		{
-			Id = instanceCounter;
+            Id = instanceCounter;
+            instanceCounter++;
+        }
+        public Product(string name, decimal cost, string description, string imagePath) : this()
+		{			
 			Name = name;
 			Cost = cost;
 			Description = description;
-			ImagePath = imagePath;
-			instanceCounter++;
-			var specifications = Description.Split("; ");
-
-			Interface = specifications[0];
-			FrequencyGPU = specifications[1];
-			FrequencyGPUBoost = specifications[2];
-			MemoryCapacity = specifications[3];
-            MemoryType = specifications[4];
-            FrequencyMemory = specifications[5];
-			MemoryBus = specifications[6];
-			Connectors = specifications[7];
-		}
+			ImagePath = imagePath;            
+        }
 	}
 }

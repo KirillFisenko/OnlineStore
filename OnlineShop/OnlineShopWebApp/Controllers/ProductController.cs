@@ -6,63 +6,17 @@ namespace OnlineShopWebApp.Controllers
 {
     public class ProductController : Controller
     {
-		private readonly IProductsRepository productRepository;
+		private readonly IProductsRepository productsRepository;
 
-		public ProductController(IProductsRepository productRepository)
+		public ProductController(IProductsRepository productsRepository)
 		{
-			this.productRepository = productRepository;
+			this.productsRepository = productsRepository;
 		}
 
 		public IActionResult Index(int id)
         {
-            var product = productRepository.TryGetById(id);
+            var product = productsRepository.TryGetById(id);
             return View(product);
-        }
-
-        public IActionResult Del(int id)
-        {
-            productRepository.Del(id);
-            return RedirectToAction("Products", "Admin");
-        }
-
-        public IActionResult Edit(int id)
-        {
-            var product = productRepository.TryGetById(id);
-            return View(product);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(ProductEdit productEdit, int id)
-        {
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
-
-			var currentProduct = productRepository.TryGetById(id);
-            currentProduct.Name = productEdit.Name;
-            currentProduct.Cost = productEdit.Cost;
-            currentProduct.Description = productEdit.Description;
-            currentProduct.ImagePath = productEdit.ImagePath;
-            return RedirectToAction("Products", "Admin");
-        }
-
-        public IActionResult Add()
-        {            
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Add(ProductEdit newProduct)
-        {			
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
-			
-			var products = productRepository.GetAllProducts();
-            products.Add(new Product(newProduct.Name, newProduct.Cost, newProduct.Description, newProduct.ImagePath));
-            return RedirectToAction("Products", "Admin");
-        }
+        }        
     }
 }
