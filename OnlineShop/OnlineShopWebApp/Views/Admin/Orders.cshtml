@@ -1,8 +1,56 @@
-﻿<div class="row">
+﻿@{
+    int i = 1;
+}
+@model List<Order>;
+
+<div class="row">
     @await Html.PartialAsync("MenuAdministrator")
-    
+    <div class="col-1"></div>
     <div class="col-9">
         <h3 class="text-center">Список заказов</h3>
+        <br />
+        @if (Model.Count() == 0)
+        {
+            <div class="text-center">
+                <h3 class="bg-warning-subtle text-emphasis-warning">Список заказов пуст</h3>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Сумма</th>
+                                <th>Статус</th>
+                                <th>Пользователь</th>
+                                <th>Дата</th>
+                                <th>Время</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr>
+                                    <td> @i </td>
+                                    <td>@string.Format("{0:### ### ###}", order.Amount) р</td>
+                                    <td>@order.Status</td>
+                                    <td>@order.User.Email</td>
+                                    <td>@order.Date</td>
+                                    <td>@order.Time</td>
+                                    <td class="col-4 text-end">
+                                        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="EditStatus" asp-route-id="@order.Id"><i class="bi bi-pencil"> Изменить статус </i></a>
+                                    </td>
+                                </tr>
+                                i += 1;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
     </div>
-
 </div>

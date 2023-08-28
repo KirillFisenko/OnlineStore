@@ -4,11 +4,13 @@ using OnlineShopWebApp.Models;
 namespace OnlineShopWebApp.Controllers
 {
     public class AdminController : Controller
-    {        
+    {
         private readonly IProductsRepository productsRepository;
-        public AdminController(IProductsRepository productsRepository)
+        private readonly IOrdersRepository ordersRepository;
+        public AdminController(IProductsRepository productsRepository, IOrdersRepository ordersRepository)
         {
             this.productsRepository = productsRepository;
+            this.ordersRepository = ordersRepository;
         }
 
         public IActionResult Index()
@@ -17,12 +19,13 @@ namespace OnlineShopWebApp.Controllers
         }
 
         public IActionResult Orders()
-        {            
-            return View();
+        {
+            var orders = ordersRepository.GetAllOrders();
+            return View(orders);
         }
 
         public IActionResult Users()
-        {            
+        {
             return View();
         }
 
@@ -75,6 +78,13 @@ namespace OnlineShopWebApp.Controllers
 
             productsRepository.Add(product);
             return RedirectToAction("Products");
+        }
+
+        public IActionResult EditStatus(Guid Id)
+        {
+            var orders = ordersRepository.GetAllOrders();
+            var currentOrder = orders.FirstOrDefault(order => order.Id == Id);
+            return View(currentOrder);
         }
     }
 }
