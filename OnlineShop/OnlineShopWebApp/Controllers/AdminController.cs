@@ -83,8 +83,17 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult EditStatus(Guid Id)
         {
             var orders = ordersRepository.GetAllOrders();
-            var currentOrder = orders.FirstOrDefault(order => order.Id == Id);
+            var currentOrder = orders.FirstOrDefault(order => order.Id == Id);            
             return View(currentOrder);
+        }
+
+        [HttpPost]
+        public IActionResult EditStatus(Guid Id, OrderStatuses Status)
+        {
+            var orders = ordersRepository.GetAllOrders();
+            var currentOrder = orders.FirstOrDefault(order => order.Id == Id);
+            currentOrder.Status = Status;
+            return RedirectToAction("Orders");
         }
     }
 }

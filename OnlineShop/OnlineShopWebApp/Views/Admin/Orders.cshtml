@@ -37,7 +37,24 @@
                                 <tr>
                                     <td> @i </td>
                                     <td>@string.Format("{0:### ### ###}", order.Amount) р</td>
-                                    <td>@order.Status</td>
+                                    @switch (order.Status)
+                                    {
+                                        case OrderStatuses.Created:
+                                            <td>Создан</td>
+                                            ; break;
+                                        case OrderStatuses.Processed:
+                                            <td>Обработан</td>
+                                            ; break;
+                                        case OrderStatuses.Delivering:
+                                            <td>В пути</td>
+                                            ; break;
+                                        case OrderStatuses.Delivered:
+                                            <td>Доставлен</td>
+                                            ; break;
+                                        case OrderStatuses.Canceled:
+                                            <td>Отменен</td>
+                                            ; break;
+                                    }
                                     <td>@order.User.Email</td>
                                     <td>@order.Date</td>
                                     <td>@order.Time</td>
