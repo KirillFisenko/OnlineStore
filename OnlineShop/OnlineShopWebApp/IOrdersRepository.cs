@@ -6,5 +6,7 @@ namespace OnlineShopWebApp
     {
         void Add(Order order);
         List<Order> GetAllOrders();
+        Order TryGetById(Guid id);
+        void UpdateOrderStatus(Guid id, OrderStatuses NewStatus);
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<Roles>;
+﻿@model List<Role>;
 <form method="post">
     <div class="row">
         @await Html.PartialAsync("MenuAdministrator")
@@ -29,7 +29,7 @@
                                     <tr>
                                         <td>@role.Name</td>
                                         <td class="col-4 text-end">
-                                            <button class="btn btn-outline-warning" asp-controller="admin" asp-action="DelRoles" name="Name" value="@role.Name"><i class="bi bi-trash-fill"> Удалить роль </i></button>
+                                            <button class="btn btn-outline-warning" asp-controller="admin" asp-action="RemoveRole" name="Name" value="@role.Name"><i class="bi bi-trash-fill"> Удалить роль </i></button>
                                         </td>
                                     </tr>
                                 }
@@ -38,7 +38,7 @@
                     </div>
                 </div>                
             }
-            <a class="btn btn-outline-warning" asp-controller="admin" asp-action="AddRoles"><i class="bi bi-database-add"> Добавить роль </i></a>
+            <a class="btn btn-outline-warning" asp-controller="admin" asp-action="AddRole"><i class="bi bi-database-add"> Добавить роль </i></a>
         </div>
     </div>
 </form>

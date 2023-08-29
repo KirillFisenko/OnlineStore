@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
-using System.Data;
-using System.Xml.Linq;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -39,19 +37,18 @@ namespace OnlineShopWebApp.Controllers
             return View(roles);
         }
 
-        public IActionResult AddRoles()
+        public IActionResult AddRole()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddRoles(Roles role)
-        {
-            var roles = rolesRepository.GetAllRoles();
-            if (roles.FirstOrDefault(r => r.Name == role.Name) != null)
+        public IActionResult AddRole(Role role)
+        {            
+            if (rolesRepository.TryGetByName(role.Name) != null)
             {
                 ModelState.AddModelError("", "Такая роль уже есть");
-            }
+            }            
             if (!ModelState.IsValid)
             {
                 return View(role);
@@ -61,11 +58,9 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult DelRoles(string Name)
-        {
-            var roles = rolesRepository.GetAllRoles();
-            var currentRole = roles.FirstOrDefault(role => role.Name == Name);
-            rolesRepository.Del(currentRole);
+        public IActionResult RemoveRole(string name)
+        {                      
+            rolesRepository.Remove(name);
             return RedirectToAction("Roles");
         }
 
@@ -115,19 +110,16 @@ namespace OnlineShopWebApp.Controllers
             return RedirectToAction("Products");
         }
 
-        public IActionResult EditStatus(Guid Id)
+        public IActionResult OrderDetails(Guid id)
         {
-            var orders = ordersRepository.GetAllOrders();
-            var currentOrder = orders.FirstOrDefault(order => order.Id == Id);            
-            return View(currentOrder);
+            var order = ordersRepository.TryGetById(id);                        
+            return View(order);
         }
 
         [HttpPost]
-        public IActionResult EditStatus(Guid Id, OrderStatuses Status)
-        {
-            var orders = ordersRepository.GetAllOrders();
-            var currentOrder = orders.FirstOrDefault(order => order.Id == Id);
-            currentOrder.Status = Status;
+        public IActionResult UpdateOrderStatus(Guid id, OrderStatuses status)
+        {            
+            ordersRepository.UpdateOrderStatus(id, status);           
             return RedirectToAction("Orders");
         }
     }

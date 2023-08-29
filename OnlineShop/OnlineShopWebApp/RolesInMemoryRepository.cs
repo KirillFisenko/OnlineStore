@@ -1,26 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Controllers;
-using OnlineShopWebApp.Models;
+﻿using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp
 {
     public class RolesInMemoryRepository : IRolesRepository
     {
-        public List<Roles> roles = new List<Roles>() { new Roles("Admin") };
+        public List<Role> roles = new List<Role>() { new Role("Admin") };
 
-        public List<Roles> GetAllRoles()
+        public List<Role> GetAllRoles()
         {
             return roles;
-        }        
+        }
 
-        public void Add(Roles role)
-        {            
+        public void Add(Role role)
+        {
             roles.Add(role);
         }
 
-        public void Del(Roles role)
-        {            
-            roles.Remove(role);
+        public void Remove(string name)
+        {
+            roles.RemoveAll(role => role.Name == name);
+        }
+
+        public Role TryGetByName(string name)
+        {
+            return roles.FirstOrDefault(role => role.Name == name);
         }
     }
 }

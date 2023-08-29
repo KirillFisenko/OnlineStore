@@ -37,29 +37,12 @@
                                 <tr>
                                     <td> @i </td>
                                     <td>@string.Format("{0:### ### ###}", order.Amount) р</td>
-                                    @switch (order.Status)
-                                    {
-                                        case OrderStatuses.Created:
-                                            <td>Создан</td>
-                                            ; break;
-                                        case OrderStatuses.Processed:
-                                            <td>Обработан</td>
-                                            ; break;
-                                        case OrderStatuses.Delivering:
-                                            <td>В пути</td>
-                                            ; break;
-                                        case OrderStatuses.Delivered:
-                                            <td>Доставлен</td>
-                                            ; break;
-                                        case OrderStatuses.Canceled:
-                                            <td>Отменен</td>
-                                            ; break;
-                                    }
+                                    <td>@EnumHelper.GetDisplayName(order.Status)</td>
                                     <td>@order.User.Email</td>
                                     <td>@order.Date</td>
                                     <td>@order.Time</td>
                                     <td class="col-4 text-end">
-                                        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="EditStatus" asp-route-id="@order.Id"><i class="bi bi-pencil"> Изменить статус </i></a>
+                                        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="OrderDetails" asp-route-id="@order.Id"><i class="bi bi-pencil"> Подробнее </i></a>
                                     </td>
                                 </tr>
                                 i += 1;

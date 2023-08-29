@@ -15,5 +15,17 @@ namespace OnlineShopWebApp
         {
             return orders;
         }
+
+        public Order TryGetById(Guid id)
+        {
+            var order = orders.FirstOrDefault(o => o.Id == id);
+            return order;
+        }
+
+        public void UpdateOrderStatus(Guid id, OrderStatuses newStatus)
+        {
+            var order = TryGetById(id);
+            order.Status = newStatus;
+        }
     }
 }

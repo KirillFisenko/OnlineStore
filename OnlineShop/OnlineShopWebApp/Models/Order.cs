@@ -1,14 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace OnlineShopWebApp.Models
 {
     public enum OrderStatuses
     {
+        [Display(Name = "Создан")]
         Created,
+
+        [Display(Name = "Обработан")]
         Processed,
+
+        [Display(Name = "В пути")]
         Delivering,
+
+        [Display(Name = "Доставлен")]
         Delivered,
+
+        [Display(Name = "Отменен")]
         Canceled
     }
     public class Order
