@@ -13,7 +13,7 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponents
 		public IViewComponentResult Invoke()
 		{
 			var cart = cartsRepository.TryGetByUserId(Constants.UserId);
-			var productCounts = cart?.Amount ?? 0;
+			var productCounts = cart?.Quantity ?? 0;
 			return View("Cart", productCounts);
 		}
 	}

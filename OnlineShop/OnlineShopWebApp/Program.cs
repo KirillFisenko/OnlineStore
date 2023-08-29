@@ -8,8 +8,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
 builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
-builder.Services.AddSingleton<IFavourites, FavouritesInMemoryRepository>();
-builder.Services.AddSingleton<ICompare, CompareInMemoryRepository>();
+builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepository>();
+builder.Services.AddSingleton<ICompareRepository, CompareInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>

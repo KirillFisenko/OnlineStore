@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp
 {
-	public class FavouritesInMemoryRepository : IFavourites
+	public class FavouritesInMemoryRepository : IFavouritesRepository
 	{
 		public List<Product> favourites = new List<Product>();
 

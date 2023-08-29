@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp
 {
-	public class CompareInMemoryRepository : ICompare
+	public class CompareInMemoryRepository : ICompareRepository
 	{
 		public List<Product> compare = new List<Product>();
 

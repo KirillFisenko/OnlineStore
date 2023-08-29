@@ -16,14 +16,14 @@ namespace OnlineShopWebApp
             roles.Add(role);
         }
 
-        public void Remove(string name)
+        public void Remove(string roleName)
         {
-            roles.RemoveAll(role => role.Name == name);
+            roles.RemoveAll(role => role.Name == roleName);
         }
 
-        public Role TryGetByName(string name)
+        public Role TryGetByName(string roleName)
         {
-            return roles.FirstOrDefault(role => role.Name == name);
+            return roles.FirstOrDefault(role => role.Name == roleName);
         }
     }
 }

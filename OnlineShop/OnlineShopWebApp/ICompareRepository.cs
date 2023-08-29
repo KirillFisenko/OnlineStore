@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp
 {
-	public interface ICompare
+	public interface ICompareRepository
 	{
 		void Add(Product product);
 		void Clear();

@@ -50,14 +50,19 @@ namespace OnlineShopWebApp
 			return products;
 		}
 
-		public Product TryGetById(int id)
+		public Product TryGetById(int productId)
 		{
-			return products.FirstOrDefault(product => product.Id == id);
+			return products.FirstOrDefault(product => product.Id == productId);
 		}
 
-        public void Del(int id)
+        public Product TryGetByName(string name)
         {
-            var product = TryGetById(id);
+            return products.FirstOrDefault(product => product.Name == name);
+        }
+
+        public void Del(int productId)
+        {
+            var product = TryGetById(productId);
             products.Remove(product);
         }
 

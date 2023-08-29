@@ -32,11 +32,11 @@ else
 							<td><img class="img-fluid col-6 text-start" src="@item.Product.ImagePath"></td>
 							<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
 							<td>
-								@item.Amount
+								@item.Quantity
 								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="cart" asp-action="add" asp-route-productid="@item.Product.Id">+</a>
 								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="cart" asp-action="decreaseAmount" asp-route-productid="@item.Product.Id">-</a>
 							</td>
-							<td class="text-end">@string.Format("{0:### ### ###}", item.Cost) р</td>
+							<td class="text-end">@string.Format("{0:### ### ###}", item.Amount) р</td>
 						</tr>
 					}
 				</tbody>

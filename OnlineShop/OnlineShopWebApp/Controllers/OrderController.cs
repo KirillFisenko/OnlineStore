@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Win32;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
@@ -34,7 +33,7 @@ namespace OnlineShopWebApp.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return View("Index");
+                return View();
             }
 
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);

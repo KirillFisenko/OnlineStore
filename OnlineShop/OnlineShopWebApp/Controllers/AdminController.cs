@@ -17,20 +17,35 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Products");
+            return RedirectToAction("Orders");
         }
 
+        //Orders
         public IActionResult Orders()
         {
             var orders = ordersRepository.GetAllOrders();
             return View(orders);
         }
+        public IActionResult OrderDetails(Guid orderId)
+        {
+            var order = ordersRepository.TryGetById(orderId);
+            return View(order);
+        }
 
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(Guid orderId, OrderStatuses status)
+        {
+            ordersRepository.UpdateOrderStatus(orderId, status);
+            return RedirectToAction("Orders");
+        }
+
+        //Users
         public IActionResult Users()
         {
             return View();
         }
 
+        //Roles
         public IActionResult Roles()
         {
             var roles = rolesRepository.GetAllRoles();
@@ -47,47 +62,47 @@ namespace OnlineShopWebApp.Controllers
         {            
             if (rolesRepository.TryGetByName(role.Name) != null)
             {
-                ModelState.AddModelError("", "Такая роль уже есть");
+                ModelState.AddModelError("", "Такая роль уже существует");
             }            
             if (!ModelState.IsValid)
             {
-                return View(role);
+                return View();
             }
             rolesRepository.Add(role);
             return RedirectToAction("Roles");
         }
-
-        [HttpPost]
+        
         public IActionResult RemoveRole(string name)
         {                      
             rolesRepository.Remove(name);
             return RedirectToAction("Roles");
         }
 
+        //Products
         public IActionResult Products()
         {
             var products = productsRepository.GetAllProducts();
             return View(products);
         }
 
-        public IActionResult DelProduct(int id)
+        public IActionResult DelProduct(int productId)
         {
-            productsRepository.Del(id);
+            productsRepository.Del(productId);
             return RedirectToAction("Products");
         }
 
-        public IActionResult EditProduct(int id)
+        public IActionResult EditProduct(int productId)
         {
-            var product = productsRepository.TryGetById(id);
+            var product = productsRepository.TryGetById(productId);
             return View(product);
         }
 
         [HttpPost]
         public IActionResult EditProduct(Product product)
-        {
+        {            
             if (!ModelState.IsValid)
             {
-                return View(product);
+                return View();
             }
             productsRepository.Update(product);
             return RedirectToAction("Products");
@@ -101,26 +116,16 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult AddProduct(Product product)
         {
+            if (productsRepository.TryGetByName(product.Name) != null)
+            {
+                ModelState.AddModelError("", "Продукт с таким именем уже сущствует");
+            }
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
-
             productsRepository.Add(product);
             return RedirectToAction("Products");
-        }
-
-        public IActionResult OrderDetails(Guid id)
-        {
-            var order = ordersRepository.TryGetById(id);                        
-            return View(order);
-        }
-
-        [HttpPost]
-        public IActionResult UpdateOrderStatus(Guid id, OrderStatuses status)
-        {            
-            ordersRepository.UpdateOrderStatus(id, status);           
-            return RedirectToAction("Orders");
-        }
+        }       
     }
 }

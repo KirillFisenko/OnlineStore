@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShopWebApp.Models
 {
@@ -27,11 +25,11 @@ namespace OnlineShopWebApp.Models
         public UserDeliveryInfo User { get; set; }
         public List<CartItem> Items { get; set; }
 
-        public decimal Amount
+        public decimal? Amount
         {
             get
             {
-                return Items.Sum(x => x.Cost);
+                return Items.Sum(x => x.Amount);
             }
         }
         public string Date { get; set; }

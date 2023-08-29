@@ -25,7 +25,7 @@ namespace OnlineShopWebApp
 						new CartItem()
 						{
 							Id = Guid.NewGuid(),
-							Amount = 1,
+							Quantity = 1,
 							Product = product
 						}
 					}
@@ -37,14 +37,14 @@ namespace OnlineShopWebApp
 				var existingCartItem = existingCart.Items.FirstOrDefault(item => item.Product.Id == product.Id);
 				if (existingCartItem != null)
 				{
-					existingCartItem.Amount++;
+					existingCartItem.Quantity++;
 				}
 				else
 				{
 					existingCart.Items.Add(new CartItem
 					{
 						Id = Guid.NewGuid(),
-						Amount = 1,
+						Quantity = 1,
 						Product = product
 					});
 				}
@@ -59,8 +59,8 @@ namespace OnlineShopWebApp
 			{
 				return;
 			}
-			existingCartItem.Amount--;
-			if (existingCartItem.Amount == 0)
+			existingCartItem.Quantity--;
+			if (existingCartItem.Quantity == 0)
 			{
 				existingCart.Items.Remove(existingCartItem);
 			}
