@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
+using System.Data;
+using System.Xml.Linq;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -7,10 +9,12 @@ namespace OnlineShopWebApp.Controllers
     {
         private readonly IProductsRepository productsRepository;
         private readonly IOrdersRepository ordersRepository;
-        public AdminController(IProductsRepository productsRepository, IOrdersRepository ordersRepository)
+        private readonly IRolesRepository rolesRepository;
+        public AdminController(IProductsRepository productsRepository, IOrdersRepository ordersRepository, IRolesRepository rolesRepository)
         {
             this.productsRepository = productsRepository;
             this.ordersRepository = ordersRepository;
+            this.rolesRepository = rolesRepository;
         }
 
         public IActionResult Index()
@@ -31,7 +35,38 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Roles()
         {
+            var roles = rolesRepository.GetAllRoles();
+            return View(roles);
+        }
+
+        public IActionResult AddRoles()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddRoles(Roles role)
+        {
+            var roles = rolesRepository.GetAllRoles();
+            if (roles.FirstOrDefault(r => r.Name == role.Name) != null)
+            {
+                ModelState.AddModelError("", "Такая роль уже есть");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(role);
+            }
+            rolesRepository.Add(role);
+            return RedirectToAction("Roles");
+        }
+
+        [HttpPost]
+        public IActionResult DelRoles(string Name)
+        {
+            var roles = rolesRepository.GetAllRoles();
+            var currentRole = roles.FirstOrDefault(role => role.Name == Name);
+            rolesRepository.Del(currentRole);
+            return RedirectToAction("Roles");
         }
 
         public IActionResult Products()
@@ -53,7 +88,7 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditProduct(Product product, int id)
+        public IActionResult EditProduct(Product product)
         {
             if (!ModelState.IsValid)
             {

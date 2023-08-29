@@ -1,0 +1,17 @@
+﻿@model Roles
+<form method="post">
+    <h4>Добавление роли</h4>
+    <br />
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+    <div class="row">
+        <label asp-for="Name" class="col-sm-2 col-form-label">название роли:</label><br />
+        <div class="col-sm-8">
+            <input asp-for="Name" type="text" class="form-control" />
+            <span asp-validation-for="Name" />
+        </div>
+    </div>   
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="AddRoles">Сохранить</button>
+    <a class="btn btn-outline-primary" asp-controller="Admin" asp-action="Roles">Отмена</a>
+</form>
