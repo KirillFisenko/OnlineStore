@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AdminController : Controller
     {
         private readonly IProductsRepository productsRepository;
@@ -59,11 +60,11 @@ namespace OnlineShopWebApp.Controllers
 
         [HttpPost]
         public IActionResult AddRole(Role role)
-        {            
+        {
             if (rolesRepository.TryGetByName(role.Name) != null)
             {
                 ModelState.AddModelError("", "Такая роль уже существует");
-            }            
+            }
             if (!ModelState.IsValid)
             {
                 return View();
@@ -71,9 +72,9 @@ namespace OnlineShopWebApp.Controllers
             rolesRepository.Add(role);
             return RedirectToAction("Roles");
         }
-        
+
         public IActionResult RemoveRole(string name)
-        {                      
+        {
             rolesRepository.Remove(name);
             return RedirectToAction("Roles");
         }
@@ -99,7 +100,7 @@ namespace OnlineShopWebApp.Controllers
 
         [HttpPost]
         public IActionResult EditProduct(Product product, int productId)
-        {            
+        {
             if (!ModelState.IsValid)
             {
                 return View();
@@ -126,6 +127,6 @@ namespace OnlineShopWebApp.Controllers
             }
             productsRepository.Add(product);
             return RedirectToAction("Products");
-        }       
+        }
     }
 }
