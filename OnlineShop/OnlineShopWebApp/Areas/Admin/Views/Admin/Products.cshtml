@@ -28,7 +28,7 @@
                         {
                             <tr>
                                 <td> @i </td>
-                                <td class="col-4"><a style="color:navy" asp-controller="product" asp-action="index" asp-route-productid="@product.Id"><p>@product.Name</p></a></td>
+                                <td class="col-4"><a style="color:navy" asp-area="" asp-controller="product" asp-action="index" asp-route-productid="@product.Id"><p>@product.Name</p></a></td>
                                 <td><div class="col-3 text-start"><img class="img-fluid" src="@product.ImagePath"></div></td>
                                 <td class="col-2">@string.Format("{0:### ### ###}", product.Cost) р</td>
                                 <td class="col-4 text-end">
