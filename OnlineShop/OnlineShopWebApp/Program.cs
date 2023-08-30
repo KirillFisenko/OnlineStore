@@ -1,10 +1,18 @@
 using Microsoft.AspNetCore.Localization;
 using OnlineShopWebApp;
 using System.Globalization;
+//Serilog
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Serilog
+builder.Host.UseSerilog((context, configuration) => configuration
+.ReadFrom.Configuration(context.Configuration)
+.Enrich.WithProperty("ApplicationName", "Online Shop"));
+
 builder.Services.AddControllersWithViews();
+//внедрение зависимостей DI, объект создается при первом обращении
 builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
 builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
@@ -12,6 +20,7 @@ builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepositor
 builder.Services.AddSingleton<ICompareRepository, CompareInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
 
+//настройка локализации для правильного разделителя чисел "."
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new[]
@@ -31,6 +40,9 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
+
+//Serilog
+app.UseSerilogRequestLogging();
 
 app.UseStaticFiles();
 
