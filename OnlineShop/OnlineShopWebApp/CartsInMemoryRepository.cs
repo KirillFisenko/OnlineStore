@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
 	public class CartsInMemoryRepository : ICartsRepository
 	{
-		public List<Cart> carts = new List<Cart>();
+        private readonly List<Cart> carts = new List<Cart>();
 
 		public Cart TryGetByUserId(string userId)
 		{

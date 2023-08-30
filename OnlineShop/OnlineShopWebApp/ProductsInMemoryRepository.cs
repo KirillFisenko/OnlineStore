@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Models;
+﻿using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp
 {
 	public class ProductsInMemoryRepository : IProductsRepository
 	{
-		public List<Product> products = new List<Product>()
+		private readonly List<Product> products = new List<Product>()
 			{
 
 			new Product(
@@ -71,9 +70,9 @@ namespace OnlineShopWebApp
             products.Add(product);
         }
 
-        public void Update(Product product)
+        public void Update(Product product, int productId)
         {
-            var currentProduct = TryGetById(product.Id);
+            var currentProduct = TryGetById(productId);
             currentProduct.Name = product.Name;
             currentProduct.Cost = product.Cost;
             currentProduct.Description = product.Description;

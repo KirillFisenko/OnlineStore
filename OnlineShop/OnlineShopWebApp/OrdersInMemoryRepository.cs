@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
     public class OrdersInMemoryRepository : IOrdersRepository
     {
-        public List<Order> orders = new List<Order>();
+        private readonly List<Order> orders = new List<Order>();
 
         public void Add(Order order)
         {

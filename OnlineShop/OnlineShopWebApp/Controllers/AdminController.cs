@@ -98,13 +98,13 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditProduct(Product product)
+        public IActionResult EditProduct(Product product, int productId)
         {            
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            productsRepository.Update(product);
+            productsRepository.Update(product, productId);
             return RedirectToAction("Products");
         }
 

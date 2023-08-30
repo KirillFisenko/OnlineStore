@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
 	public class FavouritesInMemoryRepository : IFavouritesRepository
 	{
-		public List<Product> favourites = new List<Product>();
+        private readonly List<Product> favourites = new List<Product>();
 
 		public void Add(Product product)
 		{

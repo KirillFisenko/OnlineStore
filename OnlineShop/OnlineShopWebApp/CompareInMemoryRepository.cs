@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
 	public class CompareInMemoryRepository : ICompareRepository
 	{
-		public List<Product> compare = new List<Product>();
+        private readonly List<Product> compare = new List<Product>();
 
 		public void Add(Product product)
 		{

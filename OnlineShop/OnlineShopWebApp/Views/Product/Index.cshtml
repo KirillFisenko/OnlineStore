@@ -10,8 +10,8 @@
         <p>@Model.Description</p>        
         <div class="text-center" style="margin:10px">
             <a class="btn btn-warning" asp-controller="cart" asp-action="add" asp-route-productid="@Model.Id"> <i class="bi bi-cart"> В корзину </i> </a>
-            <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="add" asp-route-id="@Model.Id"> <i class="bi bi-heart"> В избранное</i> </a>
-            <a class="btn btn-outline-warning" asp-controller="compare" asp-action="add" asp-route-id="@Model.Id"> <i class="bi bi-clipboard2-plus"> Сравнить</i> </a>
+            <a class="btn btn-outline-warning" asp-controller="favourites" asp-action="add" asp-route-productid="@Model.Id"> <i class="bi bi-heart"> В избранное</i> </a>
+            <a class="btn btn-outline-warning" asp-controller="compare" asp-action="add" asp-route-productid="@Model.Id"> <i class="bi bi-clipboard2-plus"> Сравнить</i> </a>
         </div>
         
         <div class="text-center" style="margin:20px">
