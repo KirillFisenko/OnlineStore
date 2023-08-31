@@ -4,7 +4,7 @@ namespace OnlineShopWebApp
 {
     public class RolesInMemoryRepository : IRolesRepository
     {
-        private readonly List<Role> roles = new List<Role>() { new Role("Admin") };
+        private readonly List<Role> roles = new List<Role>() { new Role("Admin"), new Role("User") };
 
         public List<Role> GetAllRoles()
         {

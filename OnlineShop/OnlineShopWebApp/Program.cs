@@ -19,6 +19,7 @@ builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
 builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepository>();
 builder.Services.AddSingleton<ICompareRepository, CompareInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
+builder.Services.AddSingleton<IUsersRepository, UsersInMemoryRepository>();
 
 //настройка локализации для правильного разделителя чисел "."
 builder.Services.Configure<RequestLocalizationOptions>(options =>

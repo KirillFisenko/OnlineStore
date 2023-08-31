@@ -5,6 +5,12 @@ namespace OnlineShopWebApp.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUsersRepository usersRepository;        
+
+        public AccountController(IUsersRepository usersRepository)
+        {
+            this.usersRepository = usersRepository;            
+        }
         public IActionResult Login()
         {
             return View();
@@ -12,7 +18,18 @@ namespace OnlineShopWebApp.Controllers
 
         [HttpPost]
         public IActionResult Login(Login user)
-        {
+        {            
+            if (usersRepository.TryGetByName(user.UserName) == null)
+            {
+                ModelState.AddModelError("", "Пользователь с таким именем не найден. Проверьте имя или зарегистрируйтесь.");
+            }
+            else
+            {
+                if (usersRepository.TryGetByName(user.UserName).Password != user.Password)
+                {
+                    ModelState.AddModelError("", "Не верный пароль");
+                }
+            }
             if (!ModelState.IsValid)
             {
                 return View();
@@ -36,6 +53,8 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View();
             }
+            var newUser = new User(register.UserName, register.Password);
+            usersRepository.Add(newUser);
             return RedirectToAction("Index", "Home");
         }
     }

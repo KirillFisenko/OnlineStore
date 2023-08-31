@@ -9,11 +9,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         private readonly IProductsRepository productsRepository;
         private readonly IOrdersRepository ordersRepository;
         private readonly IRolesRepository rolesRepository;
-        public AdminController(IProductsRepository productsRepository, IOrdersRepository ordersRepository, IRolesRepository rolesRepository)
+        private readonly IUsersRepository usersRepository;
+        public AdminController(IProductsRepository productsRepository, IOrdersRepository ordersRepository, IRolesRepository rolesRepository, IUsersRepository usersRepository)
         {
             this.productsRepository = productsRepository;
             this.ordersRepository = ordersRepository;
             this.rolesRepository = rolesRepository;
+            this.usersRepository = usersRepository;
         }
 
         public IActionResult Index()
@@ -43,7 +45,48 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         //Users
         public IActionResult Users()
         {
-            return View();
+            var users = usersRepository.GetAllUsers();
+            return View(users);
+        }
+
+        public IActionResult UserDetails(Guid userId)
+        {
+            var user = usersRepository.TryGetById(userId);
+            return View(user);
+        }
+
+        public IActionResult DelUser(Guid userId)
+        {
+            usersRepository.Del(userId);
+            return RedirectToAction("Users");
+        }
+
+        public IActionResult EditUser(Guid userId)
+        {
+            var user = usersRepository.TryGetById(userId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(User user, string name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            usersRepository.Update(user, name);
+            return RedirectToAction("Users");
+        }
+
+        public IActionResult ChangePassword(Guid userId)
+        {
+            var product = usersRepository.TryGetById(userId);
+            return View(product);
+        }
+        public IActionResult ChangeAccess(Guid userId)
+        {
+            var product = usersRepository.TryGetById(userId);
+            return View(product);
         }
 
         //Roles
