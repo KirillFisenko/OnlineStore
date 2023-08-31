@@ -9,7 +9,7 @@
     <div class="col-9">
         <h3 class="text-center">Продукты</h3>
         <br />
-        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="AddProduct"><i class="bi bi-database-add"> Добавить новый продукт </i></a>
+        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="AddProduct"><i class="bi bi-database-add"> Добавить новый продукт </i></a>       
         <div class="row">
             <div class="col">
                 <table class="table">
@@ -23,7 +23,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach (var product in Model)
                         {
                             <tr>

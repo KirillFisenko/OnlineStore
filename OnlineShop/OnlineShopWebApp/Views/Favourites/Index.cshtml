@@ -39,8 +39,30 @@ else
 
             <div class="text-center">
                 <a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
-                <a class="btn btn-outline-primary" asp-controller="favourites" asp-action="clear"><i class="bi bi-x-circle"> Очистить избранное</i></a>
+                <!-- Кнопка-триггер модального окна -->
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-x-circle"> Очистить избранное </i>
+                </button>                
+            </div>
+        </div>
+    </div>    
+}
+
+<!-- Модальное окно -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Очистка избранного</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите очистить список?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <a type="button" class="btn btn-primary" asp-controller="favourites" asp-action="clear">Очистить</a>
             </div>
         </div>
     </div>
-}
+</div>

@@ -23,8 +23,8 @@ namespace OnlineShopWebApp.Controllers
 		{
 			var product = productRepository.TryGetById(productId);
             favouritesRepository.Add(product);
-            return RedirectToAction("Index");
-        }
+			return RedirectToAction("Index");
+		}
 
         public IActionResult Del(int productId)
         {
