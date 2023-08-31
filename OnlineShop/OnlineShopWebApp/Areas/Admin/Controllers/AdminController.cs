@@ -49,7 +49,27 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             return View(users);
         }
 
-        public IActionResult UserDetails(Guid userId)
+		public IActionResult AddUser()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult AddUser(User user)
+		{
+			if (usersRepository.TryGetByName(user.Email) != null)
+			{
+				ModelState.AddModelError("", "Пользователь с таким именем уже сущствует");
+			}
+			if (!ModelState.IsValid)
+			{
+				return View(user);
+			}
+			usersRepository.Add(user);
+			return RedirectToAction("User");
+		}		
+
+		public IActionResult UserDetails(Guid userId)
         {
             var user = usersRepository.TryGetById(userId);
             return View(user);
@@ -83,14 +103,15 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var product = usersRepository.TryGetById(userId);
             return View(product);
         }
+
         public IActionResult ChangeAccess(Guid userId)
         {
             var product = usersRepository.TryGetById(userId);
             return View(product);
-        }
+        }		
 
-        //Roles
-        public IActionResult Roles()
+		//Roles
+		public IActionResult Roles()
         {
             var roles = rolesRepository.GetAllRoles();
             return View(roles);
