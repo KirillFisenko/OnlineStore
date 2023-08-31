@@ -28,7 +28,7 @@ else
                             <td class="col-4"><a style="color:navy" asp-controller="product" asp-action="index" asp-route-productid="@product.Id"><p>@product.Name</p></a></td>
                             <td class="col-4">@product.Description</td>
                             <td class="col-3">@string.Format("{0:### ### ###}", product.Cost) р</td>
-                            <td class="col-3 text-end">
+                            <td class="col-3 text-end">                              
                                 <a class="btn btn-outline-warning" title="Удалить из списка" asp-controller="compare" asp-action="del" asp-route-productid="@product.Id"><i class="bi bi-trash-fill"></i></a>
                                 <a class="btn btn-warning" title="Добавить в корзину" asp-controller="cart" asp-action="add" asp-route-productid="@product.Id"> <i class="bi bi-cart"></i> </a>
                             </td>
@@ -36,7 +36,6 @@ else
                     }
                 </tbody>
             </table>
-
             <div class="text-center">
                 <a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
                 <!-- Кнопка-триггер модального окна -->
@@ -48,7 +47,7 @@ else
     </div>
 }
 
-<!-- Модальное окно -->
+<!-- Модальное окно очистки всего списка-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

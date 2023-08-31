@@ -33,7 +33,7 @@ namespace OnlineShopWebApp.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return View();
+                return View("Index");
             }
 
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
