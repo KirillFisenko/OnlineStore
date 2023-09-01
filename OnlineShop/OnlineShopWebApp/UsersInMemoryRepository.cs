@@ -13,7 +13,7 @@ namespace OnlineShopWebApp
             new User("Igor@Igor", "12345678")
             };
 
-        public List<User> GetAllUsers()
+        public List<User> GetAll()
         {
             return users;
         }
@@ -39,7 +39,7 @@ namespace OnlineShopWebApp
             users.Add(user);
         }
 
-        public void Update(User user, Guid userId)
+        public void Edit(User user, Guid userId)
         {
             var currentUser = TryGetById(userId);
             currentUser.Email = user.Email;

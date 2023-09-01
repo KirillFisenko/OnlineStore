@@ -4,7 +4,7 @@
 {
 	<div class="text-center">
 		<h3 class="bg-warning-subtle text-emphasis-warning">В корзине еще нет товаров</h3>
-		<a class="btn btn-primary" asp-controller="home" asp-action="index">Перейти к покупкам</a>
+		<a class="btn btn-primary" asp-controller="Home" asp-action="Index">Перейти к покупкам</a>
 	</div>
 }
 else
@@ -27,14 +27,14 @@ else
 					{
 						<tr>
 							<td>
-								<a style="color:navy" asp-controller="product" asp-action="index" asp-route-productid="@item.Product.Id"><p>@item.Product.Name</p></a>
+								<a style="color:navy" asp-controller="Product" asp-action="Index" asp-route-productId="@item.Product.Id"><p>@item.Product.Name</p></a>
 							</td>
 							<td><img class="img-fluid col-6 text-start" src="@item.Product.ImagePath"></td>
 							<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
 							<td>
 								@item.Quantity
-								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="cart" asp-action="add" asp-route-productid="@item.Product.Id">+</a>
-								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="cart" asp-action="decreaseAmount" asp-route-productid="@item.Product.Id">-</a>
+								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id">+</a>
+								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id">-</a>
 							</td>
 							<td class="text-end">@string.Format("{0:### ### ###}", item.Amount) р</td>
 						</tr>
@@ -45,11 +45,11 @@ else
 				<h4>Итого: @string.Format("{0:### ### ###}", Model.Cost) р</h4>
 			</div>
 			<div class="text-center">
-				<a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
-				<a class="btn btn-outline-success" asp-controller="order" asp-action="index"><i class="bi bi-check-circle-fill"> Перейти к оформлению</i></a>
+				<a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left">Продолжить покупки</i></a>
+				<a class="btn btn-outline-success" asp-controller="Order" asp-action="Index"><i class="bi bi-check-circle-fill">Перейти к оформлению</i></a>
 				<!-- Кнопка-триггер модального окна -->
 				<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					<i class="bi bi-x-circle"> Очистить корзину </i>
+					<i class="bi bi-x-circle">Очистить корзину</i>
 				</button>				
 			</div>
 		</div>
@@ -69,7 +69,7 @@ else
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<a type="button" class="btn btn-primary" asp-controller="cart" asp-action="clear">Очистить</a>
+				<a type="button" class="btn btn-primary" asp-controller="Cart" asp-action="Clear">Очистить</a>
 			</div>
 		</div>
 	</div>

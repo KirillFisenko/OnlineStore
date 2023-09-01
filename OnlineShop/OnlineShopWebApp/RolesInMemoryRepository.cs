@@ -1,4 +1,4 @@
-﻿using OnlineShopWebApp.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
 
 namespace OnlineShopWebApp
 {
@@ -6,7 +6,7 @@ namespace OnlineShopWebApp
     {
         private readonly List<Role> roles = new List<Role>() { new Role("Admin"), new Role("User") };
 
-        public List<Role> GetAllRoles()
+        public List<Role> GetAll()
         {
             return roles;
         }
@@ -16,7 +16,7 @@ namespace OnlineShopWebApp
             roles.Add(role);
         }
 
-        public void Remove(string roleName)
+        public void Del(string roleName)
         {
             roles.RemoveAll(role => role.Name == roleName);
         }

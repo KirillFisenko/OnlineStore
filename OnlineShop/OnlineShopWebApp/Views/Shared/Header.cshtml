@@ -3,27 +3,21 @@
         <div class="container-fluid">
             <a class="nav-link btn-lg" asp-area="" asp-controller="home" asp-action="index">Интернет-магазин комплектующих ProPC</a>
             <nav class="nav">
-                <a class="nav-link" asp-area="Admin" asp-controller="admin" asp-action="index"> <i class="bi bi-database"></i> Администратор </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index"><i class="bi bi-database"></i>Администратор</a>
             </nav>
-
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
                     <form class="d-flex" role="search" method="post">
                         <input name="name" class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
-                        <button class="btn btn-dark" type="submit" asp-area="" asp-controller="home" asp-action="search"> <i class="bi bi-search"></i> </button>
+                        <button class="btn btn-dark" type="submit" asp-area="" asp-controller="Home" asp-action="Search"> <i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </nav>
-
             <nav class="nav justify-content-center">
-                <a class="nav-link" asp-area="" asp-controller="account" asp-action="login"> <i class="bi bi-person"></i> Войти </a>
-                <a class="nav-link" asp-area="" asp-controller="favourites" asp-action="index"> <i class="bi bi-heart"></i> Избранное</a>
-                <a class="nav-link" asp-area="" asp-controller="compare" asp-action="index"> <i class="bi bi-clipboard2-plus"></i> Список сравнения</a>
-                <a class="nav-link" asp-area="" asp-controller="cart" asp-action="index">
-                    <i class="bi bi-cart4"></i>
-                    Корзина
-                    <span class="badge rounded-pill bg-danger">@await Component.InvokeAsync("Cart")</span>
-                </a>
+                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-person"></i>Войти</a>
+                <a class="nav-link" asp-area="" asp-controller="Favourites" asp-action="Index"><i class="bi bi-heart"></i>Избранное</a>
+                <a class="nav-link" asp-area="" asp-controller="Compare" asp-action="Index"><i class="bi bi-clipboard2-plus"></i>Список сравнения</a>
+                <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index"><i class="bi bi-cart4"></i>Корзина<span class="badge rounded-pill bg-danger">@await Component.InvokeAsync("Cart")</span></a>
             </nav>
         </div>
     </nav>

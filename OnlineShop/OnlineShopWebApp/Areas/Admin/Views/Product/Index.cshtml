@@ -9,7 +9,7 @@
     <div class="col-9">
         <h3 class="text-center">Список продуктов</h3>
         <br />
-        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="AddProduct"><i class="bi bi-database-add"> Добавить новый продукт </i></a>       
+        <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Add"><i class="bi bi-database-add">Добавить новый продукт</i></a>
         <br />
         <div class="row">
             <div class="col">
@@ -28,12 +28,12 @@
                         {
                             <tr>
                                 <td> @i </td>
-                                <td class="col-4"><a style="color:navy" asp-area="" asp-controller="product" asp-action="index" asp-route-productid="@product.Id"><p>@product.Name</p></a></td>
+                                <td class="col-4"><a style="color:navy" asp-area="" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><p>@product.Name</p></a></td>
                                 <td><div class="col-3 text-start"><img class="img-fluid" src="@product.ImagePath"></div></td>
                                 <td class="col-2">@string.Format("{0:### ### ###}", product.Cost) р</td>
                                 <td class="col-4 text-end">
-                                    <a class="btn btn-outline-warning" asp-controller="admin" asp-action="EditProduct" asp-route-productid="@product.Id"><i class="bi bi-pencil"> Редактировать </i></a>
-                                    <a class="btn btn-warning" asp-controller="admin" asp-action="DelProduct" asp-route-productid="@product.Id"> <i class="bi bi-trash-fill"> Удалить </i> </a>
+                                    <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-productId="@product.Id"><i class="bi bi-pencil">Редактировать</i></a>
+                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Del" asp-route-productId="@product.Id"> <i class="bi bi-trash-fill">Удалить</i></a>
                                 </td>
                             </tr>
                             i += 1;

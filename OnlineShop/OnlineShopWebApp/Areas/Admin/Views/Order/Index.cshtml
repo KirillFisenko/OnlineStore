@@ -42,7 +42,7 @@
                                     <td>@order.Date</td>
                                     <td>@order.Time</td>
                                     <td class="col-4 text-end">
-                                        <a class="btn btn-outline-warning" asp-controller="admin" asp-action="OrderDetails" asp-route-orderid="@order.Id"><i class="bi bi-pencil"> Подробнее </i></a>
+                                        <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-orderId="@order.Id"><i class="bi bi-pencil">Подробнее</i></a>
                                     </td>
                                 </tr>
                                 i += 1;

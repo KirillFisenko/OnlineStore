@@ -13,7 +13,7 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Index()
 		{			
-			var products = productRepository.GetAllProducts();
+			var products = productRepository.GetAll();
 			return View(products);
 		}
 
@@ -22,11 +22,11 @@ namespace OnlineShopWebApp.Controllers
         {            
             if (name != null)
 			{
-                var products = productRepository.GetAllProducts();
+                var products = productRepository.GetAll();
                 var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
                 return View(findProducts);
             }
-            return RedirectToAction("Index");
+            return View(nameof(Index));
         }
     }
 }

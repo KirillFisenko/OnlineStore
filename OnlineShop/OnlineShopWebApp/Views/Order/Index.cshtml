@@ -1,4 +1,5 @@
 ﻿@model UserDeliveryInfo;
+
 <div><h4>Заполните данные для заказа</h4></div>
 <br />
 <div class="row">    
@@ -32,8 +33,8 @@
             </div>
 
             <div class="text-center" style="margin:40px">
-                <a class="btn btn-primary" asp-controller="home" asp-action="index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
-                <button class="btn btn-outline-success" type="submit" asp-controller="order" asp-action="buy"><i class="bi bi-check-circle-fill"> Оформить заказ</i></button>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left">Продолжить покупки</i></a>
+                <button class="btn btn-outline-success" type="submit" asp-controller="Order" asp-action="Buy"><i class="bi bi-check-circle-fill">Оформить заказ</i></button>
             </div>
 
         </form>

@@ -44,7 +44,7 @@ namespace OnlineShopWebApp
 				)
 			};
 
-		public List<Product> GetAllProducts()
+		public List<Product> GetAll()
 		{
 			return products;
 		}
@@ -70,7 +70,7 @@ namespace OnlineShopWebApp
             products.Add(product);
         }
 
-        public void Update(Product product, int productId)
+        public void Edit(Product product, int productId)
         {
             var currentProduct = TryGetById(productId);
             currentProduct.Name = product.Name;

@@ -11,7 +11,7 @@ namespace OnlineShopWebApp
             orders.Add(order);
         }
 
-        public List<Order> GetAllOrders()
+        public List<Order> GetAll()
         {
             return orders;
         }
@@ -22,7 +22,7 @@ namespace OnlineShopWebApp
             return order;
         }
 
-        public void UpdateOrderStatus(Guid orderId, OrderStatuses newStatus)
+        public void UpdateStatus(Guid orderId, OrderStatuses newStatus)
         {
             var order = TryGetById(orderId);
             order.Status = newStatus;

@@ -16,7 +16,7 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Index()
         {
-            var cart = cartsRepository.TryGetByUserId(Constants.UserId);
+            var cart = cartsRepository.TryGetById(Constants.UserId);
             return View();
         }
 
@@ -36,7 +36,7 @@ namespace OnlineShopWebApp.Controllers
                 return View("Index");
             }
 
-            var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
+            var existingCart = cartsRepository.TryGetById(Constants.UserId);
             var order = new Order
             {
                 User = user,

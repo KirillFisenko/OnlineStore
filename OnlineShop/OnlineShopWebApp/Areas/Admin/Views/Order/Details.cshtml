@@ -46,8 +46,8 @@
                 </tr>
             </table>
             <br />
-            <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="UpdateOrderStatus" asp-route-orderid="@Model.Id">Сохранить</button>
-            <a class="btn btn-outline-primary" asp-controller="Admin" asp-action="Orders">Отмена</a>
+            <button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="Order" asp-action="UpdateStatus" asp-route-orderId="@Model.Id">Сохранить</button>
+            <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="Index">Отмена</a>
         </div>
     </div>
 </form>

@@ -4,11 +4,11 @@ namespace OnlineShopWebApp
 {
 	public interface IProductsRepository
 	{
-		List<Product> GetAllProducts();
+		List<Product> GetAll();
 		Product TryGetById(int id);
         Product TryGetByName(string name);
         void Del(int id);
         void Add(Product product);
-        void Update(Product product, int productId);        
+        void Edit(Product product, int productId);        
     }
 }

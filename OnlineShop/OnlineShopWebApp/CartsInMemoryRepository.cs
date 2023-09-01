@@ -6,14 +6,14 @@ namespace OnlineShopWebApp
 	{
         private readonly List<Cart> carts = new List<Cart>();
 
-		public Cart TryGetByUserId(string userId)
+		public Cart TryGetById(string userId)
 		{
 			return carts.FirstOrDefault(cart => cart.UserId == userId);
 		}
 
 		public void Add(Product product, string userId)
 		{
-			var existingCart = TryGetByUserId(userId);
+			var existingCart = TryGetById(userId);
 			if (existingCart == null)
 			{
 				var newCart = new Cart()
@@ -53,7 +53,7 @@ namespace OnlineShopWebApp
 
 		public void DecreaseAmount(Product product, string userId)
 		{
-			var existingCart = TryGetByUserId(userId);			
+			var existingCart = TryGetById(userId);			
 			var existingCartItem = existingCart?.Items?.FirstOrDefault(item => item.Product.Id == product.Id);
 			if(existingCartItem == null)
 			{
@@ -72,7 +72,7 @@ namespace OnlineShopWebApp
 
 		public void Clear(string userId)
 		{
-			var existingCart = TryGetByUserId(userId);
+			var existingCart = TryGetById(userId);
 			carts.Remove(existingCart);
 		}
 	}

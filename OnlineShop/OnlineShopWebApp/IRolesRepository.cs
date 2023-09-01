@@ -1,12 +1,12 @@
-﻿using OnlineShopWebApp.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
 
 namespace OnlineShopWebApp
 {
-	public interface IRolesRepository
+    public interface IRolesRepository
 	{
 		void Add(Role role);		
-		void Remove(string Name);
-		List<Role> GetAllRoles();
+		void Del(string Name);
+		List<Role> GetAll();
 		Role TryGetByName(string Name);
 	}
 }
