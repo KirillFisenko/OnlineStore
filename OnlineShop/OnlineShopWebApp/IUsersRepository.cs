@@ -9,6 +9,8 @@ namespace OnlineShopWebApp
         User TryGetByName(string name);
         void Del(Guid userId);
         void Add(User user);
-        void Update(User product, string name);
+        void Update(User user, Guid userId);
+        void ChangePassword(Guid userId, string password);
+        void ChangeAccess(Guid userId, string roleName);
     }
 }

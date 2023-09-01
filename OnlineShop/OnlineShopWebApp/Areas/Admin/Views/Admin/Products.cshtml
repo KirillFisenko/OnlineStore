@@ -5,11 +5,12 @@
 
 <div class="row">
     @await Html.PartialAsync("MenuAdministrator")
-
+    <div class="col-1"></div>
     <div class="col-9">
-        <h3 class="text-center">Продукты</h3>
+        <h3 class="text-center">Список продуктов</h3>
         <br />
         <a class="btn btn-outline-warning" asp-controller="admin" asp-action="AddProduct"><i class="bi bi-database-add"> Добавить новый продукт </i></a>       
+        <br />
         <div class="row">
             <div class="col">
                 <table class="table">

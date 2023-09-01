@@ -1,6 +1,6 @@
 ﻿@model User
 <form method="post">
-    <h4>Добавление товара</h4>
+    <h4>Добавление пользователя</h4>
     <br />
     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 
@@ -35,6 +35,15 @@
             <span asp-validation-for="Phone" />
         </div>
     </div>    
+
+    <br />
+    <div class="row">
+        <label asp-for="Password" class="col-sm-2 col-form-label">Пароль:</label><br />
+        <div class="col-sm-8">
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" />
+        </div>
+    </div>
     <br />
     <br />
     <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="AddUser">Сохранить</button>

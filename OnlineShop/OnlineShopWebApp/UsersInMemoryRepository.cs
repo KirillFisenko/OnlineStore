@@ -1,4 +1,6 @@
-﻿using OnlineShopWebApp.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Models;
+using System.Xml.Linq;
 
 namespace OnlineShopWebApp
 {
@@ -37,13 +39,26 @@ namespace OnlineShopWebApp
             users.Add(user);
         }
 
-        public void Update(User user, string name)
+        public void Update(User user, Guid userId)
         {
-            var currentUser = TryGetByName(name);
+            var currentUser = TryGetById(userId);
             currentUser.Email = user.Email;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
             currentUser.Phone = user.Phone;
+            currentUser.Password = user.Password;
+        }
+
+        public void ChangePassword(Guid userId, string password)
+        {
+            var currentUser = TryGetById(userId);
+            currentUser.Password = password;           
+        }
+
+        public void ChangeAccess(Guid userId, string roleName)
+        {
+            var currentUser = TryGetById(userId);
+            currentUser.Role.Name = roleName;
         }
     }
 }

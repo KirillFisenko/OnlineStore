@@ -32,7 +32,7 @@
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" asp-controller="admin" asp-action="ChangePassword" asp-route-userid="@Model.Id">Смена пароля</a></li>
-                <li><a class="dropdown-item" asp-controller="admin" asp-action="EditUser" asp-route-name="@Model.Email">Редактирование данных</a></li>
+                <li><a class="dropdown-item" asp-controller="admin" asp-action="EditUser" asp-route-userId="@Model.Id">Редактирование данных</a></li>
                 <li><a class="dropdown-item" asp-controller="admin" asp-action="ChangeAccess" asp-route-userid="@Model.Id">Права доступа</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <!-- Кнопка-триггер модального окна -->

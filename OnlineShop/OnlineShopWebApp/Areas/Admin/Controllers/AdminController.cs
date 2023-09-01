@@ -59,14 +59,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		{
 			if (usersRepository.TryGetByName(user.Email) != null)
 			{
-				ModelState.AddModelError("", "Пользователь с таким именем уже сущствует");
+				ModelState.AddModelError("", "Пользователь с таким Email уже существует");
 			}
 			if (!ModelState.IsValid)
 			{
 				return View(user);
 			}
 			usersRepository.Add(user);
-			return RedirectToAction("User");
+			return RedirectToAction("Users");
 		}		
 
 		public IActionResult UserDetails(Guid userId)
@@ -88,30 +88,44 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(User user, string name)
-        {
+        public IActionResult EditUser(User user, Guid userId)
+        {            
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            usersRepository.Update(user, name);
+            usersRepository.Update(user, userId);
             return RedirectToAction("Users");
         }
 
         public IActionResult ChangePassword(Guid userId)
         {
-            var product = usersRepository.TryGetById(userId);
-            return View(product);
+            var user = usersRepository.TryGetById(userId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(Guid userId, string password)
+        {
+            usersRepository.ChangePassword(userId, password);
+            return View("Users");
         }
 
         public IActionResult ChangeAccess(Guid userId)
         {
-            var product = usersRepository.TryGetById(userId);
-            return View(product);
-        }		
+            var user = usersRepository.TryGetById(userId);
+            return View(user);
+        }
 
-		//Roles
-		public IActionResult Roles()
+        [HttpPost]
+        public IActionResult ChangeAccess(Guid userId, string roleName)
+        {
+            usersRepository.ChangeAccess(userId, roleName);
+            return View("Users");
+        }
+
+        //Roles
+        public IActionResult Roles()
         {
             var roles = rolesRepository.GetAllRoles();
             return View(roles);

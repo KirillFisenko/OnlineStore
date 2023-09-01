@@ -1,0 +1,19 @@
+﻿@model User
+<form method="post">
+    <h4>Смена роли доступа</h4>
+    <br />
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="Role.Name" class="col-sm-2 col-form-label">Новая роль:</label><br />
+        <div class="col-sm-8">
+            <input asp-for="Role.Name" type="string" class="form-control" />
+            <span asp-validation-for="Role.Name" />
+        </div>
+    </div>     
+    <br />    
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="ChangeAccess" asp-route-userid="@Model.Id">Сохранить</button>
+    <a class="btn btn-outline-primary" asp-controller="Admin" asp-action="Users">Отмена</a>
+</form>
