@@ -26,7 +26,7 @@ namespace OnlineShopWebApp.Controllers
                 var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
                 return View(findProducts);
             }
-            return View(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
     }
 }
