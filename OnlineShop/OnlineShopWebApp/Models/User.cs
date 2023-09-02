@@ -6,38 +6,23 @@ namespace OnlineShopWebApp.Models
 {
     public class User
     {
-        public Guid Id { get; set; }
-        [Required(ErrorMessage = "Не указан Email")]
-        [EmailAddress(ErrorMessage = "Не корректный Email")]
-        [StringLength(70, MinimumLength = 3, ErrorMessage = "Наименование должно содержать от 3 до 70 символов")]
-        public string Email { get; set; }
-
-        [Required(ErrorMessage = "Не указан пароль")]
-        [StringLength(70, MinimumLength = 8, ErrorMessage = "Пароль должен содержать от 8 до 70 символов")]
-        public string Password { get; set; }
+        public Guid Id { get; set; }        
+        public string Name { get; set; }       
+        public string Password { get; set; }           
+        public string FirstName { get; set; }       
+        public string LastName { get; set; }        
+        public string Phone { get; set; }
         public Role Role { get; set; }
 
-        [Required(ErrorMessage = "Не указано имя")]      
-        [StringLength(70, MinimumLength = 1, ErrorMessage = "Имя должно содержать от 1 до 70 символов")]
-        public string FirstName { get; set; }
-
-        [Required(ErrorMessage = "Не указана фамилия")]
-        [StringLength(70, MinimumLength = 1, ErrorMessage = "Фамилия должна содержать от 1 до 70 символов")]
-        public string LastName { get; set; }
-
-        [Required(ErrorMessage = "Не указана телефон")]
-        [StringLength(70, MinimumLength = 1, ErrorMessage = "Телефон должен содержать от 1 до 70 символов")]
-        public string Phone { get; set; }
-
-        public User()
+        public User(string name, string password, string firstName, string lastName, string phone)
         {
             Id = Guid.NewGuid();
             Role = new Role("User");
-        }
-        public User(string name, string password) : this()
-        {               
-            Email = name;
+            Name = name;
             Password = password;            
+            FirstName = firstName;
+            LastName = lastName;
+            Phone = phone;
         }
     }
 }

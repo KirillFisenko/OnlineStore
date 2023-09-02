@@ -60,7 +60,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(register);
             }
-            usersRepository.Add(new User(register.UserName, register.Password));
+            usersRepository.Add(new User(register.UserName, register.Password, register.FirstName, register.LastName, register.Phone));
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }

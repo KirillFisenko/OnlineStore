@@ -6,7 +6,7 @@
     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 
     <div class="row mb-3">
-        <label asp-for="UserName" class="col-sm-1 col-form-label">Логин</label><br />
+        <label asp-for="UserName" class="col-sm-1 col-form-label">Логин:</label><br />
         <div class="col-sm-3">
             <input asp-for="UserName" type="email" class="form-control" />
             <span asp-validation-for="UserName" />
@@ -14,7 +14,7 @@
     </div>
 
     <div class="row mb-3">
-        <label asp-for="Password" class="col-sm-1 col-form-label">Пароль</label><br />
+        <label asp-for="Password" class="col-sm-1 col-form-label">Пароль:</label><br />
         <div class="col-sm-3">
             <input asp-for="Password" type="password" class="form-control" />
             <span asp-validation-for="Password" />
@@ -22,12 +22,35 @@
     </div>
 
     <div class="row mb-3">
-        <label asp-for="ConfirmPassword" class="col-sm-1 col-form-label">Пароль</label><br />
+        <label asp-for="ConfirmPassword" class="col-sm-1 col-form-label">Повторите пароль:</label><br />
         <div class="col-sm-3">
             <input asp-for="ConfirmPassword" type="password" class="form-control" />
             <span asp-validation-for="ConfirmPassword" />
         </div>
     </div>
-
+    <div class="row">
+        <label asp-for="FirstName" class="col-sm-1 col-form-label">Имя:</label><br />
+        <div class="col-sm-3">
+            <input asp-for="FirstName" type="text" class="form-control" />
+            <span asp-validation-for="FirstName" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <label asp-for="LastName" class="col-sm-1 col-form-label">Фамилия:</label><br />
+        <div class="col-sm-3">
+            <input asp-for="LastName" type="text" class="form-control" />
+            <span asp-validation-for="LastName" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <label asp-for="Phone" class="col-sm-1 col-form-label">Телефон:</label><br />
+        <div class="col-sm-3">
+            <input asp-for="Phone" type="text" class="form-control" />
+            <span asp-validation-for="Phone" />
+        </div>
+    </div>
+    <br />
     <button type="submit" class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
 </form>

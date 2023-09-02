@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Models;
 using System.Xml.Linq;
 
@@ -8,9 +9,8 @@ namespace OnlineShopWebApp
     {
         private readonly List<User> users = new List<User>()
         {
-            new User("kirill@kirill.ru", "12345678"),
-            new User("Semen@Semen", "12345678"),
-            new User("Igor@Igor", "12345678")
+            new User("kirill@kirill.ru", "12345678", "Кирилл", "Фисенко", "+79265846357"),
+            new User("andrey@andrey.ru", "12345678", "Андрей", "Петров", "+79164875124")
             };
 
         public List<User> GetAll()
@@ -25,7 +25,7 @@ namespace OnlineShopWebApp
 
         public User TryGetByName(string name)
         {
-            return users.FirstOrDefault(user => user.Email == name);
+            return users.FirstOrDefault(user => user.Name == name);
         }
 
         public void Del(Guid usertId)
@@ -39,20 +39,19 @@ namespace OnlineShopWebApp
             users.Add(user);
         }
 
-        public void Edit(User user, Guid userId)
+        public void Edit(EditUser user, Guid userId)
         {
             var currentUser = TryGetById(userId);
-            currentUser.Email = user.Email;
+            currentUser.Name = user.UserName;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
-            currentUser.Phone = user.Phone;
-            currentUser.Password = user.Password;
+            currentUser.Phone = user.Phone;            
         }
 
         public void ChangePassword(Guid userId, string password)
         {
             var currentUser = TryGetById(userId);
-            currentUser.Password = password;           
+            currentUser.Password = password;
         }
 
         public void ChangeAccess(Guid userId, string roleName)

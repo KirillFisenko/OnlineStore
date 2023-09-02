@@ -1,16 +1,31 @@
-﻿@model User
+﻿@model Register
 <form method="post">
     <h4>Добавление пользователя</h4>
     <br />
     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-
     <div class="row">
-        <label asp-for="Email" class="col-sm-2 col-form-label">Email:</label><br />
+        <label asp-for="UserName" class="col-sm-2 col-form-label">Email:</label><br />
         <div class="col-sm-8">
-            <input asp-for="Email" type="Email" class="form-control" />
-            <span asp-validation-for="Email" />
+            <input asp-for="UserName" type="Email" class="form-control" />
+            <span asp-validation-for="UserName" />
         </div>
     </div>    
+    <br />
+    <div class="row">
+        <label asp-for="Password" class="col-sm-2 col-form-label">Пароль:</label><br />
+        <div class="col-sm-8">
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" />
+        </div>
+    </div>
+    <br />    
+    <div class="row">
+        <label asp-for="ConfirmPassword" class="col-sm-2 col-form-label">Подтвердите пароль:</label><br />
+        <div class="col-sm-8">
+            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" />
+        </div>
+    </div>
     <br />
     <div class="row">
         <label asp-for="FirstName" class="col-sm-2 col-form-label">Имя:</label><br />
@@ -35,15 +50,6 @@
             <span asp-validation-for="Phone" />
         </div>
     </div>    
-
-    <br />
-    <div class="row">
-        <label asp-for="Password" class="col-sm-2 col-form-label">Пароль:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" />
-        </div>
-    </div>
     <br />
     <br />
     <button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="Add">Сохранить</button>

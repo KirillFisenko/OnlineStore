@@ -1,4 +1,5 @@
-﻿using OnlineShopWebApp.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp
 {
@@ -9,7 +10,7 @@ namespace OnlineShopWebApp
         User TryGetByName(string name);
         void Del(Guid userId);
         void Add(User user);
-        void Edit(User user, Guid userId);
+        void Edit(EditUser user, Guid userId);
         void ChangePassword(Guid userId, string password);
         void ChangeAccess(Guid userId, string roleName);
     }

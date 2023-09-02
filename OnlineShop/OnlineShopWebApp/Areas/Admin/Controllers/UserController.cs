@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Models;
+using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -8,9 +10,11 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
     public class UserController : Controller
     {        
         private readonly IUsersRepository usersRepository;
-        public UserController(IUsersRepository usersRepository)
+        private readonly IRolesRepository rolesRepository;
+        public UserController(IUsersRepository usersRepository, IRolesRepository rolesRepository)
         {            
             this.usersRepository = usersRepository;
+            this.rolesRepository = rolesRepository;
         }        
        
         public IActionResult Index()
@@ -25,18 +29,25 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Add(User user)
+		public IActionResult Add(Register register)
 		{
-			if (usersRepository.TryGetByName(user.Email) != null)
-			{
-				ModelState.AddModelError("", "Пользователь с таким Email уже существует");
-			}
-			if (!ModelState.IsValid)
-			{
-				return View(user);
-			}
-			usersRepository.Add(user);
-			return RedirectToAction(nameof(Index));
+            var userAccount = usersRepository.TryGetByName(register.UserName);
+            if (userAccount != null)
+            {
+                ModelState.AddModelError("", "Пользователь с таким именем уже есть.");
+                return View(register);
+            }
+            if (register.UserName == register.Password)
+            {
+                ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+                return View(register);
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(register);
+            }
+            usersRepository.Add(new User(register.UserName, register.Password, register.FirstName, register.LastName, register.Phone));
+            return RedirectToAction(nameof(Index));
 		}		
 
 		public IActionResult Details(Guid userId)
@@ -54,11 +65,17 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Edit(Guid userId)
         {
             var user = usersRepository.TryGetById(userId);
-            return View(user);
+            var editUser = new EditUser();
+            editUser.UserName = user.Name;
+            editUser.FirstName = user.FirstName;
+            editUser.LastName = user.LastName;
+            editUser.Phone = user.Phone;
+            ViewData["userId"] = userId;
+            return View(editUser);
         }
 
         [HttpPost]
-        public IActionResult Edit(User user, Guid userId)
+        public IActionResult Edit(EditUser user, Guid userId)
         {            
             if (!ModelState.IsValid)
             {
@@ -71,7 +88,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult ChangePassword(Guid userId)
         {
             var user = usersRepository.TryGetById(userId);
-            return View(user);
+            ViewData["userId"] = userId;
+            ViewData["userName"] = user.Name;
+            return View();
         }
 
         [HttpPost]
@@ -84,14 +103,18 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult ChangeAccess(Guid userId)
         {
             var user = usersRepository.TryGetById(userId);
-            return View(user);
+            var roles = rolesRepository.GetAll();
+            ViewData["userId"] = userId;
+            ViewData["userName"] = user.Name;
+            ViewData["userRole"] = user.Role.Name;
+            return View(roles);
         }
 
         [HttpPost]
-        public IActionResult ChangeAccess(Guid userId, string roleName)
+        public IActionResult ChangeAccess(Guid userId, string role)
         {
-            usersRepository.ChangeAccess(userId, roleName);
+            usersRepository.ChangeAccess(userId, role);
             return RedirectToAction(nameof(Index));
-        }       
+        }
     }
 }

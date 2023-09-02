@@ -1,27 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShopWebApp.Models
+namespace OnlineShopWebApp.Areas.Admin.Models
 {
-    public class Register
+    public class EditUser
     {
-        [Required(ErrorMessage = "Не указано логин")]
-        [StringLength(200, MinimumLength = 2, ErrorMessage = "Логин должен содержать от 2 до 200 символов")]
+        [Required(ErrorMessage = "Не указано имя пользователя")]
+        [StringLength(200, MinimumLength = 2, ErrorMessage = "Имя пользователя должно содержать от 2 до 200 символов")]
         [EmailAddress(ErrorMessage = "Введите корректный Email")]
-        public string? UserName { get; set; }
-
-        [Required(ErrorMessage = "Не указан пароль")]
-        [StringLength(200, MinimumLength = 8, ErrorMessage = "Пароль должен содержать от 8 до 200 символов")]
-        public string? Password { get; set; }
-
-        [Required(ErrorMessage = "Не указан повторный пароль")]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        public string? ConfirmPassword { get; set; }
+        public string? UserName { get; set; }        
 
         [Required(ErrorMessage = "Не указано имя пользователя")]
         [StringLength(200, MinimumLength = 1, ErrorMessage = "Имя пользователя должно содержать от 1 до 200 символов")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Не указана фамилия пользователя")]
+        [Required(ErrorMessage = "Не указано фамилия пользователя")]
         [StringLength(200, MinimumLength = 1, ErrorMessage = "Фамилия пользователя должно содержать от 1 до 200 символов")]
         public string LastName { get; set; }
 

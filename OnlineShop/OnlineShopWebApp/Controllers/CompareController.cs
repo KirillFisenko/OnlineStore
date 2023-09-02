@@ -23,20 +23,20 @@ namespace OnlineShopWebApp.Controllers
 		{
 			var product = productRepository.TryGetById(productId);			
             compareRepository.Add(product);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Del(int productId)
         {
             var product = productRepository.TryGetById(productId);
             compareRepository.Del(product);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Clear()
         {
             compareRepository.Clear();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
