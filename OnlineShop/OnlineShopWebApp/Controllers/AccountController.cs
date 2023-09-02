@@ -18,23 +18,21 @@ namespace OnlineShopWebApp.Controllers
 
         [HttpPost]
         public IActionResult Login(Login user)
-        {
-            var userAccount = usersRepository.TryGetByName(user.UserName);
+        {			
+			var userAccount = usersRepository.TryGetByName(user.UserName);
             if (userAccount == null)
             {
-                ModelState.AddModelError("", "Пользователь с таким именем не найден. Проверьте имя или зарегистрируйтесь.");
-                return View(user);
+                ModelState.AddModelError("", "Пользователь с таким именем не найден. Проверьте имя или зарегистрируйтесь.");                
             }
-            if (userAccount.Password != user.Password)
+            if (userAccount != null && userAccount.Password != user.Password)
             {
-                ModelState.AddModelError("", "Не верный пароль");
-                return View(user);
+                ModelState.AddModelError("", "Не верный пароль");                
             }
-            if (!ModelState.IsValid)
-            {
-                return View(user);
-            }
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+			if (!ModelState.IsValid)
+			{				
+				return View(nameof(Login));
+			}
+			return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public IActionResult Register()
@@ -48,17 +46,19 @@ namespace OnlineShopWebApp.Controllers
             var userAccount = usersRepository.TryGetByName(register.UserName);
             if (userAccount != null)
             {
-                ModelState.AddModelError("", "Пользователь с таким именем уже есть.");
-                return View(register);
+                ModelState.AddModelError("", "Пользователь с таким именем уже есть.");               
             }
             if (register.UserName == register.Password)
             {
-                ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
-                return View(register);
-            }
-            if (!ModelState.IsValid)
+                ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");                
+            }			
+			if (!register.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
+			{
+				ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");
+			}
+			if (!ModelState.IsValid)
             {
-                return View(register);
+                return View(nameof(Register));
             }
             usersRepository.Add(new User(register.UserName, register.Password, register.FirstName, register.LastName, register.Phone));
             return RedirectToAction(nameof(HomeController.Index), "Home");

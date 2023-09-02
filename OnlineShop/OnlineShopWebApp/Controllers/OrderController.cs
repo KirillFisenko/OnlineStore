@@ -25,16 +25,16 @@ namespace OnlineShopWebApp.Controllers
         {
             if (!user.Name.All(c => char.IsLetter(c) || c == ' '))
             {
-                ModelState.AddModelError("", "ФИО должны содержать только буквы");
+                ModelState.AddModelError("", "ФИО должны содержать только буквы");               
             }
             if (!user.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
             {
-                ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");
-            }
+                ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");				
+			}
             if (!ModelState.IsValid)
             {
-                return View(nameof(Index));
-            }
+				return View(nameof(Index));
+			}
 
             var existingCart = cartsRepository.TryGetById(Constants.UserId);
             var order = new Order
