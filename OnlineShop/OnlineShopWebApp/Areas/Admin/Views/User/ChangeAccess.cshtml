@@ -1,10 +1,8 @@
 ﻿@model List<Role>
 <form method="post">
 	<h4>Смена роли доступа для пользователя @ViewData["userName"]</h4>
-	<br />
-	<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>	
-	<select class="form-select-sm" name="Role">
-		<option selected>@ViewData["userRole"]</option>
+	<br />	
+	<select class="form-select-sm" name="Role">		
 		@foreach (var role in Model)
 		{
 			<option value="@role.Name">@role.Name</option>

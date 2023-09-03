@@ -4,7 +4,7 @@ namespace OnlineShopWebApp.Models
 {
     public class Register
     {
-        [Required(ErrorMessage = "Не указано логин")]
+        [Required(ErrorMessage = "Не указан логин")]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Логин должен содержать от 2 до 200 символов")]
         [EmailAddress(ErrorMessage = "Введите корректный Email")]
         public string? UserName { get; set; }

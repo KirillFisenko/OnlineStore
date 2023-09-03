@@ -30,7 +30,7 @@ namespace OnlineShopWebApp.Controllers
             }
 			if (!ModelState.IsValid)
 			{				
-				return View(nameof(Login));
+				return View(user);
 			}
 			return RedirectToAction(nameof(HomeController.Index), "Home");
         }
@@ -56,9 +56,17 @@ namespace OnlineShopWebApp.Controllers
 			{
 				ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");
 			}
+			if (!register.FirstName.All(char.IsLetter))
+			{
+				ModelState.AddModelError("", "Имя должно содержать только буквы");
+			}
+			if (!register.LastName.All(char.IsLetter))
+			{
+				ModelState.AddModelError("", "Фамилия должна содержать только буквы");
+			}
 			if (!ModelState.IsValid)
             {
-                return View(nameof(Register));
+                return View(register);
             }
             usersRepository.Add(new User(register.UserName, register.Password, register.FirstName, register.LastName, register.Phone));
             return RedirectToAction(nameof(HomeController.Index), "Home");

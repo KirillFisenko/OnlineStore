@@ -1,10 +1,8 @@
 ﻿@model Register
-
 <form method="post">    
     <h4>Регистрация</h4>
     <br />
     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-
     <div class="row mb-3">
         <label asp-for="UserName" class="col-sm-1 col-form-label">Логин:</label><br />
         <div class="col-sm-3">
@@ -12,7 +10,7 @@
             <span asp-validation-for="UserName" />
         </div>
     </div>
-
+    <br />
     <div class="row mb-3">
         <label asp-for="Password" class="col-sm-1 col-form-label">Пароль:</label><br />
         <div class="col-sm-3">
@@ -20,7 +18,7 @@
             <span asp-validation-for="Password" />
         </div>
     </div>
-
+    <br />
     <div class="row mb-3">
         <label asp-for="ConfirmPassword" class="col-sm-1 col-form-label">Повторите пароль:</label><br />
         <div class="col-sm-3">
@@ -28,7 +26,8 @@
             <span asp-validation-for="ConfirmPassword" />
         </div>
     </div>
-    <div class="row">
+    <br />
+    <div class="row mb-3">
         <label asp-for="FirstName" class="col-sm-1 col-form-label">Имя:</label><br />
         <div class="col-sm-3">
             <input asp-for="FirstName" type="text" class="form-control" />
@@ -36,7 +35,7 @@
         </div>
     </div>
     <br />
-    <div class="row">
+    <div class="row mb-3">
         <label asp-for="LastName" class="col-sm-1 col-form-label">Фамилия:</label><br />
         <div class="col-sm-3">
             <input asp-for="LastName" type="text" class="form-control" />
@@ -44,7 +43,7 @@
         </div>
     </div>
     <br />
-    <div class="row">
+    <div class="row mb-3">
         <label asp-for="Phone" class="col-sm-1 col-form-label">Телефон:</label><br />
         <div class="col-sm-3">
             <input asp-for="Phone" type="text" class="form-control" />

@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using OnlineShopWebApp.Areas.Admin.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
 
 namespace OnlineShopWebApp.Models
 {
-    public class User
+	public class User
     {
         public Guid Id { get; set; }        
         public string Name { get; set; }       

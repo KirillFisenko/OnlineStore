@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -28,7 +27,11 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Add(Role role)
         {
-            if (rolesRepository.TryGetByName(role.Name) != null)
+			if (!role.Name.All(c => char.IsLetter(c) || c == ' '))
+			{
+				ModelState.AddModelError("", "Роль должна содержать только буквы");
+			}
+			if (rolesRepository.TryGetByName(role.Name) != null)
             {
                 ModelState.AddModelError("", "Такая роль уже существует");
             }

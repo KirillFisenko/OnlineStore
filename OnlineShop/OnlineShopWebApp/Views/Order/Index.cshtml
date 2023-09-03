@@ -1,42 +1,34 @@
 ﻿@model UserDeliveryInfo;
-
 <div><h4>Заполните данные для заказа</h4></div>
 <br />
 <div class="row">    
     <div class="col-6 card shadow-lg">
         <form method="post">
-
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-
             <div class="form-group" style="margin: 10px">
                 <label asp-for="Name">ФИО*</label>
                 <input asp-for="Name" type="text" class="form-control" placeholder="Фисенко Кирилл Андреевич" />
                 <span asp-validation-for="Name" />
-            </div>
-
+            </div>          
             <div class="form-group" style="margin: 10px">
                 <label asp-for="Email">Email*</label>
                 <input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" />
                 <span asp-validation-for="Email" />
-            </div>
-
+            </div>          
             <div class="form-group" style="margin: 10px">
                 <label asp-for="Phone">Телефон*</label>
                 <input asp-for="Phone" type="text" class="form-control" placeholder="+7 (926) 546-3469" />
                 <span asp-validation-for="Phone" />
-            </div>
-
+            </div>         
             <div class="form-group" style="margin: 10px">
                 <label asp-for="Address">Адрес*</label>
                 <input asp-for="Address" type="text" class="form-control" placeholder="г. Москва, ул. Тверская, д. 1" />
                 <span asp-validation-for="Address" />
-            </div>
-
+            </div>           
             <div class="text-center" style="margin:40px">
                 <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left">Продолжить покупки</i></a>
                 <button class="btn btn-outline-success" type="submit" asp-controller="Order" asp-action="Buy"><i class="bi bi-check-circle-fill">Оформить заказ</i></button>
             </div>
-
         </form>
     </div>
 </div>

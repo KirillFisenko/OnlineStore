@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Areas.Admin.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Models;
-using System.Xml.Linq;
 
 namespace OnlineShopWebApp
 {
