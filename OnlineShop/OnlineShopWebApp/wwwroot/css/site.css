@@ -20,3 +20,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.textId {
+    font-size: 12px;
+    color: #808080;
+}
+
+.textDescription {
+    font-size: 14px;
+    color: #696969;
+}
+
+.titleName {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;   
+}
+
+.price {
+    color: #DAA520
+}

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Models;
+using OnlineShopWebApp;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -30,3 +32,6 @@ namespace OnlineShopWebApp.Controllers
         }
     }
 }
+
+
+

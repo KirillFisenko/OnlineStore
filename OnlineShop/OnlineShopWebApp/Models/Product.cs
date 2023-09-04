@@ -4,7 +4,7 @@ namespace OnlineShopWebApp.Models
 {
 	public class Product
 	{
-		private static int instanceCounter = 1;
+		private static int instanceCounter = 54743;
 		public int Id { get; set; }
 
         [Required(ErrorMessage = "Не указано наименование товара")]
