@@ -19,7 +19,7 @@ namespace OnlineShopWebApp.Controllers
 			return View(products);
 		}
 
-        public IActionResult Test()
+        public IActionResult About()
         {            
             return View();
         }

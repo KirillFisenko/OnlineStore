@@ -1,55 +1,49 @@
 ﻿@model Register
-<form method="post">    
-    <h4>Регистрация</h4>
-    <br />
-    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-    <div class="row mb-3">
-        <label asp-for="UserName" class="col-sm-1 col-form-label">Логин:</label><br />
-        <div class="col-sm-3">
-            <input asp-for="UserName" type="email" class="form-control" />
-            <span asp-validation-for="UserName" />
-        </div>
-    </div>
-    <br />
-    <div class="row mb-3">
-        <label asp-for="Password" class="col-sm-1 col-form-label">Пароль:</label><br />
-        <div class="col-sm-3">
-            <input asp-for="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" />
-        </div>
-    </div>
-    <br />
-    <div class="row mb-3">
-        <label asp-for="ConfirmPassword" class="col-sm-1 col-form-label">Повторите пароль:</label><br />
-        <div class="col-sm-3">
-            <input asp-for="ConfirmPassword" type="password" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" />
-        </div>
-    </div>
-    <br />
-    <div class="row mb-3">
-        <label asp-for="FirstName" class="col-sm-1 col-form-label">Имя:</label><br />
-        <div class="col-sm-3">
-            <input asp-for="FirstName" type="text" class="form-control" />
-            <span asp-validation-for="FirstName" />
-        </div>
-    </div>
-    <br />
-    <div class="row mb-3">
-        <label asp-for="LastName" class="col-sm-1 col-form-label">Фамилия:</label><br />
-        <div class="col-sm-3">
-            <input asp-for="LastName" type="text" class="form-control" />
-            <span asp-validation-for="LastName" />
-        </div>
-    </div>
-    <br />
-    <div class="row mb-3">
-        <label asp-for="Phone" class="col-sm-1 col-form-label">Телефон:</label><br />
-        <div class="col-sm-3">
-            <input asp-for="Phone" type="text" class="form-control" />
-            <span asp-validation-for="Phone" />
-        </div>
-    </div>
-    <br />
-    <button type="submit" class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
-</form>
+<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalRegister">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content rounded-4 shadow">
+			<div class="modal-header p-5 pb-4 border-bottom-0">
+				<h1 class="fw-bold mb-0 fs-2">Регистрация</h1>
+				<a type="button" class="btn-close" asp-controller="Home" asp-action="Index"></a>
+			</div>
+
+			<div class="modal-body p-5 pt-0">
+				<form method="post">
+					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+					<div class="form-floating mb-3">
+						<input asp-for="UserName" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+						<label asp-for="UserName">Email</label>
+						<span asp-validation-for="UserName" />
+					</div>
+					<div class="form-floating mb-3">
+						<input asp-for="Password" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+						<label asp-for="Password">Пароль</label>
+						<span asp-validation-for="Password" />
+					</div>
+					<div class="form-floating mb-3">
+						<input asp-for="ConfirmPassword" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+						<label asp-for="ConfirmPassword">Повторите пароль</label>
+						<span asp-validation-for="ConfirmPassword" />
+					</div>
+					<div class="form-floating mb-3">
+						<input asp-for="FirstName" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Кирилл">
+						<label asp-for="FirstName">Имя</label>
+						<span asp-validation-for="FirstName" />
+					</div>
+					<div class="form-floating mb-3">
+						<input asp-for="LastName" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Фисенко">
+						<label asp-for="LastName">Фамилия</label>
+						<span asp-validation-for="LastName" />
+					</div>
+					<div class="form-floating mb-3">
+						<input asp-for="Phone" type="text" class="form-control rounded-3" id="floatingInput" placeholder="+79265463469">
+						<label asp-for="Phone">Телефон</label>
+						<span asp-validation-for="Phone" />
+					</div>					
+					<button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
+					<small class="text-body-secondary">Нажав кнопку "Зарегистрироваться", вы соглашаетесь с условиями использования.</small>					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

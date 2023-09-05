@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponents
+namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 {
 	public class CartViewComponent : ViewComponent
 	{		
@@ -13,7 +13,7 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponents
 		public IViewComponentResult Invoke()
 		{
 			var cart = cartsRepository.TryGetById(Constants.UserId);
-			var productCounts = cart?.Quantity ?? 0;
+			var productCounts = cart?.Items?.Count() ?? 0;
 			return View("Cart", productCounts);
 		}
 	}
