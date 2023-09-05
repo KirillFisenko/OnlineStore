@@ -18,9 +18,13 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>   
+    </div>
 
-    @await Html.PartialAsync("Footer")   
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            © 2023 ПАО ProPC, г. Москва, Проектируемый пр., д. 124 +7 (495) 548-85-54
+        </div>
+    </footer>  
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
