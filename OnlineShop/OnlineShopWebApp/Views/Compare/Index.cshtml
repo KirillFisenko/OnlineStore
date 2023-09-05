@@ -1,66 +1,77 @@
 ﻿@model List<Product>;
-@if (Model.Count() == 0)
-{
-    <div class="text-center">
-        <h3 class="bg-warning-subtle text-emphasis-warning">В списке сравнения еще нет товаров</h3>
-        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Перейти к покупкам</a>
-    </div>
-}
-else
-{
-    <h4>Сравнение</h4>
-    <div class="row">
-        <div class="col">
-            <table class="table" style="font-size:15px">
-                <thead>
-                    <tr>
-                        <th>Название</th>                        
-                        <th>Описание</th>                        
-                        <th>Цена</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model)
-                    {
-                        <tr>
-                            <td class="col-4"><a style="color:navy" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><p>@product.Name</p></a></td>
-                            <td class="col-4">@product.Description</td>
-                            <td class="col-3">@string.Format("{0:### ### ###}", product.Cost) р</td>
-                            <td class="col-3 text-end">                              
-                                <a class="btn btn-outline-warning" title="Удалить из списка" asp-controller="Compare" asp-action="Del" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"></i></a>
-                                <a class="btn btn-warning" title="Добавить в корзину" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i></a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="text-center">
-                <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left">Продолжить покупки</i></a>
-                <!-- Кнопка-триггер модального окна -->
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="bi bi-x-circle">Очистить сравнение</i>
-                </button>              
-            </div>
-        </div>
-    </div>
-}
 
-<!-- Модальное окно очистки всего списка-->
+<div class="row">
+
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("LeftMenu")
+		</div>
+	</div>
+
+	<div class="col-lg-9 my-4">
+
+		@if (Model.Count() == 0)
+		{
+			<div class="text-center my-xl-3">
+				<h3 class="bg-warning-subtle text-emphasis-warning ">В списке сравнения еще нет товаров</h3>
+				<a class="btn btn-outline-warning my-xl-3" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Перейти к покупкам</i></a>
+			</div>
+		}
+		else
+		{
+			<div class="my-4 row">
+				<h4 class="bg-warning-subtle text-emphasis-warning">Сравнение</h4>
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="col-4">Название</th>
+							<th class="col-1">Цена</th>
+							<th class="col-5">Описание</th>
+							<th class="col-2"></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var product in Model)
+						{
+							<tr>
+								<td><a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>
+								<td>@product.Cost &#8381;</td>
+								<td>@product.Description</td>
+								<td class="text-end">
+									<a class="btn btn-outline-warning" asp-controller="Compare" asp-action="Del" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"> </i></a>
+									<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i></a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+				<div class="text-center">
+					<a class="btn btn-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+					<!-- Кнопка-триггер модального окна -->
+					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						<i class="bi bi-x-circle"> Очистить сравнение</i>
+					</button>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+<!-- Модальное окно -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Очистка сравнения</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            <div class="modal-body">
-                Вы уверены, что хотите очистить список?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <a type="button" class="btn btn-primary" asp-controller="Compare" asp-action="Clear">Очистить</a>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Очистка сравнения</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+			</div>
+			<div class="modal-body">
+				Вы уверены, что хотите очистить список?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+				<a type="button" class="btn btn-warning" asp-controller="Compare" asp-action="Clear">Очистить</a>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,59 +1,70 @@
 ﻿@model Cart;
-@if (Model == null)
-{
-	<div class="text-center">
-		<h3 class="bg-warning-subtle text-emphasis-warning">В корзине еще нет товаров</h3>
-		<a class="btn btn-primary" asp-controller="Home" asp-action="Index">Перейти к покупкам</a>
-	</div>
-}
-else
-{
-	<h4>Корзина</h4>
-	<div class="row">
-		<div class="col">
-			<table class="table">
-				<thead>
-					<tr>
-						<th class="col-4">Название</th>
-						<th class="col-1"></th>
-						<th class="col-2">Цена</th>
-						<th class="col-2">Количество</th>
-						<th class="col-2 text-end">Сумма</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var item in Model.Items)
-					{
-						<tr>
-							<td>
-								<a style="color:navy" asp-controller="Product" asp-action="Index" asp-route-productId="@item.Product.Id"><p>@item.Product.Name</p></a>
-							</td>
-							<td><img class="img-fluid col-6 text-start" src="@item.Product.ImagePath"></td>
-							<td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
-							<td>
-								@item.Quantity
-								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id">+</a>
-								<a class="btn btn-outline-secondary btn-sm" style="border-radius: 50px" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id">-</a>
-							</td>
-							<td class="text-end">@string.Format("{0:### ### ###}", item.Amount) р</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-			<div class="text-end">
-				<h4>Итого: @string.Format("{0:### ### ###}", Model.Cost) р</h4>
-			</div>
-			<div class="text-center">
-				<a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left">Продолжить покупки</i></a>
-				<a class="btn btn-outline-success" asp-controller="Order" asp-action="Index"><i class="bi bi-check-circle-fill">Перейти к оформлению</i></a>
-				<!-- Кнопка-триггер модального окна -->
-				<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					<i class="bi bi-x-circle">Очистить корзину</i>
-				</button>				
-			</div>
+
+<div class="row">
+
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("LeftMenu")
 		</div>
 	</div>
-}
+
+	<div class="col-lg-9 my-4">
+
+		@if (Model == null)
+		{
+			<div class="text-center my-xl-3">
+				<h3 class="bg-warning-subtle text-emphasis-warning ">В корзине еще нет товаров</h3>
+				<a class="btn btn-outline-warning my-xl-3" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Перейти к покупкам</i></a>
+			</div>
+		}
+		else
+		{
+			<div class="my-4">
+				<h4 class="bg-warning-subtle text-emphasis-warning">Корзина</h4>
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="col-6">Название</th>
+							<th class="col-2">Цена</th>
+							<th class="col-2">Количество</th>
+							<th class="col-2 text-end">Сумма</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model.Items)
+						{
+							<tr>
+								<td>
+									<a asp-controller="Product" asp-action="Index" asp-route-productId="@item.Product.Id">@item.Product.Name</a>
+								</td>
+								<td>@item.Product.Cost &#8381;</td>
+								<td>
+									@item.Quantity									
+									<div class="btn-group" role="group" aria-label="Basic outlined example"> 
+										<a type="button" class="btn btn-outline-secondary" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id">+</a>
+										<a type="button" class="btn btn-outline-secondary" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id">-</a>
+									</div>
+								</td>
+								<td class="text-end">@item.Amount &#8381;</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+				<div class="text-end">
+					<h4>Итого: @Model.Cost &#8381;</h4>
+				</div>
+				<div class="text-center my-xl-3">
+					<a class="btn btn-outline-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+					<a class="btn btn-warning" asp-controller="Order" asp-action="Index"><i class="bi bi-check-circle-fill"> Перейти к оформлению</i></a>
+					<!-- Кнопка-триггер модального окна -->
+					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						<i class="bi bi-x-circle"> Очистить корзину</i>
+					</button>
+				</div>
+			</div>
+		}
+	</div>
+</div>
 
 <!-- Модальное окно -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -68,7 +79,7 @@ else
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<a type="button" class="btn btn-primary" asp-controller="Cart" asp-action="Clear">Очистить</a>
+				<a type="button" class="btn btn-warning" asp-controller="Cart" asp-action="Clear">Очистить</a>
 			</div>
 		</div>
 	</div>

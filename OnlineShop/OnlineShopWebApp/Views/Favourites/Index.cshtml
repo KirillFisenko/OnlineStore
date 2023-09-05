@@ -20,29 +20,29 @@
 		else
 		{
 			<div class="my-4">
-				<h4 class="bg-warning-subtle text-emphasis-warning">Избранное</h4>				
-					<table class="table">
-						<thead>
+				<h4 class="bg-warning-subtle text-emphasis-warning">Избранное</h4>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Название</th>
+							<th>Цена</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var product in Model)
+						{
 							<tr>
-								<th>Название</th>								
-								<th>Цена</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var product in Model)
-							{
-								<tr>
-									<td><a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>									
-									<td>@product.Cost &#8381;</td>
+								<td><a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>
+								<td>@product.Cost &#8381;</td>
 								<td class="text-end">
-										<a class="btn btn-outline-warning" asp-controller="Favourites" asp-action="Del" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"> </i></a>
-										<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> Купить</a>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
+									<a class="btn btn-outline-warning" asp-controller="Favourites" asp-action="Del" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"> </i></a>
+									<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> Купить</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
 				<div class="text-center">
 					<a class="btn btn-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
 					<!-- Кнопка-триггер модального окна -->
