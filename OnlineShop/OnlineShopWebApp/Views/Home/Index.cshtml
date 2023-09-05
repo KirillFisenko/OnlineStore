@@ -3,26 +3,8 @@
 <div class="row">
 
 	<div class="col-lg-3">
-		<div class="my-4">
-			<a class="titleName" asp-controller="Home" asp-action="Index">				
-				<img src="images/mainIcon.png" alt="иконка" width="40" height="34" class="d-inline-block align-text-top"> ProPC
-			</a>
-			<div class="list-group list-group-flush">
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Все категории</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Процессоры</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Материнские платы</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Видеокарты</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">HDD</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">SSD</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Оперативная память</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Корпуса</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Блоки питания</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Системы охлаждения</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Оптические приводы</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Звуковые карты</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Аксессуары и моддинг</a>
-				<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Программное обеспечение</a>
-			</div>
+		<div class="my-4">			
+			@await Html.PartialAsync("LeftMenu")
 		</div>
 	</div>
 
@@ -32,28 +14,34 @@
 				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
 				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="3" aria-label="Slide 4"></button>
+				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="4" aria-label="Slide 5"></button>
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="/images/image.png" class="d-block img-fluid" alt="Изображение товара">
-					<div class="carousel-caption d-none d-md-block">
-						<h5>Сражайся за свободу</h5>
-						<p>Получите комплект GeForce Overwatch 2 Unvasion Ultimate в подарок при покупке некоторых видеокарт GeForce RTX 40.</p>
-					</div>
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[0].Id">
+						<img src="/images/pa_rtx4080_GP_1920_680_183.jpg" class="d-block img-fluid" alt="Изображение карусели">
+					</a>
 				</div>
 				<div class="carousel-item">
-					<img src="/images/image.png" class="d-block img-fluid" alt="Изображение товара">
-					<div class="carousel-caption d-none d-md-block">
-						<h5>Стремитесь к преодолению предстоящих испытаний</h5>
-						<p>Вместе с новым поколением видеокарт GeForce RTX 40.</p>
-					</div>
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[1].Id">
+					<img src="/images/pa_ow2s6_1920_680_01_ru_412.jpg" class="d-block img-fluid" alt="Изображение карусели">
+					</a>
 				</div>
 				<div class="carousel-item">
-					<img src="/images/image.png" class="d-block img-fluid" alt="Изображение товара">
-					<div class="carousel-caption d-none d-md-block">
-						<h5>GeForce RTX 4070</h5>
-						<p>Зажгите игру. Стремись к победе.</p>
-					</div>
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[2].Id">
+					<img src="/images/pa_rtx4060Ti_js_1920_680_01_en_717.jpg" class="d-block img-fluid" alt="Изображение карусели">
+					</a>
+				</div>
+				<div class="carousel-item">
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[3].Id">
+					<img src="/images/pa_rtx4070_1920_680_01_en_302.jpg" class="d-block img-fluid" alt="Изображение карусели">
+					</a>
+				</div>
+				<div class="carousel-item">
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[4].Id">
+					<img src="/images/pa_rtx4080_70Ti_js_1920_680_02_ru_162.jpg" class="d-block img-fluid" alt="Изображение карусели">
+					</a>
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -70,8 +58,8 @@
 			@foreach (var product in Model)
 			{
 				<div class="col-lg-4 mb-4">
-					<div class="card h-80 box-shadow">
-						<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><img class="card-img-top" src="/images/image.png" alt="Изображение товара"></a>
+					<div class="card box-shadow h-70">
+						<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><img class="card-img-top rounded mx-auto d-block w-50 h-50" src="@product.ImagePath" alt="Изображение товара"></a>
 						<div class="card-body">
 							<h5 class="price">@product.Cost &#8381;</h5>
 							<p class="textId">ID: @product.Id</p>
