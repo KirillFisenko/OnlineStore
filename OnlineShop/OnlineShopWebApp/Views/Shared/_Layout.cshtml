@@ -18,9 +18,9 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    </div>   
 
-   @* @await Html.PartialAsync("Footer")*@
+    @await Html.PartialAsync("Footer")   
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,7 +28,7 @@
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)   
     
 </body>
 </html>
