@@ -1,61 +1,68 @@
 ﻿@model Order;
-<div class="text-center">
-    <h4>Уважаемый @Model.User.Name, ваш заказ № @Model.Id успешно создан!</h4>
+
+<div class="text-center my-xl-3">
+    <h3 class="bg-warning-subtle text-emphasis-warning ">Уважаемый @Model.User.Name, ваш заказ № @Model.Id успешно создан!</h3>
 </div>
-<br />  
-<div class="row">
-    <div class="col-5">
-        <h4>Ваш заказ</h4>
-        <table class="table" style="font-size: 12px">
-            <thead>
-                <tr>
-                    <th class="col-5">Название</th>
-                    <th class="col-2">Цена</th>
-                    <th class="col-2">Количество</th>
-                    <th class="col-3">Сумма</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Items)
-                {
-                    <tr>
-                        <td>@item.Product.Name</td>
-                        <td>@string.Format("{0:### ### ###}", item.Product.Cost) р</td>
-                        <td>@item.Quantity</td>
-                        <td>@string.Format("{0:### ### ###}", item.Amount) р</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div class="text-end">
-            <h6>Итого: @string.Format("{0:### ### ###}", Model.Amount) р</h6>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>Ваш заказ</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-5">Название</th>
+                            <th class="col-2">Цена</th>
+                            <th class="col-2">Количество</th>
+                            <th class="col-3">Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Product.Name</td>
+                                <td>@item.Product.Cost &#8381;</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Amount &#8381;</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-end">
+                <h6>Итого: @Model.Amount &#8381;</h6>
+            </div>
         </div>
     </div>
-    <div class="col-1"></div>
-
-    <div class="col-6">
-        <h4>Данные заказчика</h4>
-        <table class="table" style="font-size: 12px">
-            <thead>
-                <tr>
-                    <th class="col-5">ФИО</th>
-                    <th class="col-2">Телефон</th>
-                    <th class="col-2">E-mail</th>
-                    <th class="col-3">Адрес</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@Model.User.Name</td>
-                    <td>@Model.User.Phone</td>
-                    <td>@Model.User.Email</td>
-                    <td>@Model.User.Address</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary rounded-3">
+            <h2>Данные заказчика</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-5">ФИО</th>
+                            <th class="col-2">Телефон</th>
+                            <th class="col-2">E-mail</th>
+                            <th class="col-3">Адрес</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.User.Name</td>
+                            <td>@Model.User.Phone</td>
+                            <td>@Model.User.Email</td>
+                            <td>@Model.User.Address</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-<br />
-<div class="text-center">
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left">Продолжить покупки</i></a>
+
+<div class="text-center my-xl-3">
+    <a class="w-100 btn btn-lg btn-outline-warning my-4" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
 </div>
