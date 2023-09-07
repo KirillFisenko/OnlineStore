@@ -24,7 +24,10 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Buy(UserDeliveryInfo user)
         {
-            if (!user.Name.All(c => char.IsLetter(c) || c == ' '))
+			var existingCart = cartsRepository.TryGetById(Constants.UserId);
+			ViewData["cart"] = existingCart;
+
+			if (!user.Name.All(c => char.IsLetter(c) || c == ' '))
             {
                 ModelState.AddModelError("", "ФИО должны содержать только буквы");               
             }
@@ -37,7 +40,7 @@ namespace OnlineShopWebApp.Controllers
 				return View(nameof(Index));
 			}
 
-            var existingCart = cartsRepository.TryGetById(Constants.UserId);
+            
             var order = new Order
             {
                 User = user,

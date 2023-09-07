@@ -1,16 +1,29 @@
 ﻿@model List<Role>
-<form method="post">
-	<h4>Смена роли доступа для пользователя @ViewData["userName"]</h4>
-	<br />	
-	<select class="form-select-sm" name="Role">		
-		@foreach (var role in Model)
-		{
-			<option value="@role.Name">@role.Name</option>
-		}
-	</select>
-	<br />
-	<br />
-	<br />
-	<button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-userId="@ViewData["userId"]">Сохранить</button>
-	<a class="btn btn-outline-primary" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
-</form>
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="my-4">
+            @await Html.PartialAsync("MenuAdministrator")
+        </div>
+    </div>
+
+    <div class="col-lg-9 my-4">
+        <form method="post">
+            <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+            <div class="row g-3">
+                <h4 class="bg-warning-subtle text-emphasis-warning my-4">Смена роли доступа для пользователя @ViewData["userName"]</h4>
+                
+                <select class="form-select-sm col-3 my-4" name="Role">
+                    @foreach (var role in Model)
+                    {
+                        <option value="@role.Name">@role.Name</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-userId="@ViewData["userId"]">Сохранить</button>
+            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
+                        
+        </form>
+    </div>
+</div>

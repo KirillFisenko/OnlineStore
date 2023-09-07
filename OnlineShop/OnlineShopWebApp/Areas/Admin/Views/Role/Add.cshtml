@@ -1,17 +1,29 @@
 ﻿@model Role
-<form method="post">
-    <h4>Добавление роли</h4>
-    <br />
-    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-    <div class="row">
-        <label asp-for="Name" class="col-sm-2 col-form-label">название роли:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="Name" type="text" class="form-control" />
-            <span asp-validation-for="Name" />
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="my-4">
+            @await Html.PartialAsync("MenuAdministrator")
         </div>
-    </div>   
-    <br />
-    <br />
-    <button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="Role" asp-action="Add">Сохранить</button>
-    <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="Role" asp-action="Index">Отмена</a>
-</form>
+    </div>
+
+    <div class="col-lg-9 my-4">
+        <form method="post">
+            <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+            <div class="row g-3">
+                <h4 class="bg-warning-subtle text-emphasis-warning">Добавление роли</h4>
+
+                <div class="col-12">
+                    <label asp-for="Name">Название роли:</label>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Admin" />
+                    <span asp-validation-for="Name" />
+                </div>
+                
+            </div>
+
+            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="Role" asp-action="Add">Сохранить</button>
+            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="Role" asp-action="Index">Отмена</a>
+
+        </form>
+    </div>
+</div>

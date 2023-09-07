@@ -1,46 +1,52 @@
 ﻿@model User;
-<form method="post">
-    <div class="row">
-        @await Html.PartialAsync("MenuAdministrator")
-        <div class="col-1"></div>
-        <div class="col-9">
-            <h4>Пользователь № @Model.Id</h4>
-            <br />
-            <table class="table">
-                <tr>
-                    <th>Email:</th>
-                    <td>@Model.Name</td>
-                </tr>
-                <tr>
-                    <th>Имя:</th>
-                    <td>@Model.FirstName</td>
-                </tr>
-                <tr>
-                    <th>Фамилия:</th>
-                    <td>@Model.LastName</td>
-                </tr>
-                <tr>
-                    <th>Телефон:</th>
-                    <td>@Model.Phone</td>
-                </tr>
-                <tr>
-                    <th>Роль:</th>
-                    <td>@Model.Role.Name</td>
-                </tr>
-            </table>
-            <br />
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-userId="@Model.Id">Смена пароля</a></li>
-                <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id">Редактирование данных</a></li>
-                <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-userId="@Model.Id">Права доступа</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <!-- Кнопка-триггер модального окна -->
-                <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить пользователя</button></li>
-            </ul>
+
+<div class="row">
+
+    <div class="col-lg-3">
+        <div class="my-4">
+            @await Html.PartialAsync("MenuAdministrator")
         </div>
     </div>
-</form>
+
+    <div class="col-lg-9 my-4">
+        <form method="post">
+            <div class="my-4">
+                <h4 class="bg-warning-subtle text-emphasis-warning">Пользователь № @Model.Id</h4>
+                <table class="table">
+                    <tr>
+                        <th class="col-3">Email:</th>
+                        <td class ="col-9">@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Имя:</th>
+                        <td>@Model.FirstName</td>
+                    </tr>
+                    <tr>
+                        <th>Фамилия:</th>
+                        <td>@Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <th>Телефон:</th>
+                        <td>@Model.Phone</td>
+                    </tr>
+                    <tr>
+                        <th>Роль:</th>
+                        <td>@Model.Role.Name</td>
+                    </tr>
+                </table>
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-userId="@Model.Id">Смена пароля</a></li>
+                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id">Редактирование данных</a></li>
+                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-userId="@Model.Id">Права доступа</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <!-- Кнопка-триггер модального окна -->
+                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить пользователя</button></li>
+                </ul>
+            </div>            
+        </form>
+    </div>
+</div>
 
 <!-- Модальное окно -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -55,7 +61,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <a type="button" asp-area="Admin" class="btn btn-primary" asp-controller="User" asp-action="Del" asp-route-userId="@Model.Id">Удалить</a>
+                <a type="button" asp-area="Admin" class="btn btn-warning" asp-controller="User" asp-action="Del" asp-route-userId="@Model.Id">Удалить</a>
             </div>
         </div>
     </div>

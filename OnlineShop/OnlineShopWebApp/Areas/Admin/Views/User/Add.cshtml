@@ -1,57 +1,58 @@
 ﻿@model Register
-<form method="post">
-    <h4>Добавление пользователя</h4>
-    <br />
-    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-    <div class="row">
-        <label asp-for="UserName" class="col-sm-2 col-form-label">Email:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="UserName" type="email" class="form-control" />
-            <span asp-validation-for="UserName" />
-        </div>
-    </div>    
-    <br />
-    <div class="row">
-        <label asp-for="Password" class="col-sm-2 col-form-label">Пароль:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" />
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="my-4">
+            @await Html.PartialAsync("MenuAdministrator")
         </div>
     </div>
-    <br />    
-    <div class="row">
-        <label asp-for="ConfirmPassword" class="col-sm-2 col-form-label">Подтвердите пароль:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="ConfirmPassword" type="password" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" />
-        </div>
+
+    <div class="col-lg-9 my-4">
+        <form method="post">
+            <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+            <div class="row g-3">
+                <h4 class="bg-warning-subtle text-emphasis-warning">Добавление пользователя</h4>
+
+                <div class="col-12">
+                    <label asp-for="UserName">Email:</label>
+                    <input asp-for="UserName" type="text" class="form-control" placeholder="Example@gmail.com" />
+                    <span asp-validation-for="UserName" />
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Password">Пароль:</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" />
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="ConfirmPassword">Подтвердите пароль:</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" />
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="FirstName">Имя:</label>
+                    <input asp-for="FirstName" type="text" class="form-control" placeholder="Кирилл" />
+                    <span asp-validation-for="FirstName" />
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="LastName">Фамилия:</label>
+                    <input asp-for="LastName" type="text" class="form-control" placeholder="Фисенко" />
+                    <span asp-validation-for="LastName" />
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Phone">Телефон:</label>
+                    <input asp-for="Phone" type="text" class="form-control" placeholder="+79265463469" />
+                    <span asp-validation-for="Phone" />
+                </div>
+            </div>
+
+            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="Add">Сохранить</button>
+            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
+
+        </form>
     </div>
-    <br />
-    <div class="row">
-        <label asp-for="FirstName" class="col-sm-2 col-form-label">Имя:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="FirstName" type="text" class="form-control" />
-            <span asp-validation-for="FirstName" />
-        </div>
-    </div>    
-    <br />
-    <div class="row">
-        <label asp-for="LastName" class="col-sm-2 col-form-label">Фамилия:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="LastName" type="text" class="form-control" />
-            <span asp-validation-for="LastName" />
-        </div>
-    </div>    
-    <br />
-    <div class="row">
-        <label asp-for="Phone" class="col-sm-2 col-form-label">Телефон:</label><br />
-        <div class="col-sm-8">
-            <input asp-for="Phone" type="text" class="form-control" />
-            <span asp-validation-for="Phone" />
-        </div>
-    </div>    
-    <br />
-    <br />
-    <button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="Add">Сохранить</button>
-    <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
-</form>
+</div>
