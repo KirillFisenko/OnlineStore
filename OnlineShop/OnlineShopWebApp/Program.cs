@@ -1,5 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db;
 using OnlineShopWebApp;
-
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,12 @@ builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepositor
 builder.Services.AddSingleton<ICompareRepository, CompareInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
 builder.Services.AddSingleton<IUsersRepository, UsersInMemoryRepository>();
+
+// получаем строку подключения из файла конфигурации
+string connection = builder.Configuration.GetConnectionString("online_shop");
+
+// добавляем контекст DatabaseContext в качестве сервиса в приложение
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
 var app = builder.Build();
 
