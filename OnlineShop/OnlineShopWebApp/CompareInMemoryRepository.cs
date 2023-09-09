@@ -4,9 +4,9 @@ namespace OnlineShopWebApp
 {
 	public class CompareInMemoryRepository : ICompareRepository
 	{
-        private readonly List<Product> compare = new List<Product>();
+        private readonly List<ProductViewModel> compare = new List<ProductViewModel>();
 
-		public void Add(Product product)
+		public void Add(ProductViewModel product)
 		{
 			if (!compare.Contains(product))
 			{
@@ -14,7 +14,7 @@ namespace OnlineShopWebApp
             }			
 		}
 
-		public void Del(Product product)
+		public void Del(ProductViewModel product)
 		{
 			compare.Remove(product);
 		}
@@ -24,7 +24,7 @@ namespace OnlineShopWebApp
 			compare.Clear();
 		}
 
-		public List<Product> GetAllCompare()
+		public List<ProductViewModel> GetAllCompare()
 		{
 			return compare;
 		}

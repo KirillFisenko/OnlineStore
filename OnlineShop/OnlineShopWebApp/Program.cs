@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db;
 using OnlineShopWebApp;
+using OnlineShopWebApp.Db;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Host.UseSerilog((context, configuration) => configuration
 .Enrich.WithProperty("ApplicationName", "Online Shop"));
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
+builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
 builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
 builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepository>();

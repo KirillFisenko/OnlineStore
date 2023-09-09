@@ -4,9 +4,9 @@ namespace OnlineShopWebApp
 {
 	public class FavouritesInMemoryRepository : IFavouritesRepository
 	{
-        private readonly List<Product> favourites = new List<Product>();
+        private readonly List<ProductViewModel> favourites = new List<ProductViewModel>();
 
-		public void Add(Product product)
+		public void Add(ProductViewModel product)
 		{
 			if (!favourites.Contains(product))
 			{
@@ -14,7 +14,7 @@ namespace OnlineShopWebApp
             }			
 		}
 
-        public void Del(Product product)
+        public void Del(ProductViewModel product)
         {
             favourites.Remove(product);
         }
@@ -24,7 +24,7 @@ namespace OnlineShopWebApp
             favourites.Clear();
         }
 
-        public List<Product> GetAllFavourites()
+        public List<ProductViewModel> GetAllFavourites()
 		{
 			return favourites;
 		}

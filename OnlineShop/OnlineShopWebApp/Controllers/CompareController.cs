@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Db;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -19,17 +20,17 @@ namespace OnlineShopWebApp.Controllers
 			return View(compareList);
 		}
 
-		public IActionResult Add(int productId)
+		public IActionResult Add(Guid productId)
 		{
 			var product = productRepository.TryGetById(productId);			
-            compareRepository.Add(product);
+            //compareRepository.Add(product);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Del(int productId)
+        public IActionResult Del(Guid productId)
         {
             var product = productRepository.TryGetById(productId);
-            compareRepository.Del(product);
+            //compareRepository.Del(product);
             return RedirectToAction(nameof(Index));
         }
 

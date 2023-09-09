@@ -4,9 +4,9 @@ namespace OnlineShopWebApp
 {
 	public interface IFavouritesRepository
 	{
-		void Add(Product product);
-		public void Del(Product product);
+		void Add(ProductViewModel product);
+		public void Del(ProductViewModel product);
         public void Clear();
-        public List<Product> GetAllFavourites();
+        public List<ProductViewModel> GetAllFavourites();
 	}
 }

@@ -11,7 +11,6 @@ namespace OnlineShop.Db
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.EnsureCreated(); //создаем БД при первом обращении
-        }
-        
+        }        
     }
 }

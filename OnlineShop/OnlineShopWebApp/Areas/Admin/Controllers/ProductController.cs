@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Db;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -15,29 +17,51 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = productsRepository.GetAll();
-            return View(products);
+            var productsViewModels = new List<ProductViewModel>();
+            foreach (var product in products)
+            {
+                var productViewModel = new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Cost = product.Cost,
+                    Description = product.Description,
+                    ImagePath = product.ImagePath
+                };
+                productsViewModels.Add(productViewModel);
+            }
+            return View(productsViewModels);
         }
 
-        public IActionResult Del(int productId)
+        public IActionResult Del(Guid productId)
         {
             productsRepository.Del(productId);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit(int productId)
+        public IActionResult Edit(Guid productId)
         {
             var product = productsRepository.TryGetById(productId);
             return View(product);
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product, int productId)
+        public IActionResult Edit(ProductViewModel product, Guid productId)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
-            productsRepository.Edit(product, productId);
+
+            var prductDb = new Product
+            {
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagePath = product.ImagePath
+            };
+
+            productsRepository.Edit(prductDb, productId);
             return RedirectToAction(nameof(Index));
         }
 
@@ -47,7 +71,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Product product)
+        public IActionResult Add(ProductViewModel product)
         {
             if (productsRepository.TryGetByName(product.Name) != null)
             {
@@ -57,7 +81,16 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             {
                 return View(product);
             }
-            productsRepository.Add(product);
+
+            var prductDb = new Product
+            {
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagePath = product.ImagePath
+            };
+
+            productsRepository.Add(prductDb);
             return RedirectToAction(nameof(Index));
         }
     }
