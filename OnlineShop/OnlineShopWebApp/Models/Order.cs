@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using OnlineShopWebApp.Areas.Admin.Models;
 
 namespace OnlineShopWebApp.Models
 {
@@ -23,7 +24,7 @@ namespace OnlineShopWebApp.Models
     {
         public Guid Id { get; set; }
         public UserDeliveryInfo User { get; set; }
-        public List<CartItem> Items { get; set; }
+        public List<CartItemViewModel> Items { get; set; }
 
         public decimal? Amount
         {

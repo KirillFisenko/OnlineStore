@@ -2,6 +2,7 @@
 using OnlineShopWebApp.Models;
 using OnlineShopWebApp;
 using OnlineShopWebApp.Db;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -16,21 +17,8 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Index()
 		{			
-			var products = productRepository.GetAll();
-            var productsViewModels = new List<ProductViewModel>();
-            foreach (var product in products)
-            {
-                var productViewModel = new ProductViewModel
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Cost = product.Cost,
-                    Description = product.Description,
-                    ImagePath = product.ImagePath
-                };
-                productsViewModels.Add(productViewModel);
-            }
-			return View(productsViewModels);
+			var products = productRepository.GetAll();            
+			return View(Mapping.ToProductViewModels(products));
 		}
 
         public IActionResult About()

@@ -12,7 +12,7 @@ builder.Host.UseSerilog((context, configuration) => configuration
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
-builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
+builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
 builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepository>();
 builder.Services.AddSingleton<ICompareRepository, CompareInMemoryRepository>();

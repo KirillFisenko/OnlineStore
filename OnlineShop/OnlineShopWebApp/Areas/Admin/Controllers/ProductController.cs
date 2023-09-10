@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Db;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -16,21 +17,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 
         public IActionResult Index()
         {
-            var products = productsRepository.GetAll();
-            var productsViewModels = new List<ProductViewModel>();
-            foreach (var product in products)
-            {
-                var productViewModel = new ProductViewModel
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Cost = product.Cost,
-                    Description = product.Description,
-                    ImagePath = product.ImagePath
-                };
-                productsViewModels.Add(productViewModel);
-            }
-            return View(productsViewModels);
+            var products = productsRepository.GetAll();            
+            return View(Mapping.ToProductViewModels(products));
         }
 
         public IActionResult Del(Guid productId)
