@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineShopWebApp.Views.Shared.ViewComponents.CompareViewComponent
+namespace OnlineShop.Views.Shared.ViewComponents.CompareViewComponent
 {
 	public class CompareViewComponent : ViewComponent
 	{		

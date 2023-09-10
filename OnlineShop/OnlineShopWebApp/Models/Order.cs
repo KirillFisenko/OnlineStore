@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShop.Areas.Admin.Models;
 
-namespace OnlineShopWebApp.Models
+namespace OnlineShop.Models
 {
     public enum OrderStatuses
     {

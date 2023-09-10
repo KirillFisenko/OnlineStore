@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineShopWebApp.Views.Shared.ViewComponents.FavouritesViewComponent
+namespace OnlineShop.Views.Shared.ViewComponents.FavouritesViewComponent
 {
 	public class FavouritesViewComponent : ViewComponent
 	{		

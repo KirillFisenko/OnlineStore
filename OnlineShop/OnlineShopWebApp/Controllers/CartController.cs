@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Db;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.Controllers
 {
 	public class CartController : Controller
 	{
@@ -33,7 +33,7 @@ namespace OnlineShopWebApp.Controllers
                 ImagePath = product.ImagePath
             };
 
-            //cartsRepository.Add(prductDb, Constants.UserId);
+			cartsRepository.Add(prductDb, Constants.UserId);
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -49,7 +49,7 @@ namespace OnlineShopWebApp.Controllers
                 ImagePath = product.ImagePath
             };
 
-            //cartsRepository.DecreaseAmount(prductDb, Constants.UserId);
+			cartsRepository.DecreaseAmount(prductDb, Constants.UserId);
 			return RedirectToAction(nameof(Index));
 		}
 

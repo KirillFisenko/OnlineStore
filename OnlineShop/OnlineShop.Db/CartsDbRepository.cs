@@ -1,7 +1,6 @@
-﻿using OnlineShop.Db;
-using OnlineShop.Db.Models;
+﻿using OnlineShop.Db.Models;
 
-namespace OnlineShopWebApp.Db
+namespace OnlineShop.Db
 {
 	public class CartsDbRepository : ICartsRepository
 	{

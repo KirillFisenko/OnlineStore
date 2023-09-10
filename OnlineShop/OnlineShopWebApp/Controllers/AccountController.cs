@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Models;
+using OnlineShop.Models;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.Controllers
 {
     public class AccountController : Controller
     {

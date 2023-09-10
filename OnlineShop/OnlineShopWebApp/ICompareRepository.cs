@@ -1,6 +1,6 @@
-﻿using OnlineShopWebApp.Models;
+﻿using OnlineShop.Models;
 
-namespace OnlineShopWebApp
+namespace OnlineShop
 {
 	public interface ICompareRepository
 	{

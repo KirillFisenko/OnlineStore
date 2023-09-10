@@ -1,6 +1,6 @@
-﻿using OnlineShopWebApp.Models;
+﻿using OnlineShop.Models;
 
-namespace OnlineShopWebApp.Models
+namespace OnlineShop.Models
 {
     public class CartItemViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using OnlineShop.Db.Models;
-using OnlineShopWebApp.Models;
+using OnlineShop.Models;
 
-namespace OnlineShopWebApp.Helpers
+namespace OnlineShop.Helpers
 {
     public static class Mapping
     {
@@ -55,6 +55,6 @@ namespace OnlineShopWebApp.Helpers
                 catrItems.Add(cartItem);
             }
             return catrItems;
-        }
+        }        
     }
 }

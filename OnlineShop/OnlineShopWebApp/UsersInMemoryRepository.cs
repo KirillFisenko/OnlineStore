@@ -1,7 +1,7 @@
-﻿using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Models;
+﻿using OnlineShop.Areas.Admin.Models;
+using OnlineShop.Models;
 
-namespace OnlineShopWebApp
+namespace OnlineShop
 {
     public class UsersInMemoryRepository : IUsersRepository
     {

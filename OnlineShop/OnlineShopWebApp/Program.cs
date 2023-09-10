@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineShop;
 using OnlineShop.Db;
-using OnlineShopWebApp;
-using OnlineShopWebApp.Db;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

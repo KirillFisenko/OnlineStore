@@ -1,6 +1,6 @@
 ﻿using OnlineShop.Db.Models;
 
-namespace OnlineShopWebApp.Db
+namespace OnlineShop.Db
 {
 	public interface ICartsRepository
 	{

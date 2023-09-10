@@ -1,6 +1,6 @@
-﻿using OnlineShopWebApp.Areas.Admin.Models;
+﻿using OnlineShop.Areas.Admin.Models;
 
-namespace OnlineShopWebApp
+namespace OnlineShop
 {
     public interface IRolesRepository
 	{
