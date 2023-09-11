@@ -1,4 +1,4 @@
-﻿namespace OnlineShop
+﻿namespace OnlineShopWebApp
 {
 	public class Constants
 	{

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 
-namespace OnlineShop.Controllers
+namespace OnlineShopWebApp.Controllers
 {
     public class ProductController : Controller
     {

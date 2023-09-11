@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShop.Helpers;
-using OnlineShop.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
-namespace OnlineShop.Areas.Admin.Controllers
+namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller

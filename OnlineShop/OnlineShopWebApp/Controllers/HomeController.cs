@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Models;
-using OnlineShop;
 using OnlineShop.Db;
-using OnlineShop.Helpers;
+using OnlineShopWebApp.Helpers;
 
-namespace OnlineShop.Controllers
+namespace OnlineShopWebApp.Controllers
 {
 	public class HomeController : Controller
 	{

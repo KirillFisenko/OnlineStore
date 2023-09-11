@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using OnlineShop;
+using OnlineShopWebApp;
 using OnlineShop.Db;
 using Serilog;
 

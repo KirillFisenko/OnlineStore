@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Helpers;
+using OnlineShopWebApp.Helpers;
 
-namespace OnlineShop.Views.Shared.ViewComponents.CartViewComponent
+namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 {
 	public class CartViewComponent : ViewComponent
 	{		

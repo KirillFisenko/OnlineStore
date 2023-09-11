@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Models;
+using OnlineShopWebApp.Models;
 
-namespace OnlineShop.Areas.Admin.Controllers
+namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class OrderController : Controller

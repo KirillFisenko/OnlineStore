@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Helpers;
-using OnlineShop.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
-namespace OnlineShop.Controllers
+namespace OnlineShopWebApp.Controllers
 {
     public class OrderController : Controller
     {

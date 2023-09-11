@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Areas.Admin.Models;
-using OnlineShop.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Models;
 
-namespace OnlineShop.Areas.Admin.Controllers
+namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
 	[Area("Admin")]
 	public class UserController : Controller

@@ -1,6 +1,6 @@
-﻿using OnlineShop.Areas.Admin.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
 
-namespace OnlineShop
+namespace OnlineShopWebApp
 {
     public class RolesInMemoryRepository : IRolesRepository
     {

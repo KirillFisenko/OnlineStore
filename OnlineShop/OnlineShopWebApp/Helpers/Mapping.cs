@@ -1,7 +1,7 @@
 ﻿using OnlineShop.Db.Models;
-using OnlineShop.Models;
+using OnlineShopWebApp.Models;
 
-namespace OnlineShop.Helpers
+namespace OnlineShopWebApp.Helpers
 {
     public static class Mapping
     {

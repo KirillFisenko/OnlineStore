@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShop.Areas.Admin.Models
+namespace OnlineShopWebApp.Areas.Admin.Models
 {
     public class ChangeAccess
     {

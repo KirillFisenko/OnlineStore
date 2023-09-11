@@ -1,6 +1,6 @@
-﻿using OnlineShop.Areas.Admin.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
 
-namespace OnlineShop.Models
+namespace OnlineShopWebApp.Models
 {
 	public class User
     {

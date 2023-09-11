@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
 
-namespace OnlineShop.Controllers
+namespace OnlineShopWebApp.Controllers
 {
 	public class CartController : Controller
 	{
@@ -18,22 +19,13 @@ namespace OnlineShop.Controllers
 		public IActionResult Index()
 		{
 			var cart = cartsRepository.TryGetById(Constants.UserId);
-			return View(cart);
+			return View(Mapping.ToCartViewModel(cart));
 		}
 
 		public IActionResult Add(Guid productId)
 		{
 			var product = productRepository.TryGetById(productId);
-
-            var prductDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-
-			cartsRepository.Add(prductDb, Constants.UserId);
+			cartsRepository.Add(product, Constants.UserId);
 			return RedirectToAction(nameof(Index));
 		}
 

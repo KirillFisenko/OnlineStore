@@ -1,7 +1,7 @@
-﻿using OnlineShop.Areas.Admin.Models;
-using OnlineShop.Models;
+﻿using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Models;
 
-namespace OnlineShop
+namespace OnlineShopWebApp
 {
 	public interface IUsersRepository
 	{

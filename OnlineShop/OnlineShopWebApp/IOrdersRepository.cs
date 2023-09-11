@@ -1,6 +1,6 @@
-﻿using OnlineShop.Models;
+﻿using OnlineShopWebApp.Models;
 
-namespace OnlineShop
+namespace OnlineShopWebApp
 {
     public interface IOrdersRepository
     {
