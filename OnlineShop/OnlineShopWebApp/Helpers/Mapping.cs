@@ -9,7 +9,7 @@ namespace OnlineShopWebApp.Helpers
         {
             var productsViewModels = new List<ProductViewModel>();
             foreach (var product in products)
-            {                
+            {
                 productsViewModels.Add(ToProductViewModel(product));
             }
             return productsViewModels;
@@ -18,13 +18,13 @@ namespace OnlineShopWebApp.Helpers
         public static ProductViewModel ToProductViewModel(Product product)
         {
             return new ProductViewModel
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Cost = product.Cost,
-                    Description = product.Description,
-                    ImagePath = product.ImagePath
-                };          
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagePath = product.ImagePath
+            };
         }
 
         public static CartViewModel ToCartViewModel(Cart cart)
@@ -36,8 +36,8 @@ namespace OnlineShopWebApp.Helpers
             return new CartViewModel
             {
                 Id = cart.Id,
-               UserId = cart.UserId,
-               Items = ToCartItemViewModel(cart.Items)
+                UserId = cart.UserId,
+                Items = ToCartItemViewModel(cart.Items)
             };
         }
 
@@ -55,6 +55,6 @@ namespace OnlineShopWebApp.Helpers
                 catrItems.Add(cartItem);
             }
             return catrItems;
-        }        
+        }
     }
 }

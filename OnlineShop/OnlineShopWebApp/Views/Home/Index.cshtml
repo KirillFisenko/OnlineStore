@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="col-lg-9">
-		@* <div id="carouselExampleAutoplaying" class="carousel slide my-4" data-bs-ride="carousel">
+		<div id="carouselExampleAutoplaying" class="carousel slide my-4" data-bs-ride="carousel">
 			<div class="carousel-indicators">
 				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 				<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -22,27 +22,27 @@
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[0].Id">
+					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[0].Id *@">
 						<img src="/images/pa_rtx4080_GP_1920_680_183.jpg" class="d-block img-fluid" alt="Изображение карусели">
 					</a>
 				</div>
 				<div class="carousel-item">
-					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[1].Id">
+					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[1].Id *@">
 					<img src="/images/pa_ow2s6_1920_680_01_ru_412.jpg" class="d-block img-fluid" alt="Изображение карусели">
 					</a>
 				</div>
 				<div class="carousel-item">
-					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[2].Id">
+					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[2].Id *@">
 					<img src="/images/pa_rtx4060Ti_js_1920_680_01_en_717.jpg" class="d-block img-fluid" alt="Изображение карусели">
 					</a>
 				</div>
 				<div class="carousel-item">
-					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[3].Id">
+					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[3].Id *@">
 					<img src="/images/pa_rtx4070_1920_680_01_en_302.jpg" class="d-block img-fluid" alt="Изображение карусели">
 					</a>
 				</div>
 				<div class="carousel-item">
-					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model[4].Id">
+					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[4].Id *@">
 					<img src="/images/pa_rtx4080_70Ti_js_1920_680_02_ru_162.jpg" class="d-block img-fluid" alt="Изображение карусели">
 					</a>
 				</div>
@@ -55,7 +55,7 @@
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Следующий</span>
 			</button>
-		</div> *@
+		</div>
 
 		<div class="row">
 			@foreach (var product in Model)
