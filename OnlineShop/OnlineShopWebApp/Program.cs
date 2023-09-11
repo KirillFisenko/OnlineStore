@@ -12,11 +12,11 @@ builder.Host.UseSerilog((context, configuration) => configuration
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
 builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
-builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
-builder.Services.AddSingleton<IFavouritesRepository, FavouritesInMemoryRepository>();
-builder.Services.AddSingleton<ICompareRepository, CompareInMemoryRepository>();
-builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
-builder.Services.AddSingleton<IUsersRepository, UsersInMemoryRepository>();
+builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
+builder.Services.AddTransient<IFavouritesRepository, FavouritesDbRepository>();
+builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
+builder.Services.AddTransient<IRolesRepository, RolesDbRepository>();
+builder.Services.AddTransient<IUsersRepository, UsersDbRepository>();
 
 // получаем строку подключения из файла конфигурации
 string connection = builder.Configuration.GetConnectionString("online_shop");

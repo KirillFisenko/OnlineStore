@@ -25,7 +25,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Role role)
+        public IActionResult Add(RoleViewModel role)
         {
 			if (!role.Name.All(c => char.IsLetter(c) || c == ' '))
 			{

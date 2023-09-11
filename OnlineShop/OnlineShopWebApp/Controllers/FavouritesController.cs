@@ -23,15 +23,15 @@ namespace OnlineShopWebApp.Controllers
 		public IActionResult Add(Guid productId)
 		{
 			var product = productRepository.TryGetById(productId);
-            //favouritesRepository.Add(product);
-            return RedirectToAction(nameof(Index));
+			favouritesRepository.Add(product);
+			return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Del(Guid productId)
         {
             var product = productRepository.TryGetById(productId);
-            //favouritesRepository.Del(product);
-            return RedirectToAction(nameof(Index));
+			favouritesRepository.Del(product);
+			return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Clear()

@@ -19,7 +19,7 @@ namespace OnlineShopWebApp.Models
         [Display(Name = "Отменен")]
         Canceled
     }
-    public class Order
+    public class OrderViewModel
     {
         public Guid Id { get; set; }
         public UserDeliveryInfo User { get; set; }
@@ -36,7 +36,7 @@ namespace OnlineShopWebApp.Models
         public string Time { get; set; }
         public OrderStatuses Status { get; set; }
 
-        public Order()
+        public OrderViewModel()
         {
             Id = Guid.NewGuid();
             Time = DateTime.Now.ToString("HH:mm:ss");

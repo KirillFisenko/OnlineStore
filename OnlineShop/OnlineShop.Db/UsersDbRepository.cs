@@ -1,40 +1,42 @@
-﻿using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Models;
+﻿using OnlineShop.Db.Models;
 
-namespace OnlineShopWebApp
+namespace OnlineShop.Db
 {
-    public class UsersInMemoryRepository : IUsersRepository
+    public class UsersDbRepository : IUsersRepository
     {
-        private readonly List<User> users = new List<User>()
+        private readonly DatabaseContext databaseContext;
+
+        public UsersDbRepository(DatabaseContext databaseContext)
         {
-            new User("kirill@kirill.ru", "12345678", "Кирилл", "Фисенко", "+79265846357"),
-            new User("andrey@andrey.ru", "12345678", "Андрей", "Петров", "+79164875124")
-            };
+            this.databaseContext = databaseContext;
+        }
 
         public List<User> GetAll()
         {
-            return users;
+            return databaseContext.Users.ToList();
         }
 
         public User TryGetById(Guid usertId)
         {
-            return users.FirstOrDefault(user => user.Id == usertId);
+            return databaseContext.Users.FirstOrDefault(user => user.Id == usertId);
         }
 
         public User TryGetByName(string name)
         {
-            return users.FirstOrDefault(user => user.Name == name);
+            return databaseContext.Users.FirstOrDefault(user => user.Name == name);
         }
 
         public void Del(Guid usertId)
         {
             var user = TryGetById(usertId);
-            users.Remove(user);
+            databaseContext.Users.Remove(user);
+            databaseContext.SaveChanges();
         }
 
         public void Add(User user)
         {
-            users.Add(user);
+            databaseContext.Users.Add(user);
+            databaseContext.SaveChanges();
         }
 
         public void Edit(EditUser user, Guid userId)
@@ -43,19 +45,22 @@ namespace OnlineShopWebApp
             currentUser.Name = user.UserName;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
-            currentUser.Phone = user.Phone;            
+            currentUser.Phone = user.Phone;
+            databaseContext.SaveChanges();
         }
 
         public void ChangePassword(Guid userId, string password)
         {
             var currentUser = TryGetById(userId);
             currentUser.Password = password;
+            databaseContext.SaveChanges();
         }
 
         public void ChangeAccess(Guid userId, string roleName)
         {
             var currentUser = TryGetById(userId);
             currentUser.Role.Name = roleName;
+            databaseContext.SaveChanges();
         }
     }
 }

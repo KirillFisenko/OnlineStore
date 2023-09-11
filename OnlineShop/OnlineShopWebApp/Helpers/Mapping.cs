@@ -41,20 +41,43 @@ namespace OnlineShopWebApp.Helpers
             };
         }
 
-        private static List<CartItemViewModel> ToCartItemViewModel(List<CartItem> cartDbItems)
+        private static List<CartItemViewModel> ToCartItemViewModel(List<CartItem> cartItems)
         {
-            var catrItems = new List<CartItemViewModel>();
-            foreach (var cartDbItem in cartDbItems)
+            var catrItemsViewModels = new List<CartItemViewModel>();
+            foreach (var cartItem in cartItems)
             {
-                var cartItem = new CartItemViewModel
+                var catrItemsViewModel = new CartItemViewModel
                 {
-                    Id = cartDbItem.Id,
-                    Quantity = cartDbItem.Quantity,
-                    Product = ToProductViewModel(cartDbItem.Product)
+                    Id = cartItem.Id,
+                    Quantity = cartItem.Quantity,
+                    Product = ToProductViewModel(cartItem.Product)
                 };
-                catrItems.Add(cartItem);
+                catrItemsViewModels.Add(catrItemsViewModel);
             }
-            return catrItems;
+            return catrItemsViewModels;
         }
+    }
+
+    public static List<OrderViewModel> ToOrderViewModels(List<Order> orders)
+    {
+        var ordersViewModels = new List<OrderViewModel>();
+        foreach (var order in orders)
+        {
+            ordersViewModels.Add(ToOrderViewModel(order));
+        }
+        return ordersViewModels;
+    }
+
+    public static OrderViewModel ToOrderViewModel(Order order)
+    {
+        return new OrderViewModel
+        {
+            Id = order.Id,
+            Date = order.Date,
+            Time = order.Time,
+            Items = order.Items,
+            Status = order.Status,
+            User = order.User            
+        };
     }
 }

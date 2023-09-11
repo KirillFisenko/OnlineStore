@@ -8,7 +8,9 @@ namespace OnlineShop.Db
         // доступ к таблицам
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.EnsureCreated(); //создаем БД при первом обращении

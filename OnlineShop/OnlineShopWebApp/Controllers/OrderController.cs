@@ -43,7 +43,7 @@ namespace OnlineShopWebApp.Controllers
 			}
 
             var existingCartViewModel = Mapping.ToCartViewModel(existingCart);
-            var order = new Order
+            var order = new OrderViewModel
             {
                 User = user,
                 Items = existingCartViewModel.Items

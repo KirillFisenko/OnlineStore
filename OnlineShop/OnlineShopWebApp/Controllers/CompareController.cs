@@ -22,16 +22,16 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Add(Guid productId)
 		{
-			var product = productRepository.TryGetById(productId);			
-            //compareRepository.Add(product);
-            return RedirectToAction(nameof(Index));
+			var product = productRepository.TryGetById(productId);
+			compareRepository.Add(product);
+			return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Del(Guid productId)
         {
             var product = productRepository.TryGetById(productId);
-            //compareRepository.Del(product);
-            return RedirectToAction(nameof(Index));
+			compareRepository.Del(product);
+			return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Clear()

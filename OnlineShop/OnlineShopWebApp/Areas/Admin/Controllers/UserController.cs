@@ -54,7 +54,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			{
 				return View(user);
 			}
-			usersRepository.Add(new User(user.UserName, user.Password, user.FirstName, user.LastName, user.Phone));
+			usersRepository.Add(new UserViewModel(user.UserName, user.Password, user.FirstName, user.LastName, user.Phone));
 			return RedirectToAction(nameof(Index));
 		}
 
