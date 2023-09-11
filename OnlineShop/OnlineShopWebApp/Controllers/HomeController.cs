@@ -31,7 +31,7 @@ namespace OnlineShopWebApp.Controllers
 			{
                 var products = productRepository.GetAll();
                 var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
-                return View(findProducts);
+                return View(Mapping.ToProductViewModels(findProducts));
             }
             return RedirectToAction(nameof(Index));
         }

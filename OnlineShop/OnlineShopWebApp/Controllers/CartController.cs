@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Controllers
@@ -32,16 +31,7 @@ namespace OnlineShopWebApp.Controllers
 		public IActionResult DecreaseAmount(Guid productId)
 		{
 			var product = productRepository.TryGetById(productId);
-
-            var prductDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-
-			cartsRepository.DecreaseAmount(prductDb, Constants.UserId);
+			cartsRepository.DecreaseAmount(product, Constants.UserId);
 			return RedirectToAction(nameof(Index));
 		}
 
