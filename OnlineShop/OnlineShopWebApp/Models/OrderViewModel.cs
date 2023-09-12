@@ -22,7 +22,7 @@ namespace OnlineShopWebApp.Models
     public class OrderViewModel
     {
         public Guid Id { get; set; }
-        public UserDeliveryInfo User { get; set; }
+        public UserDeliveryInfoViewModel User { get; set; }
         public List<CartItemViewModel> Items { get; set; }
 
         public decimal? Amount

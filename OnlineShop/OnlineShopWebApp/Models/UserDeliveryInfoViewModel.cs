@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Models
 {
-    public class UserDeliveryInfo
+    public class UserDeliveryInfoViewModel
     {
         [Required(ErrorMessage ="Поле ФИО должно быть заполнено")]
         [StringLength(70, MinimumLength = 3, ErrorMessage ="ФИО должно содержать от 3 до 70 символов")]

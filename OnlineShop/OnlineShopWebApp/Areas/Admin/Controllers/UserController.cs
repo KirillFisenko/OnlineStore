@@ -73,7 +73,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult Edit(Guid userId)
 		{
 			var user = usersRepository.TryGetById(userId);
-			var editUser = new EditUser
+			var editUser = new EditUserViewModel
 			{
 				Id = user.Id,
 				UserName = user.Name,
@@ -85,7 +85,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Edit(EditUser user, Guid userId)
+		public IActionResult Edit(EditUserViewModel user, Guid userId)
 		{				
 			if (!ModelState.IsValid)
 			{

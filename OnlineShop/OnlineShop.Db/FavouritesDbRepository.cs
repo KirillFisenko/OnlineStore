@@ -28,7 +28,10 @@ namespace OnlineShop.Db
 
         public void Clear()
         {
-            databaseContext.Favourites.Clear();
+            foreach(var item in databaseContext.Favourites)
+            {
+                databaseContext.Favourites.Remove(item);
+            }            
             databaseContext.SaveChanges();
         }
 

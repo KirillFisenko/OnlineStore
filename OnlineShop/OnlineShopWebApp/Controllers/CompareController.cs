@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -15,9 +16,9 @@ namespace OnlineShopWebApp.Controllers
 		}
 
 		public IActionResult Index()
-		{
-			var compareList = compareRepository.GetAllCompare();
-			return View(compareList);
+        {
+            var compareList = compareRepository.GetAllCompare();
+			return View(Mapping.ToProductViewModels(compareList));
 		}
 
 		public IActionResult Add(Guid productId)

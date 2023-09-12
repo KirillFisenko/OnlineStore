@@ -24,7 +24,8 @@ namespace OnlineShop.Db
 
         public void Del(string roleName)
         {
-            databaseContext.Roles.RemoveAll(role => role.Name == roleName);
+            var role = databaseContext.Roles.FirstOrDefault(x => x.Name == roleName);
+            databaseContext.Roles.Remove(role);            
             databaseContext.SaveChanges();
         }
 

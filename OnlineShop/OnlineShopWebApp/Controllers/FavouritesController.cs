@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -17,7 +18,7 @@ namespace OnlineShopWebApp.Controllers
 		public IActionResult Index()
 		{
 			var favouritesList = favouritesRepository.GetAllFavourites();
-			return View(favouritesList);
+			return View(Mapping.ToProductViewModels(favouritesList));
 		}
 
 		public IActionResult Add(Guid productId)

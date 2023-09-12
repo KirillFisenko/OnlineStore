@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Areas.Admin.Models
 {
-    public class EditUser
+    public class EditUserViewModel
     {
 		public Guid Id { get; set; }
 

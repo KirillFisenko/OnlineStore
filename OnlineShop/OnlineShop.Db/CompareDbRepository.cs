@@ -21,7 +21,7 @@ namespace OnlineShopWebApp
             databaseContext.SaveChanges();
         }
 
-		public void Del(ProductViewModel product)
+		public void Del(Product product)
 		{
             databaseContext.Compare.Remove(product);
             databaseContext.SaveChanges();
@@ -29,7 +29,10 @@ namespace OnlineShopWebApp
 
 		public void Clear()
 		{
-            databaseContext.Compare.Clear();
+            foreach (var item in databaseContext.Compare)
+            {
+                databaseContext.Compare.Remove(item);
+            }            
             databaseContext.SaveChanges();
         }
 
