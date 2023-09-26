@@ -1,4 +1,5 @@
 ﻿using OnlineShop.Db.Models;
+
 namespace OnlineShop.Db
 {
     public interface IOrdersRepository

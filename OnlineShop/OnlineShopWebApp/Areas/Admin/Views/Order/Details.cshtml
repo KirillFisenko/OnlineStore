@@ -46,7 +46,7 @@
                         <th>Статус заказа:</th>
                         <td>
                             <select asp-for="@Model.Status"
-                                    asp-items="@Html.GetEnumSelectList<OrderStatuses>()"
+                                    asp-items="@Html.GetEnumSelectList<OrderStatusesViewModel>()"
                                     class="form-control-sm">
                             </select>
                         </td>

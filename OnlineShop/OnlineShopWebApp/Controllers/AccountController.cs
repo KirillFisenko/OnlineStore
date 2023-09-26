@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
@@ -69,7 +70,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(register);
             }
-            usersRepository.Add(new UserViewModel(register.UserName, register.Password, register.FirstName, register.LastName, register.Phone));
+            usersRepository.Add(Mapping.ToUserDb(new UserViewModel(register.UserName, register.Password, register.FirstName, register.LastName, register.Phone)));
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }

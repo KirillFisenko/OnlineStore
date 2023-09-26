@@ -12,7 +12,9 @@ namespace OnlineShopWebApp.Models
         public string Phone { get; set; }
         public RoleViewModel Role { get; set; }
 
-        public UserViewModel(string name, string password, string firstName, string lastName, string phone)
+        public UserViewModel()
+        { }
+            public UserViewModel(string name, string password, string firstName, string lastName, string phone)
         {
             Id = Guid.NewGuid();
             Role = new RoleViewModel("User");

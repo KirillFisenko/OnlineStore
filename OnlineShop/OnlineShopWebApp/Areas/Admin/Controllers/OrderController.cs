@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -26,9 +27,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateStatus(Guid orderId, OrderStatuses status)
+        public IActionResult UpdateStatus(Guid orderId, OrderStatusesViewModel status)
         {
-            ordersRepository.UpdateStatus(orderId, status);
+            ordersRepository.UpdateStatus(orderId, Mapping.ToOrderStatusesDb(status));
             return RedirectToAction(nameof(Index));
         }       
     }

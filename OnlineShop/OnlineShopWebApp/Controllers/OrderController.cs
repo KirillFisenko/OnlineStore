@@ -48,7 +48,7 @@ namespace OnlineShopWebApp.Controllers
                 User = user,
                 Items = existingCartViewModel.Items
             };
-            ordersRepository.Add(order);
+            ordersRepository.Add(Mapping.ToOrderDb(order));
             cartsRepository.Clear(Constants.UserId);
             return View(order);
         }

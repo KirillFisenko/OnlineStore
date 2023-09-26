@@ -2,6 +2,7 @@
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -41,7 +42,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             {
                 return View(role);
             }
-            rolesRepository.Add(role);
+            rolesRepository.Add(Mapping.ToRoleDb(role));
             return RedirectToAction(nameof(Index));
         }
 

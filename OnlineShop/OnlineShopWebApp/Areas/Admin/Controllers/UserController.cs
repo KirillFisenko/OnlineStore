@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -55,7 +56,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			{
 				return View(user);
 			}
-			usersRepository.Add(new UserViewModel(user.UserName, user.Password, user.FirstName, user.LastName, user.Phone));
+			usersRepository.Add(Mapping.ToUserDb(new UserViewModel(user.UserName, user.Password, user.FirstName, user.LastName, user.Phone)));
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -92,7 +93,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			{
 				return View(user);
 			}
-			usersRepository.Edit(user, userId);
+			usersRepository.Edit(Mapping.ToEditUserDb(user), userId);
 			return RedirectToAction(nameof(Index));
 		}
 

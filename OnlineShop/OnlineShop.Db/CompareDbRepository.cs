@@ -1,7 +1,7 @@
 ﻿using OnlineShop.Db;
 using OnlineShop.Db.Models;
 
-namespace OnlineShopWebApp
+namespace OnlineShop.Db
 {
 	public class CompareDbRepository : ICompareRepository
 	{
