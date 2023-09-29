@@ -7,7 +7,7 @@ namespace OnlineShop.Db
 		List<Product> GetAll();
 		Product TryGetById(Guid id);
         Product TryGetByName(string name);
-        void Del(Guid id);
+        void Remove(Guid id);
         void Add(Product product);
         void Edit(Product product, Guid productId);        
     }

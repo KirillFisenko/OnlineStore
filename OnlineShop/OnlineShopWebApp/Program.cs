@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using OnlineShopWebApp;
 using OnlineShop.Db;
 using Serilog;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +15,21 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
 builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
 builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
-builder.Services.AddTransient<IFavouritesRepository, FavouritesDbRepository>();
+builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
-builder.Services.AddTransient<IRolesRepository, RolesDbRepository>();
-builder.Services.AddTransient<IUsersRepository, UsersDbRepository>();
+//builder.Services.AddTransient<IRolesRepository, RolesDbRepository>();
+//builder.Services.AddTransient<IUsersRepository, UsersDbRepository>();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	var supportedCultures = new[]
+	{
+		new CultureInfo("en-US")
+	};
+	options.DefaultRequestCulture = new RequestCulture("en-US");
+	options.SupportedCultures = supportedCultures;
+	options.SupportedUICultures = supportedCultures;
+});
 
 // получаем строку подключения из файла конфигурации
 string connection = builder.Configuration.GetConnectionString("online_shop");
@@ -32,6 +45,8 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
+
+app.UseRequestLocalization();
 
 app.UseSerilogRequestLogging();
 

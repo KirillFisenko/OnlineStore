@@ -45,7 +45,7 @@
                                 <td>@product.Cost &#8381;</td>
                                 <td class="text-end">
                                     <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-productId="@product.Id"><i class="bi bi-pencil"> Редактировать</i></a>
-                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Del" asp-route-productId="@product.Id"> <i class="bi bi-trash-fill"> Удалить</i></a>
+                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Remove" asp-route-productId="@product.Id"> <i class="bi bi-trash-fill"> Удалить</i></a>
                                 </td>
                             </tr>
                             i += 1;

@@ -1,44 +1,53 @@
-﻿using OnlineShop.Db;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db.Models;
+using System.Linq;
 
 namespace OnlineShop.Db
 {
 	public class CompareDbRepository : ICompareRepository
 	{
-        private readonly DatabaseContext databaseContext;
+		private readonly DatabaseContext databaseContext;
 
-        public CompareDbRepository(DatabaseContext databaseContext)
-        {
-            this.databaseContext = databaseContext;
-        }
-
-        public void Add(Product product)
+		public CompareDbRepository(DatabaseContext databaseContext)
 		{
-			if (!databaseContext.Compare.Contains(product))
+			this.databaseContext = databaseContext;
+		}
+
+		public void Add(string userId, Product product)
+		{
+			var existingProduct = databaseContext.CompareProducts
+				.FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
+			if (existingProduct == null)
 			{
-                databaseContext.Compare.Add(product);
-            }
-            databaseContext.SaveChanges();
-        }
+				databaseContext.CompareProducts.Add(new CompareProduct { Product = product, UserId = userId });
+				databaseContext.SaveChanges();
+			}
+		}
 
-		public void Del(Product product)
+		public void Remove(string userId, Guid productId)
 		{
-            databaseContext.Compare.Remove(product);
-            databaseContext.SaveChanges();
-        }
+			var removingCompare = databaseContext.CompareProducts
+				.FirstOrDefault(u => u.UserId == userId && u.Product.Id == productId);
+			databaseContext.CompareProducts.Remove(removingCompare);
+			databaseContext.SaveChanges();
+		}
 
-		public void Clear()
+		public void Clear(string userId)
 		{
-            foreach (var item in databaseContext.Compare)
-            {
-                databaseContext.Compare.Remove(item);
-            }            
-            databaseContext.SaveChanges();
-        }
+			var userCompareProducts = databaseContext.CompareProducts
+				.Where(u => u.UserId == userId)
+				.ToList();
+			databaseContext.CompareProducts.RemoveRange(userCompareProducts);
+			databaseContext.SaveChanges();
+		}
 
-		public List<Product> GetAllCompare()
+		public List<Product> GetAll(string userId)
 		{
-			return databaseContext.Compare.ToList();
+			return databaseContext.CompareProducts
+				.Where(u => u.UserId == userId)
+				.Include(x => x.Product)
+				.Select(x => x.Product)
+				.ToList();
 		}
 	}
 }

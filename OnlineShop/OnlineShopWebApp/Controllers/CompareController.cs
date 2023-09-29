@@ -6,39 +6,38 @@ namespace OnlineShopWebApp.Controllers
 {
 	public class CompareController : Controller
 	{
-		private readonly IProductsRepository productRepository;
+		private readonly IProductsRepository productsRepository;
 		private readonly ICompareRepository compareRepository;
 
-		public CompareController(IProductsRepository productRepository, ICompareRepository compareRepository)
+		public CompareController(IProductsRepository productsRepository, ICompareRepository compareRepository)
 		{
-			this.productRepository = productRepository;
-			this.compareRepository = compareRepository;	
+			this.productsRepository = productsRepository;
+			this.compareRepository = compareRepository;
 		}
 
 		public IActionResult Index()
-        {
-            var compareList = compareRepository.GetAllCompare();
-			return View(Mapping.ToProductViewModels(compareList));
+		{
+			var products = compareRepository.GetAll(Constants.UserId);
+			return View(products.ToProductViewModels());
 		}
 
 		public IActionResult Add(Guid productId)
 		{
-			var product = productRepository.TryGetById(productId);
-			compareRepository.Add(product);
+			var product = productsRepository.TryGetById(productId);
+			compareRepository.Add(Constants.UserId, product);
 			return RedirectToAction(nameof(Index));
-        }
+		}
 
-        public IActionResult Del(Guid productId)
-        {
-            var product = productRepository.TryGetById(productId);
-			compareRepository.Del(product);
+		public IActionResult Remove(Guid productId)
+		{
+			compareRepository.Remove(Constants.UserId, productId);
 			return RedirectToAction(nameof(Index));
-        }
+		}
 
-        public IActionResult Clear()
-        {
-            compareRepository.Clear();
-            return RedirectToAction(nameof(Index));
-        }
-    }
+		public IActionResult Clear()
+		{
+			compareRepository.Clear(Constants.UserId);
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }

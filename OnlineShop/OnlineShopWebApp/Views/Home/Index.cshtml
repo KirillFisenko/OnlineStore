@@ -73,7 +73,7 @@
 						</div>
 						<div class="card-body d-flex align-items-end justify-content-around">
 							<a class="btn btn-outline-warning" title="Подробнее о товаре" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><i class="bi bi-info-square"></i></a>
-							<a class="btn btn-outline-warning" title="Добавить в избранное" asp-controller="Favourites" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-heart"></i></a>
+							<a class="btn btn-outline-warning" title="Добавить в избранное" asp-controller="Favorite" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-heart"></i></a>
 							<a class="btn btn-outline-warning" title="Сравнить" asp-controller="Compare" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-clipboard2-plus"></i></a>
 							<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> В корзину</a>
 						</div>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
@@ -24,16 +25,16 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Buy(UserDeliveryInfoViewModel user)
+        public IActionResult Buy(UserDeliveryInfoViewModel userViewModel)
         {
 			var existingCart = cartsRepository.TryGetById(Constants.UserId);
 			ViewData["cart"] = existingCart;
 
-			if (!user.Name.All(c => char.IsLetter(c) || c == ' '))
+			if (!userViewModel.Name.All(c => char.IsLetter(c) || c == ' '))
             {
                 ModelState.AddModelError("", "ФИО должны содержать только буквы");               
             }
-            if (!user.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
+            if (!userViewModel.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
             {
                 ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");				
 			}
@@ -41,16 +42,16 @@ namespace OnlineShopWebApp.Controllers
             {
 				return View(nameof(Index));
 			}
-
-            var existingCartViewModel = Mapping.ToCartViewModel(existingCart);
-            var order = new OrderViewModel
+            
+            var order = new Order
             {
-                User = user,
-                Items = existingCartViewModel.Items
+                User = userViewModel.ToUser(),
+                Items = existingCart.Items
             };
-            ordersRepository.Add(Mapping.ToOrderDb(order));
-            cartsRepository.Clear(Constants.UserId);
-            return View(order);
+			ordersRepository.Add(order);
+			var orderViewModel = order.ToOrderViewModel();
+			cartsRepository.Clear(Constants.UserId); //проблема с очисткой items, где-то связь с ключами			
+			return View(orderViewModel);
         }
     }
 }

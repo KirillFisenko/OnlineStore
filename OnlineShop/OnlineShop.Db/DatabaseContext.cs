@@ -6,13 +6,11 @@ namespace OnlineShop.Db
     public class DatabaseContext : DbContext
     {
         // доступ к таблицам
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Product> Compare { get; set; }
-        public DbSet<Product> Favourites { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<Product> Products { get; set; }        
+        public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
+		public DbSet<CompareProduct> CompareProducts { get; set; }
+		public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }      
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

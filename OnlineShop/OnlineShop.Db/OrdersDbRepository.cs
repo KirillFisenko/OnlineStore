@@ -1,4 +1,5 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
@@ -19,19 +20,29 @@ namespace OnlineShop.Db
 
         public List<Order> GetAll()
         {
-            return databaseContext.Orders.ToList();
+            return databaseContext.Orders
+                .Include(x => x.User)
+                .Include(x => x.Items)
+                .ThenInclude(x => x.Product)
+                .ToList();
         }
 
         public Order TryGetById(Guid orderId)
         {
-            var order = databaseContext.Orders.FirstOrDefault(o => o.Id == orderId);
-            return order;
+            return databaseContext.Orders
+                .Include(x => x.User)
+                .Include(x => x.Items)
+                .ThenInclude(x => x.Product)                
+                .FirstOrDefault(o => o.Id == orderId);
         }
 
-        public void UpdateStatus(Guid orderId, OrderStatuses newStatus)
+        public void UpdateStatus(Guid orderId, OrderStatus newStatus)
         {
             var order = TryGetById(orderId);
-            order.Status = newStatus;
+            if (order != null)
+            {
+                order.Status = newStatus;
+            }            
             databaseContext.SaveChanges();
         }
     }

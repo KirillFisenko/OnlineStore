@@ -13,9 +13,8 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.CompareViewComponent
 		}
 		public IViewComponentResult Invoke()
 		{
-			var compare = compareRepository.GetAllCompare();
-			var compareRepositoryRepositoryCounts = compare?.Count() ?? 0;
-			return View("Compare", compareRepositoryRepositoryCounts);
+			var productsCount = compareRepository.GetAll(Constants.UserId)?.Count() ?? 0;			
+			return View("Compare", productsCount);
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace OnlineShop.Db
             return databaseContext.Products.FirstOrDefault(product => product.Name == name);
         }
 
-        public void Del(Guid productId)
+        public void Remove(Guid productId)
         {
             var product = TryGetById(productId);
             databaseContext.Products.Remove(product);

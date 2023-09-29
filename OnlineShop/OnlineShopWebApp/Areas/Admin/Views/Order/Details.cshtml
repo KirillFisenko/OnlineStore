@@ -16,12 +16,8 @@
                 <table class="table">
                     <tr>
                         <th class="col-lg-3">Дата заказа:</th>
-                        <td class="col-lg-9">@Model.Date</td>
-                    </tr>
-                    <tr>
-                        <th>Время заказа:</th>
-                        <td>@Model.Time</td>
-                    </tr>
+                        <td class="col-lg-9">@Model.CreateDateTime</td>
+                    </tr>                   
                     <tr>
                         <th>Адрес:</th>
                         <td>@Model.User.Address</td>
@@ -46,7 +42,7 @@
                         <th>Статус заказа:</th>
                         <td>
                             <select asp-for="@Model.Status"
-                                    asp-items="@Html.GetEnumSelectList<OrderStatusesViewModel>()"
+                                    asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()"
                                     class="form-control-sm">
                             </select>
                         </td>

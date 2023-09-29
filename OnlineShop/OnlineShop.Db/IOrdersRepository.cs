@@ -7,6 +7,6 @@ namespace OnlineShop.Db
         void Add(Order order);
         List<Order> GetAll();
         Order TryGetById(Guid id);
-        void UpdateStatus(Guid id, OrderStatuses newStatus);
+        void UpdateStatus(Guid id, OrderStatus newStatus);
     }
 }

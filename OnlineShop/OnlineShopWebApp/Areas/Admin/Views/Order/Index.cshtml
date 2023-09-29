@@ -30,8 +30,7 @@
                             <th scope="col">Сумма</th>
                             <th scope="col">Статус</th>
                             <th scope="col">Пользователь</th>
-                            <th scope="col">Дата</th>
-                            <th scope="col">Время</th>
+                            <th scope="col">Дата</th>                           
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -43,8 +42,7 @@
                                 <td>@order.Amount &#8381;</td>
                                 <td>@EnumHelper.GetDisplayName(order.Status)</td>
                                 <td>@order.User.Email</td>
-                                <td>@order.Date</td>
-                                <td>@order.Time</td>
+                                <td>@order.CreateDateTime</td>                                
                                 <td class="col-4 text-end">
                                     <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-orderId="@order.Id"><i class="bi bi-pencil"> Подробнее</i></a>
                                 </td>

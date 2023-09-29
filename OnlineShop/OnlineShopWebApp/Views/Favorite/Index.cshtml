@@ -36,7 +36,7 @@
 								<td><a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>
 								<td>@product.Cost &#8381;</td>
 								<td class="text-end">
-									<a class="btn btn-outline-warning" title="Удалить" asp-controller="Favourites" asp-action="Del" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"></i></a>
+									<a class="btn btn-outline-warning" title="Удалить" asp-controller="Favorite" asp-action="Remove" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"></i></a>
 									<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> Купить</a>
 								</td>
 							</tr>
@@ -68,7 +68,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<a type="button" class="btn btn-warning" asp-controller="Favourites" asp-action="Clear">Очистить</a>
+				<a type="button" class="btn btn-warning" asp-controller="Favorite" asp-action="Clear">Очистить</a>
 			</div>
 		</div>
 	</div>

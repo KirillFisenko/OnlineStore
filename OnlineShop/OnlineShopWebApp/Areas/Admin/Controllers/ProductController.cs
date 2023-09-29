@@ -18,19 +18,20 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = productsRepository.GetAll();            
-            return View(Mapping.ToProductViewModels(products));
+            return View(products.ToProductViewModels());
         }
 
-        public IActionResult Del(Guid productId)
+        public IActionResult Remove(Guid productId)
         {
-            productsRepository.Del(productId);
+            productsRepository.Remove(productId);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(Guid productId)
         {
             var product = productsRepository.TryGetById(productId);
-            return View(product);
+            var productViewModel = product.ToProductViewModel();
+			return View(productViewModel);
         }
 
         [HttpPost]
@@ -41,7 +42,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 return View(product);
             }
 
-            var prductDb = new Product
+            var prduct = new Product
             {
                 Name = product.Name,
                 Cost = product.Cost,
@@ -49,7 +50,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 ImagePath = product.ImagePath
             };
 
-            productsRepository.Edit(prductDb, productId);
+            productsRepository.Edit(prduct, productId);
             return RedirectToAction(nameof(Index));
         }
 
