@@ -79,12 +79,13 @@ namespace OnlineShopWebApp.Helpers
         {
             return new UserViewModel
             {
+                Id = user.Id,
                 Name = user.Name,
                 Password = user.Password,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Phone = user.Phone,
-                Role = new RoleViewModel (user.Role.Name)
+                //Role = new RoleViewModel(user.Role.Name)
             };
         }
 

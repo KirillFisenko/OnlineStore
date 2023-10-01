@@ -26,7 +26,7 @@ namespace OnlineShop.Db
             return databaseContext.Users.FirstOrDefault(user => user.Name == name);
         }
 
-        public void Del(Guid usertId)
+        public void Remove(Guid usertId)
         {
             var user = TryGetById(usertId);
             databaseContext.Users.Remove(user);

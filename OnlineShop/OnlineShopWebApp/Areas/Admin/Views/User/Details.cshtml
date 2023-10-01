@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <th>Роль:</th>
-                        <td>@Model.Role.Name</td>
+                        @* <td>@Model.Role.Name</td> *@
                     </tr>
                 </table>
                 <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
@@ -61,7 +61,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <a type="button" asp-area="Admin" class="btn btn-warning" asp-controller="User" asp-action="Del" asp-route-userId="@Model.Id">Удалить</a>
+                <a type="button" asp-area="Admin" class="btn btn-warning" asp-controller="User" asp-action="Remove" asp-route-userId="@Model.Id">Удалить</a>
             </div>
         </div>
     </div>

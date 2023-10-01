@@ -73,12 +73,12 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult Details(Guid userId)
 		{
 			var user = usersRepository.TryGetById(userId);
-			return View(user);
+			return View(user.ToUserViewModel());
 		}
 
-		public IActionResult Del(Guid userId)
+		public IActionResult Remove(Guid userId)
 		{
-			usersRepository.Del(userId);
+			usersRepository.Remove(userId);
 			return RedirectToAction(nameof(Index));
 		}
 
