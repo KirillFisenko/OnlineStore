@@ -1,4 +1,5 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.Win32;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Models;
 
@@ -72,7 +73,30 @@ namespace OnlineShopWebApp.Helpers
                 Phone = user.Phone,
                 Address = user.Address
             };
-        }       
+        }
+
+        public static UserViewModel ToUserViewModel(this User user)
+        {
+            return new UserViewModel
+            {
+                Name = user.Name,
+                Password = user.Password,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.Phone,
+                Role = new RoleViewModel (user.Role.Name)
+            };
+        }
+
+        public static List<UserViewModel> ToUserViewModels(this List<User> users)
+        {
+            var usersViewModels = new List<UserViewModel>();
+            foreach (var user in users)
+            {
+                usersViewModels.Add(ToUserViewModel(user));
+            }
+            return usersViewModels;
+        }
 
         public static CartViewModel ToCartViewModel(this Cart cart)
         {
@@ -102,6 +126,6 @@ namespace OnlineShopWebApp.Helpers
                 catrItemsViewModels.Add(catrItemsViewModel);
             }
             return catrItemsViewModels;
-        }        
+        }
     }
 }

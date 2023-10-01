@@ -17,8 +17,8 @@ builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
 builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
-//builder.Services.AddTransient<IRolesRepository, RolesDbRepository>();
-//builder.Services.AddTransient<IUsersRepository, UsersDbRepository>();
+builder.Services.AddTransient<IRolesRepository, RolesDbRepository>();
+builder.Services.AddTransient<IUsersRepository, UsersDbRepository>();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
