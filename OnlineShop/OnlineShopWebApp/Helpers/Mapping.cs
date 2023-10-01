@@ -85,7 +85,7 @@ namespace OnlineShopWebApp.Helpers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Phone = user.Phone,
-                //Role = new RoleViewModel(user.Role.Name)
+                Role = user.Role.ToRoleViewModel()
             };
         }
 
@@ -97,6 +97,33 @@ namespace OnlineShopWebApp.Helpers
                 usersViewModels.Add(ToUserViewModel(user));
             }
             return usersViewModels;
+        }
+
+        public static Role ToRole(this RoleViewModel role)
+        {
+            return new Role
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+        }
+
+        public static RoleViewModel ToRoleViewModel(this Role role)
+        {
+            return new RoleViewModel
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+        }
+        public static List<RoleViewModel> ToRoleViewModels(this List<Role> roles)
+        {
+            var rolesViewModels = new List<RoleViewModel>();
+            foreach (var role in roles)
+            {
+                rolesViewModels.Add(ToRoleViewModel(role));
+            }
+            return rolesViewModels;
         }
 
         public static CartViewModel ToCartViewModel(this Cart cart)

@@ -60,12 +60,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			}
             usersRepository.Add(new User
             {
+				Id = Guid.NewGuid(),
                 Name = user.UserName,
                 Password = user.Password,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Phone = user.Phone,
-                Role = new Role { Name = "User" }
+                Role = new Role { Id = Guid.NewGuid(), Name = "User" }
             });
             return RedirectToAction(nameof(Index));
 		}

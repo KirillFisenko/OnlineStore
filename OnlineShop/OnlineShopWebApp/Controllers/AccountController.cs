@@ -75,6 +75,7 @@ namespace OnlineShopWebApp.Controllers
             }
             usersRepository.Add(new User
             {
+                Id = Guid.NewGuid(),
                 Name = register.UserName,
                 Password = register.Password,
                 FirstName = register.FirstName,

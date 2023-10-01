@@ -19,7 +19,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var roles = rolesRepository.GetAll();
-            return View(roles);
+            return View(roles.ToRoleViewModels());
         }
 
         public IActionResult Add()
@@ -42,13 +42,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             {
                 return View(role);
             }
-            rolesRepository.Add(new Role { Name = role.Name});
+            rolesRepository.Add(role.ToRole());
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Del(string name)
+        public IActionResult Remove(string name)
         {
-            rolesRepository.Del(name);
+            rolesRepository.Remove(name);
             return RedirectToAction(nameof(Index));
         }
     }
