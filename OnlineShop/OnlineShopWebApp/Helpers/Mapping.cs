@@ -75,7 +75,19 @@ namespace OnlineShopWebApp.Helpers
             };
         }
 
-        public static UserViewModel ToUserViewModel(this User user)
+		public static EditUser ToUser(this EditUserViewModel user)
+		{
+			return new EditUser
+			{
+				Id = user.Id,
+				UserName = user.UserName,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Phone = user.Phone
+			};
+		}
+
+		public static UserViewModel ToUserViewModel(this User user)
         {
             return new UserViewModel
             {

@@ -28,30 +28,33 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Buy(UserDeliveryInfoViewModel userViewModel)
         {
 			var existingCart = cartsRepository.TryGetById(Constants.UserId);
-			ViewData["cart"] = existingCart;
+            ViewData["cart"] = existingCart;
 
-			if (!userViewModel.Name.All(c => char.IsLetter(c) || c == ' '))
+            if (!userViewModel.Name.All(c => char.IsLetter(c) || c == ' '))
             {
-                ModelState.AddModelError("", "ФИО должны содержать только буквы");               
+                ModelState.AddModelError("", "ФИО должны содержать только буквы");
             }
             if (!userViewModel.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
             {
-                ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");				
-			}
+                ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");
+            }
             if (!ModelState.IsValid)
             {
-				return View(nameof(Index));
-			}
-            
+                return View(nameof(Index));
+            }
+
             var order = new Order
             {
                 User = userViewModel.ToUser(),
                 Items = existingCart.Items
             };
-			ordersRepository.Add(order);
 			var orderViewModel = order.ToOrderViewModel();
-			cartsRepository.Clear(Constants.UserId); //проблема с очисткой items, где-то связь с ключами			
-			return View(orderViewModel);
+
+			ordersRepository.Add(order); //здесь заказ полностью добавляется
+
+            cartsRepository.Clear(Constants.UserId); //после этого очищаются items из заказа тоже	                                                     
+
+            return View(orderViewModel);
         }
     }
 }

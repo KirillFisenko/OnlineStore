@@ -80,8 +80,10 @@ namespace OnlineShop.Db
 		public void Clear(string userId)
 		{
 			var existingCart = TryGetById(userId);
-			databaseContext.Carts.Remove(existingCart);
+
+			databaseContext.Carts.Remove(existingCart); //проблема с очисткой items
+
 			databaseContext.SaveChanges();
-        }
+		}
 	}
 }

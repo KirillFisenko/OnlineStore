@@ -1,4 +1,5 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
@@ -13,12 +14,12 @@ namespace OnlineShop.Db
 
         public List<User> GetAll()
         {
-            return databaseContext.Users.ToList();
+            return databaseContext.Users.Include(x => x.Role).ToList();
         }
 
         public User TryGetById(Guid usertId)
         {
-            return databaseContext.Users.FirstOrDefault(user => user.Id == usertId);
+            return databaseContext.Users.Include(x => x.Role).FirstOrDefault(user => user.Id == usertId);
         }
 
         public User TryGetByName(string name)

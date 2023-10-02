@@ -73,17 +73,18 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(register);
             }
-            usersRepository.Add(new User
-            {
-                Id = Guid.NewGuid(),
-                Name = register.UserName,
-                Password = register.Password,
-                FirstName = register.FirstName,
-                LastName = register.LastName,
-                Phone = register.Phone,
-                Role = new Role { Name = "User" }
-            });
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+			var newUser = new User
+			{
+				Id = Guid.NewGuid(),
+				Name = register.UserName,
+				Password = register.Password,
+				FirstName = register.FirstName,
+				LastName = register.LastName,
+				Phone = register.Phone,
+				Role = new Role { Name = "User" }
+			};
+			usersRepository.Add(newUser);
+			return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
