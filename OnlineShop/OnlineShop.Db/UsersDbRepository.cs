@@ -19,7 +19,9 @@ namespace OnlineShop.Db
 
         public User TryGetById(Guid usertId)
         {
-            return databaseContext.Users.Include(x => x.Role).FirstOrDefault(user => user.Id == usertId);
+            return databaseContext.Users
+                .Include(x => x.Role)
+                .FirstOrDefault(user => user.Id == usertId);
         }
 
         public User TryGetByName(string name)

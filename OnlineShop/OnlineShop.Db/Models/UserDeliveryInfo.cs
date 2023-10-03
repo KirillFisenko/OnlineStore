@@ -1,5 +1,4 @@
-﻿
-namespace OnlineShop.Db.Models
+﻿namespace OnlineShop.Db.Models
 {
     public class UserDeliveryInfo
     {

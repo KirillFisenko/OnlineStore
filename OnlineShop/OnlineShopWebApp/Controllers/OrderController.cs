@@ -49,11 +49,8 @@ namespace OnlineShopWebApp.Controllers
                 Items = existingCart.Items
             };
 			var orderViewModel = order.ToOrderViewModel();
-
 			ordersRepository.Add(order); //здесь заказ полностью добавляется
-
-            cartsRepository.Clear(Constants.UserId); //после этого очищаются items из заказа тоже	                                                     
-
+            cartsRepository.Clear(Constants.UserId); //после этого очищаются items из заказа тоже
             return View(orderViewModel);
         }
     }

@@ -13,7 +13,10 @@ namespace OnlineShop.Db
         }
         public Cart TryGetById(string userId)
 		{
-			return databaseContext.Carts.Include(x => x.Items).ThenInclude(x => x.Product).FirstOrDefault(cart => cart.UserId == userId);
+			return databaseContext.Carts
+				.Include(x => x.Items)
+				.ThenInclude(x => x.Product)
+				.FirstOrDefault(cart => cart.UserId == userId);
 		}
 
 		public void Add(Product product, string userId)
@@ -39,7 +42,8 @@ namespace OnlineShop.Db
 			}
 			else
 			{
-				var existingCartItem = existingCart.Items.FirstOrDefault(item => item.Product.Id == product.Id);
+				var existingCartItem = existingCart.Items
+					.FirstOrDefault(item => item.Product.Id == product.Id);
 				if (existingCartItem != null)
 				{
 					existingCartItem.Quantity++;
@@ -60,7 +64,8 @@ namespace OnlineShop.Db
 		public void DecreaseAmount(Product product, string userId)
 		{
 			var existingCart = TryGetById(userId);			
-			var existingCartItem = existingCart?.Items?.FirstOrDefault(item => item.Product.Id == product.Id);
+			var existingCartItem = existingCart?.Items?
+				.FirstOrDefault(item => item.Product.Id == product.Id);
 			if(existingCartItem == null)
 			{
 				return;
@@ -80,9 +85,7 @@ namespace OnlineShop.Db
 		public void Clear(string userId)
 		{
 			var existingCart = TryGetById(userId);
-
 			databaseContext.Carts.Remove(existingCart); //проблема с очисткой items
-
 			databaseContext.SaveChanges();
 		}
 	}

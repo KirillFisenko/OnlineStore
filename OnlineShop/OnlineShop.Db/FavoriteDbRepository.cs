@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db.Models;
-using System.Linq;
 
 namespace OnlineShop.Db
 {

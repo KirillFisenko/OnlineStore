@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace OnlineShop.Db.Models
+﻿namespace OnlineShop.Db.Models
 {
     public class Role
     {

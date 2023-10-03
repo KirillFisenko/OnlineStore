@@ -1,6 +1,4 @@
-﻿using OnlineShop.Db.Models;
-
-namespace OnlineShopWebApp.Models
+﻿namespace OnlineShopWebApp.Models
 {
     public class OrderViewModel
     {

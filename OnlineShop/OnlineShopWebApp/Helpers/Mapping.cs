@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using OnlineShop.Db.Models;
+﻿using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Models;
 
