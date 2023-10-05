@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231003144551_Inizialization")]
+    [Migration("20231005144249_Inizialization")]
     partial class Inizialization
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace OnlineShop.Db.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -158,57 +158,56 @@ namespace OnlineShop.Db.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
 
-            modelBuilder.Entity("OnlineShop.Db.Models.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("OnlineShop.Db.Models.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b3d9aace-e239-4483-86c4-2cdd872a948e"),
+                            Cost = 33060m,
+                            Description = "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort",
+                            ImagePath = "/images/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb.webp",
+                            Name = "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb"
+                        },
+                        new
+                        {
+                            Id = new Guid("143ff8f0-84cc-4f25-90b6-a3d4ba468e01"),
+                            Cost = 109580m,
+                            Description = "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort",
+                            ImagePath = "/images/NVIDIA GeForce RTX 4080 Gigabyte 16Gb.webp",
+                            Name = "NVIDIA GeForce RTX 4080 Gigabyte 16Gb"
+                        },
+                        new
+                        {
+                            Id = new Guid("2abaa462-8a3e-4106-967a-fd9d24c18455"),
+                            Cost = 35720m,
+                            Description = "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort",
+                            ImagePath = "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp",
+                            Name = "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC"
+                        },
+                        new
+                        {
+                            Id = new Guid("fb532652-951d-4c1f-af22-49499ce3eec6"),
+                            Cost = 93320m,
+                            Description = "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort",
+                            ImagePath = "/images/NVIDIA GeForce RTX 4070 Ti MSI 12Gb.webp",
+                            Name = "NVIDIA GeForce RTX 4070 Ti MSI 12Gb"
+                        },
+                        new
+                        {
+                            Id = new Guid("42617a6d-9199-4a09-ae72-0a7ee77805db"),
+                            Cost = 48660m,
+                            Description = "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort",
+                            ImagePath = "/images/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR.webp",
+                            Name = "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR"
+                        },
+                        new
+                        {
+                            Id = new Guid("8dfe897a-c8d8-48e6-8f54-7f16514b0b1f"),
+                            Cost = 182350m,
+                            Description = "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort",
+                            ImagePath = "/images/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp",
+                            Name = "NVIDIA GeForce RTX 4090 ASUS 24Gb"
+                        });
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.UserDeliveryInfo", b =>
@@ -294,17 +293,6 @@ namespace OnlineShop.Db.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OnlineShop.Db.Models.User", b =>
-                {
-                    b.HasOne("OnlineShop.Db.Models.Role", "Role")
-                        .WithMany("User")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("OnlineShop.Db.Models.Cart", b =>
                 {
                     b.Navigation("Items");
@@ -318,11 +306,6 @@ namespace OnlineShop.Db.Migrations
             modelBuilder.Entity("OnlineShop.Db.Models.Product", b =>
                 {
                     b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("OnlineShop.Db.Models.Role", b =>
-                {
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

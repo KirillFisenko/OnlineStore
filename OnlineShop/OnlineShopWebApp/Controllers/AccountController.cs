@@ -42,7 +42,7 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Register(string returnUrl)
 		{
-			return View(new Login() { ReturnUrl = returnUrl });
+			return View(new Register() { ReturnUrl = returnUrl });
 		}
 
 		[HttpPost]

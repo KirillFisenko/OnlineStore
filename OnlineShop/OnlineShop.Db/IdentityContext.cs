@@ -4,9 +4,9 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
-	public class IndentityContext : IdentityDbContext<User>
+	public class IdentityContext : IdentityDbContext<User>
 	{
-		public IndentityContext(DbContextOptions<IndentityContext> options) : base(options)
+		public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
 		{
 			Database.Migrate();
 		}

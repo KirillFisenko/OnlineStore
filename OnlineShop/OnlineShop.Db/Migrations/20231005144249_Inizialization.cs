@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace OnlineShop.Db.Migrations
 {
     /// <inheritdoc />
@@ -37,18 +39,6 @@ namespace OnlineShop.Db.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,29 +95,6 @@ namespace OnlineShop.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -179,6 +146,19 @@ namespace OnlineShop.Db.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Cost", "Description", "ImagePath", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("143ff8f0-84cc-4f25-90b6-a3d4ba468e01"), 109580m, "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort", "/images/NVIDIA GeForce RTX 4080 Gigabyte 16Gb.webp", "NVIDIA GeForce RTX 4080 Gigabyte 16Gb" },
+                    { new Guid("2abaa462-8a3e-4106-967a-fd9d24c18455"), 35720m, "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort", "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp", "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC" },
+                    { new Guid("42617a6d-9199-4a09-ae72-0a7ee77805db"), 48660m, "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort", "/images/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR.webp", "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR" },
+                    { new Guid("8dfe897a-c8d8-48e6-8f54-7f16514b0b1f"), 182350m, "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort", "/images/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp", "NVIDIA GeForce RTX 4090 ASUS 24Gb" },
+                    { new Guid("b3d9aace-e239-4483-86c4-2cdd872a948e"), 33060m, "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort", "/images/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb.webp", "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb" },
+                    { new Guid("fb532652-951d-4c1f-af22-49499ce3eec6"), 93320m, "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort", "/images/NVIDIA GeForce RTX 4070 Ti MSI 12Gb.webp", "NVIDIA GeForce RTX 4070 Ti MSI 12Gb" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItem_CartId",
                 table: "CartItem",
@@ -208,11 +188,6 @@ namespace OnlineShop.Db.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -228,9 +203,6 @@ namespace OnlineShop.Db.Migrations
                 name: "FavoriteProducts");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Carts");
 
             migrationBuilder.DropTable(
@@ -238,9 +210,6 @@ namespace OnlineShop.Db.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "UserDeliveryInfo");
