@@ -45,6 +45,9 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(c
 // добавляем контекст IndentityContext в качестве сервиса в приложение
 builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
 
+builder.Services.AddDefaultIdentity<IdentityInitializer>(options => options.SignIn.RequireConfirmedAccount = true)
+	.AddEntityFrameworkStores<IdentityInitializer>();
+
 // указываем тип пользователя и роли
 builder.Services.AddIdentity<User, IdentityRole>()
 				// устанавливаем тип хранилища - наш контекст
