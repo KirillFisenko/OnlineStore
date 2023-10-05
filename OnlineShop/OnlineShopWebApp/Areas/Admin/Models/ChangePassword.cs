@@ -10,6 +10,7 @@ namespace OnlineShopWebApp.Areas.Admin.Models
 
         [Required(ErrorMessage = "Не указан повторный пароль")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        public string? ConfirmPassword { get; set; }        
-    }
+        public string? ConfirmPassword { get; set; }
+		public string UserName { get; set; }
+	}
 }

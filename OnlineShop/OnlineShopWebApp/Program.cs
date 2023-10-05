@@ -23,8 +23,6 @@ builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
 builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
-builder.Services.AddTransient<IRolesRepository, RolesDbRepository>();
-builder.Services.AddTransient<IUsersRepository, UsersDbRepository>();
 
 // настройка параметров локализации запросов
 builder.Services.Configure<RequestLocalizationOptions>(options =>

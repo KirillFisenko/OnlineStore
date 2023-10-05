@@ -7,8 +7,14 @@
 				<a type="button" class="btn-close" asp-controller="Home" asp-action="Index"></a>
 			</div>
 
+			
+
 			<div class="modal-body p-5 pt-0">
 				<form method="post">
+
+					@* на какую страницу перейти после регистрации *@
+					<input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+
 					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 					<div class="form-floating mb-3">
 						<input asp-for="UserName" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">

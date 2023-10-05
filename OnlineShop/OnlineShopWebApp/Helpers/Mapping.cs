@@ -89,14 +89,9 @@ namespace OnlineShopWebApp.Helpers
 		public static UserViewModel ToUserViewModel(this User user)
         {
             return new UserViewModel
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Phone = user.Phone,
-                Role = user.Role.ToRoleViewModel()
+            {               
+                Name = user.Name,              
+                Phone = user.Phone             
             };
         }
 
