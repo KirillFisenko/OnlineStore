@@ -5,6 +5,12 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Data;
+using System.Text;
+using Microsoft.Identity.Client;
 
 // создание нового экземпл€ра web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -45,13 +51,12 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(c
 // добавл€ем контекст IndentityContext в качестве сервиса в приложение
 builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
 
-builder.Services.AddDefaultIdentity<IdentityInitializer>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<IdentityInitializer>();
-
 // указываем тип пользовател€ и роли
 builder.Services.AddIdentity<User, IdentityRole>()
 				// устанавливаем тип хранилища - наш контекст
-				.AddEntityFrameworkStores<IdentityContext>(); 
+				.AddEntityFrameworkStores<IdentityContext>();
+
+
 
 // настройка cookie
 builder.Services.ConfigureApplicationCookie(options =>
@@ -94,7 +99,7 @@ app.UseRouting();
 app.UseAuthentication();
 
 // подключение авторизации
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 // определение маршрута контроллера дл€ area
 app.MapControllerRoute(
@@ -105,6 +110,14 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    IdentityInitializer.Initialize(userManager, rolesManager);
+}
 
 // запуск приложени€
 app.Run();

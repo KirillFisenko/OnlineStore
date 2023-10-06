@@ -9,6 +9,6 @@ namespace OnlineShop.Db
 		public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
 		{
 			Database.Migrate();
-		}
-	}
+		}        
+    }
 }
