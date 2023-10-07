@@ -1,6 +1,4 @@
-﻿using OnlineShopWebApp.Areas.Admin.Models;
-
-namespace OnlineShopWebApp.Models
+﻿namespace OnlineShopWebApp.Models
 {
     public class UserViewModel
     {        
