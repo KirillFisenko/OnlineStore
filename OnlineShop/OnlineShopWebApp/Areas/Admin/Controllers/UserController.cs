@@ -12,12 +12,12 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 	public class UserController : Controller
 	{
 		private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> rolesManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<User> signInManager;
-        public UserController(UserManager<User> usersManager, RoleManager<IdentityRole> rolesManager, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
         {
-            this.userManager = usersManager;
-            this.rolesManager = rolesManager;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
             this.signInManager = signInManager;
         }
 
@@ -96,7 +96,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		{
 			var user = userManager.FindByNameAsync(userName).Result;
 			var userRoles = userManager.GetRolesAsync(user).Result;
-            var roles = rolesManager.Roles.ToList();
+            var roles = roleManager.Roles.ToList();
             var model = new EditRightsViewModel
 			{
 				UserName = user.UserName,

@@ -9,11 +9,10 @@
 
             <div class="modal-body p-5 pt-0">
                 <form method="post">
-
-                    @* на какую страницу перейти после авторизации *@
-                    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
-
                     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+                    @* на какую страницу перейти после авторизации *@
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+
                     <div class="form-floating mb-3">
                         <input asp-for="UserName" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
                         <label asp-for="UserName">Email</label>
