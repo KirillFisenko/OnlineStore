@@ -1,7 +1,5 @@
 ﻿@model UserDeliveryInfo;
-@{
-	var cart = ViewData["cart"] as CartViewModel;
-}
+
 <div class="container">
 	<main>
 		<div class="py-5 text-center">
@@ -11,30 +9,6 @@
 		</div>
 
 		<div class="row g-5">
-			@* <div class="col-md-5 col-lg-5 order-md-last">
-				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-primary">Ваша корзина</span>
-					<span class="badge bg-primary rounded-pill">@await Component.InvokeAsync("Cart")</span>
-				</h4>
-				<ul class="list-group mb-3">
-					@foreach(var item in cart.Items)
-					{
-						<li class="list-group-item d-flex justify-content-between lh-sm">
-							<div>
-								<h6 class="my-0">@item.Product.Name</h6>
-								<small class="text-body-secondary">@item.Quantity шт.</small>
-							</div>
-							<span class="text-body-secondary">@item.Amount &#8381;</span>
-						</li>
-					}					
-					
-					<li class="list-group-item d-flex justify-content-between">
-						<span>Итого:</span>
-						<strong>@cart.Cost &#8381;</strong>
-					</li>
-				</ul>				
-			</div> *@
-
 			<div class="col-md-7 col-lg-7">
 				<h4 class="mb-3">Ваши данные</h4>
 				<form method="post">

@@ -5,12 +5,6 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.Data;
-using System.Text;
-using Microsoft.Identity.Client;
 
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -55,8 +49,6 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(c
 builder.Services.AddIdentity<User, IdentityRole>()
 				// устанавливаем тип хранилища - наш контекст
 				.AddEntityFrameworkStores<IdentityContext>();
-
-
 
 // настройка cookie
 builder.Services.ConfigureApplicationCookie(options =>

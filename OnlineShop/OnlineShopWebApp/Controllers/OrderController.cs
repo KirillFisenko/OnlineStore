@@ -20,9 +20,7 @@ namespace OnlineShopWebApp.Controllers
         }
 
         public IActionResult Index()
-        {
-            var cart = cartsRepository.TryGetById(Constants.UserId);
-            ViewData["cart"] = cart;
+        {           
             return View();
         }
 
