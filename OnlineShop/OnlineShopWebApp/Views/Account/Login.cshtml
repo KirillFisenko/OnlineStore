@@ -28,7 +28,7 @@
                         <a href="#">Забыли пароль?</a>
                     </div>
 
-                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Login">Войти</button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Model.ReturnUrl">Войти</button>
 
                     <div class="form-check mb-2">
                         <input name="rememberme" class="form-check-input" type="checkbox" id="rememberMe" value="true">
