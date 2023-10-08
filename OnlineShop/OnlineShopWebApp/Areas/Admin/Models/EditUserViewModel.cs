@@ -4,8 +4,6 @@ namespace OnlineShopWebApp.Areas.Admin.Models
 {
     public class EditUserViewModel
     {
-		public Guid Id { get; set; }
-
 		[Required(ErrorMessage = "Не указано Email пользователя")]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Email пользователя должен содержать от 3 до 200 символов")]
         [EmailAddress(ErrorMessage = "Введите корректный Email")]

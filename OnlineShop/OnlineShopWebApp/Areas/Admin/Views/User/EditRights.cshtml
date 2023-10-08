@@ -1,40 +1,40 @@
 ﻿@model EditRightsViewModel
 
 <div class="row">
-    <div class="col-lg-3">
-        <div class="my-4">
-            @await Html.PartialAsync("MenuAdministrator")
-        </div>
-    </div>
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("MenuAdministrator")
+		</div>
+	</div>
 
-    <div class="col-lg-9 my-4">
-        <form method="post">
-            <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <div class="row g-3">
-                <h4 class="bg-warning-subtle text-emphasis-warning my-4">Смена роли доступа для пользователя @Model.UserName</h4>
-                
-                <input type="hidden" name="name" value="@Model.UserName" />
+	<div class="col-lg-9 my-4">
+		<form method="post">
+			<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+			<div class="row g-3">
+				<h4 class="bg-warning-subtle text-emphasis-warning my-4">Смена роли доступа для пользователя @Model.UserName</h4>
 
-                <div class="form-check col-3 my-4" name="Role">
-                    @foreach (var role in Model.AllRoles)
-                    {
-                        @if (Model.UserRoles.Contains(role))
-                        {
-                            <input class="form-check-input" name="UserRolesViewModel[@role.Name]" type="checkbox" value="" checked>
-                            <label class="form-check-label" for="flexCheckDefault">@role.Name</label>
-                        }
-                        else
-                        {
-                            <input class="form-check-input" name="UserRolesViewModel[@role.Name]" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">@role.Name</label>
-                        }
-                    }
-                </div>
-            </div>
-            
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-name="@Model.UserName">Сохранить</button>
-            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
-                        
-        </form>
-    </div>
+				<input type="hidden" name="name" value="@Model.UserName" />
+
+				@foreach (var role in Model.AllRoles)
+				{
+					<div class="form-check my-4">
+						@if (Model.UserRoles.Contains(role))
+						{
+							<input class="form-check-input" name="userRolesViewsModel[@role.Name]" type="checkbox" value="true" checked>
+							<label class="form-check-label" for="flexCheckDefault">@role.Name</label>
+						}
+						else
+						{
+							<input class="form-check-input" name="userRolesViewsModel[@role.Name]" type="checkbox" value="true">
+							<label class="form-check-label" for="flexCheckDefault">@role.Name</label>
+						}
+					</div>
+				}
+			</div>
+
+			<button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-name="@Model.UserName">Сохранить</button>
+			<a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
+
+		</form>
+	</div>
 </div>

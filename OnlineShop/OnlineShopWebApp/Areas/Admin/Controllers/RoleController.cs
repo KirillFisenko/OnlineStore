@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -48,9 +46,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			return View(role);
 		}
 
-		public IActionResult Remove(string roleName)
+		public IActionResult Remove(string name)
 		{
-			var role = rolesManager.FindByNameAsync(roleName).Result;
+			var role = rolesManager.FindByNameAsync(name).Result;
 			if(role != null)
 			{
 				rolesManager.DeleteAsync(role).Wait();

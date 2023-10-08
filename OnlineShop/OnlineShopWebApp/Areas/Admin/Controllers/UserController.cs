@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -29,10 +30,52 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 
         public IActionResult Add()
         {
-            return RedirectToAction("Register", "Account");
-        }        
+            return View();
+        }
 
-		public IActionResult Details(string name)
+        [HttpPost]
+        public IActionResult Add(Register register)
+        {
+            if (register.UserName == register.Password)
+            {
+                ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+            }
+			//register.ReturnUrl = "/User/Index";
+            if (ModelState.IsValid)
+            {
+                User user = new User { Email = register.UserName, UserName = register.UserName, Name = register.UserName, PhoneNumber = register.Phone, Phone = register.Phone };
+                // добавляем пользователя
+                var result = userManager.CreateAsync(user, register.Password).Result;
+                if (result.Succeeded)
+                {
+                    // установка куки
+                    signInManager.SignInAsync(user, false).Wait();
+
+                    TryAssignUserRole(user);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(register);
+        }
+        public void TryAssignUserRole(User user)
+        {
+            try
+            {
+                userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+            }
+            catch
+            {
+                // log
+            }
+        }
+        public IActionResult Details(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
 			return View(user.ToUserViewModel());
@@ -47,8 +90,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 
 		public IActionResult Edit(string name)
 		{
-            var user = userManager.FindByNameAsync(name).Result;
-            return View(user.ToUserViewModel());
+            var user = userManager.FindByNameAsync(name).Result;			
+            return View(user.ToEditUserViewModel());
 		}
 
 		[HttpPost]
@@ -57,12 +100,15 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			if (ModelState.IsValid)
 			{
                 var user = userManager.FindByNameAsync(name).Result;
-				user.PhoneNumber = editUserViewModel.Phone;
-				user.UserName = editUserViewModel.UserName;
-                return View(user);
-			}			
-			return RedirectToAction(nameof(Index));
-		}
+				user.Phone = editUserViewModel.Phone;
+                user.PhoneNumber = editUserViewModel.Phone;
+                user.UserName = editUserViewModel.UserName;
+                user.Name = editUserViewModel.UserName;
+                userManager.UpdateAsync(user).Wait();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(editUserViewModel);
+        }
 
 		public IActionResult ChangePassword(string name)
 		{
@@ -107,14 +153,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult EditRights(string name, Dictionary<string, bool> userRolesViewsModel)
+		public IActionResult EditRights(string name, Dictionary<string, string> userRolesViewsModel)
 		{
 			var userSelectedRoles = userRolesViewsModel.Select(x => x.Key);
             var user = userManager.FindByNameAsync(name).Result;
             var userRoles = userManager.GetRolesAsync(user).Result;
 			userManager.RemoveFromRolesAsync(user, userRoles).Wait();
-			userManager.AddToRolesAsync(user, userRoles).Wait();            
-            return RedirectToAction($"/Admin/User/Detail?name={name}");
+			userManager.AddToRolesAsync(user, userSelectedRoles).Wait();            
+            return Redirect($"/Admin/User/Details?name={name}");
         }
 	}
 }

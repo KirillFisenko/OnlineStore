@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
-using Serilog;
 
 namespace OnlineShopWebApp.Controllers
 {
