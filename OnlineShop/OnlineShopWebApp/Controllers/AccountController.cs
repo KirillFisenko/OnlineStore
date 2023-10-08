@@ -46,6 +46,10 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Register(string returnUrl)
         {
+            if (returnUrl == null)
+            {
+                returnUrl = "/Home";
+            }
             return View(new Register() { ReturnUrl = returnUrl });
         }
 
@@ -59,7 +63,7 @@ namespace OnlineShopWebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = new User { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
+                User user = new User { Email = register.UserName, UserName = register.UserName, Name = register.UserName, PhoneNumber = register.Phone, Phone = register.Phone };
                 // добавляем пользователя
                 var result = userManager.CreateAsync(user, register.Password).Result;
                 if (result.Succeeded)

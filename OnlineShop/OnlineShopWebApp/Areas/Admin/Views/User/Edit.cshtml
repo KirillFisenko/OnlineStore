@@ -17,19 +17,7 @@
                     <label asp-for="UserName">Email:</label>
                     <input asp-for="UserName" type="email" class="form-control" value="@Model.UserName" />
                     <span asp-validation-for="UserName" />
-                </div>
-
-                <div class="col-12">
-                    <label asp-for="FirstName">Имя:</label>
-                    <input asp-for="FirstName" type="text" class="form-control" value="@Model.FirstName" />
-                    <span asp-validation-for="FirstName" />
-                </div>
-
-                <div class="col-12">
-                    <label asp-for="LastName">Фамилия:</label>
-                    <input asp-for="LastName" type="text" class="form-control" value="@Model.LastName" />
-                    <span asp-validation-for="LastName" />
-                </div>
+                </div>                
 
                 <div class="col-12">
                     <label asp-for="Phone">Телефон:</label>
@@ -38,7 +26,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id">Сохранить</button>
+            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-name="@Model.UserName">Сохранить</button>
             <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
 
         </form>

@@ -19,17 +19,17 @@
 					<button class="btn btn-dark" type="submit" asp-area="" asp-controller="Home" asp-action="Search"><i class="bi bi-search"></i></button>
 				</form>
 
-				<div class="text-end">
+				<div class="text-center">
 					@if (User.Identity.IsAuthenticated)
 					{
-						<p>@User.Identity.Name</p>
 						<a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+						<a type="button" class="btn btn-warning" asp-area="" asp-controller="Home" asp-action="Index">@User.Identity.Name</a>
 					}
 					else
 					{
 						<a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
-					}
-					<a type="button" class="btn btn-warning" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+						<a type="button" class="btn btn-warning" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+					}					
 				</div>
 			</div>
 

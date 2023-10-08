@@ -79,9 +79,7 @@ namespace OnlineShopWebApp.Helpers
 			return new EditUser
 			{
 				Id = user.Id,
-				UserName = user.UserName,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
+				UserName = user.UserName,				
 				Phone = user.Phone
 			};
 		}

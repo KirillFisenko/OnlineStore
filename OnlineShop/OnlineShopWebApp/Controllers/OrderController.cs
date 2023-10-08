@@ -40,7 +40,7 @@ namespace OnlineShopWebApp.Controllers
             };			
 			ordersRepository.Add(order); //здесь заказ полностью добавляется
             cartsRepository.Clear(Constants.UserId); //после этого очищаются items из заказа тоже
-            return View();
+            return View(order.ToOrderViewModel());
         }
     }
 }

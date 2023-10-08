@@ -92,9 +92,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			return RedirectToAction(nameof(ChangePassword));
 		}
 
-		public IActionResult EditRights(string userName)
+		public IActionResult EditRights(string name)
 		{
-			var user = userManager.FindByNameAsync(userName).Result;
+			var user = userManager.FindByNameAsync(name).Result;
 			var userRoles = userManager.GetRolesAsync(user).Result;
             var roles = roleManager.Roles.ToList();
             var model = new EditRightsViewModel
