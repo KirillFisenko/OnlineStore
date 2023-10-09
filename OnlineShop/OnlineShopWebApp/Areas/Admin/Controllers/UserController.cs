@@ -39,21 +39,16 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             if (register.UserName == register.Password)
             {
                 ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
-            }
-			//register.ReturnUrl = "/User/Index";
+            }			
             if (ModelState.IsValid)
             {
                 User user = new User { Email = register.UserName, UserName = register.UserName, Name = register.UserName, PhoneNumber = register.Phone, Phone = register.Phone };
-                // добавляем пользователя
-                var result = userManager.CreateAsync(user, register.Password).Result;
+                                var result = userManager.CreateAsync(user, register.Password).Result;
                 if (result.Succeeded)
                 {
-                    // установка куки
-                    signInManager.SignInAsync(user, false).Wait();
-
                     TryAssignUserRole(user);
-                    return RedirectToAction(nameof(Index));
-                }
+					return RedirectToAction(nameof(Index));
+				}
                 else
                 {
                     foreach (var error in result.Errors)
@@ -138,6 +133,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			return RedirectToAction(nameof(ChangePassword));
 		}
 
+		//добавить защиту от не выбора ролей
 		public IActionResult EditRights(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;

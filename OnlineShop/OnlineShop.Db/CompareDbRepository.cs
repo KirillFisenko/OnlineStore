@@ -31,6 +31,7 @@ namespace OnlineShop.Db
 			databaseContext.SaveChanges();
 		}
 
+		//очищать после выхода пользователя
 		public void Clear(string userId)
 		{
 			var userCompareProducts = databaseContext.CompareProducts

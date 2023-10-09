@@ -31,7 +31,8 @@ namespace OnlineShop.Db
             databaseContext.SaveChanges();
         }
 
-        public void Clear(string userId)
+		//очищать после выхода пользователя
+		public void Clear(string userId)
         {
             var userFavoriteProducts = databaseContext.FavoriteProducts
 				.Where(u => u.UserId == userId)

@@ -23,7 +23,7 @@
 					@if (User.Identity.IsAuthenticated)
 					{
 						<a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
-						<a type="button" class="btn btn-warning" asp-area="" asp-controller="Home" asp-action="Index">@User.Identity.Name</a>
+						<a type="button" class="btn btn-warning" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-person"> @User.Identity.Name</i></a>
 					}
 					else
 					{
