@@ -13,64 +13,63 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 	public class UserController : Controller
 	{
 		private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
-        private readonly SignInManager<User> signInManager;
-        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
-        {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-            this.signInManager = signInManager;
-        }
+		private readonly RoleManager<IdentityRole> roleManager;
+		
+		public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+		{
+			this.userManager = userManager;
+			this.roleManager = roleManager;			
+		}
 
-        public IActionResult Index()
+		public IActionResult Index()
 		{
 			var users = userManager.Users.ToList();
 			return View(users.Select(x => x.ToUserViewModel()).ToList());
 		}
 
-        public IActionResult Add()
-        {
-            return View();
-        }
+		public IActionResult Add()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public IActionResult Add(Register register)
-        {
-            if (register.UserName == register.Password)
-            {
-                ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
-            }			
-            if (ModelState.IsValid)
-            {
-                User user = new User { Email = register.UserName, UserName = register.UserName, Name = register.UserName, PhoneNumber = register.Phone, Phone = register.Phone };
-                                var result = userManager.CreateAsync(user, register.Password).Result;
-                if (result.Succeeded)
-                {
-                    TryAssignUserRole(user);
+		[HttpPost]
+		public IActionResult Add(Register register)
+		{
+			if (register.UserName == register.Password)
+			{
+				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+			}
+			if (ModelState.IsValid)
+			{
+				User user = new User { Email = register.UserName, UserName = register.UserName, Name = register.UserName, PhoneNumber = register.Phone, Phone = register.Phone };
+				var result = userManager.CreateAsync(user, register.Password).Result;
+				if (result.Succeeded)
+				{
+					TryAssignUserRole(user);
 					return RedirectToAction(nameof(Index));
 				}
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-            return View(register);
-        }
-        public void TryAssignUserRole(User user)
-        {
-            try
-            {
-                userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
-            }
-            catch
-            {
-                // log
-            }
-        }
-        public IActionResult Details(string name)
+				else
+				{
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError(string.Empty, error.Description);
+					}
+				}
+			}
+			return View(register);
+		}
+		public void TryAssignUserRole(User user)
+		{
+			try
+			{
+				userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+			}
+			catch
+			{
+				// log
+			}
+		}
+		public IActionResult Details(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
 			return View(user.ToUserViewModel());
@@ -85,8 +84,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 
 		public IActionResult Edit(string name)
 		{
-            var user = userManager.FindByNameAsync(name).Result;			
-            return View(user.ToEditUserViewModel());
+			var user = userManager.FindByNameAsync(name).Result;
+			return View(user.ToEditUserViewModel());
 		}
 
 		[HttpPost]
@@ -94,16 +93,16 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-                var user = userManager.FindByNameAsync(name).Result;
+				var user = userManager.FindByNameAsync(name).Result;
 				user.Phone = editUserViewModel.Phone;
-                user.PhoneNumber = editUserViewModel.Phone;
-                user.UserName = editUserViewModel.UserName;
-                user.Name = editUserViewModel.UserName;
-                userManager.UpdateAsync(user).Wait();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(editUserViewModel);
-        }
+				user.PhoneNumber = editUserViewModel.Phone;
+				user.UserName = editUserViewModel.UserName;
+				user.Name = editUserViewModel.UserName;
+				userManager.UpdateAsync(user).Wait();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(editUserViewModel);
+		}
 
 		public IActionResult ChangePassword(string name)
 		{
@@ -133,18 +132,18 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			return RedirectToAction(nameof(ChangePassword));
 		}
 
-		//добавить защиту от не выбора ролей
+		//добавить защиту от невыбора ролей
 		public IActionResult EditRights(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
 			var userRoles = userManager.GetRolesAsync(user).Result;
-            var roles = roleManager.Roles.ToList();
-            var model = new EditRightsViewModel
+			var roles = roleManager.Roles.ToList();
+			var model = new EditRightsViewModel
 			{
 				UserName = user.UserName,
 				UserRoles = userRoles.Select(x => new RoleViewModel { Name = x }).ToList(),
-                AllRoles = roles.Select(x => new RoleViewModel { Name = x.Name }).ToList()
-            };
+				AllRoles = roles.Select(x => new RoleViewModel { Name = x.Name }).ToList()
+			};
 			return View(model);
 		}
 
@@ -152,11 +151,11 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult EditRights(string name, Dictionary<string, string> userRolesViewsModel)
 		{
 			var userSelectedRoles = userRolesViewsModel.Select(x => x.Key);
-            var user = userManager.FindByNameAsync(name).Result;
-            var userRoles = userManager.GetRolesAsync(user).Result;
+			var user = userManager.FindByNameAsync(name).Result;
+			var userRoles = userManager.GetRolesAsync(user).Result;
 			userManager.RemoveFromRolesAsync(user, userRoles).Wait();
-			userManager.AddToRolesAsync(user, userSelectedRoles).Wait();            
-            return Redirect($"/Admin/User/Details?name={name}");
-        }
+			userManager.AddToRolesAsync(user, userSelectedRoles).Wait();
+			return Redirect($"/Admin/User/Details?name={name}");
+		}
 	}
 }
