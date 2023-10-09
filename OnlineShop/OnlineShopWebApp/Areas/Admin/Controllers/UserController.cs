@@ -106,7 +106,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 
 		public IActionResult ChangePassword(string name)
 		{
-			var changePassword = new ChangePassword()
+			var changePassword = new ChangePasswordViewModel()
 			{
 				UserName = name
 			};
@@ -114,7 +114,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ChangePassword(ChangePassword changePassword)
+		public IActionResult ChangePassword(ChangePasswordViewModel changePassword)
 		{
 			if (changePassword.UserName == changePassword.Password)
 			{
@@ -131,8 +131,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			}
 			return RedirectToAction(nameof(ChangePassword));
 		}
-
-		//добавить защиту от невыбора ролей
+		
 		public IActionResult EditRights(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;

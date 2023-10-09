@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Areas.Admin.Models
 {
-    public class ChangePassword
+    public class ChangePasswordViewModel
     { 
         [Required(ErrorMessage = "Не указан пароль")]
         [StringLength(200, MinimumLength = 8, ErrorMessage = "Пароль должен содержать от 8 до 200 символов")]

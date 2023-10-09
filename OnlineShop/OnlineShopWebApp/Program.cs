@@ -6,6 +6,10 @@ using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
 
+// 1. заменить userId на конкретного
+// 2. Проблема с очитской Items при заказе
+// 3. добавить защиту от невыбора ролей
+
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
 

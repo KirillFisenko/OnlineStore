@@ -11,7 +11,8 @@
         public Order()
         {
 			Status = OrderStatus.Created;
-			CreateDateTime = DateTime.Now;			
+			CreateDateTime = DateTime.Now;
+			Items = new List<CartItem>();
 		}
     }
 }

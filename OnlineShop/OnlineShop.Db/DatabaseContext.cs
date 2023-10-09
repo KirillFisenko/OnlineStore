@@ -15,7 +15,7 @@ namespace OnlineShop.Db
             Database.Migrate();
         }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder) //добавить id
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Product>().HasData(new List<Product>()
             {

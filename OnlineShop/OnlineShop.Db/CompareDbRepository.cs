@@ -30,8 +30,7 @@ namespace OnlineShop.Db
 			databaseContext.CompareProducts.Remove(removingCompare);
 			databaseContext.SaveChanges();
 		}
-
-		//очищать после выхода пользователя
+		
 		public void Clear(string userId)
 		{
 			var userCompareProducts = databaseContext.CompareProducts
