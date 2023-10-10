@@ -12,12 +12,13 @@
 			<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 			<div class="row g-3">
 				<h4 class="bg-warning-subtle text-emphasis-warning my-4">Смена роли доступа для пользователя @Model.UserName</h4>
+				<h6 class=" text-emphasis-warning my-1">Выберите хотя бы одну роль:</h6>
 
 				<input type="hidden" name="name" value="@Model.UserName" />
 
 				@foreach (var role in Model.AllRoles)
 				{
-					<div class="form-check my-4">
+					<div class="form-check my-2">
 						@if (Model.UserRoles.Contains(role))
 						{
 							<input class="form-check-input" name="userRolesViewsModel[@role.Name]" type="checkbox" value="true" checked>

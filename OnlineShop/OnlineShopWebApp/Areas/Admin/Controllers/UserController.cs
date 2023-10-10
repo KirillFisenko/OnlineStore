@@ -135,14 +135,18 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult EditRights(string name, Dictionary<string, string> userRolesViewsModel)
-		{
-			var userSelectedRoles = userRolesViewsModel.Select(x => x.Key);
-			var user = userManager.FindByNameAsync(name).Result;
-			var userRoles = userManager.GetRolesAsync(user).Result;
-			userManager.RemoveFromRolesAsync(user, userRoles).Wait();
-			userManager.AddToRolesAsync(user, userSelectedRoles).Wait();
-			return Redirect($"/Admin/User/Details?name={name}");
+		public IActionResult EditRights(string name, Dictionary<string, bool> userRolesViewsModel)
+		{			
+			if (ModelState.IsValid)
+			{
+				var userSelectedRoles = userRolesViewsModel.Select(x => x.Key);
+				var user = userManager.FindByNameAsync(name).Result;
+				var userRoles = userManager.GetRolesAsync(user).Result;
+				userManager.RemoveFromRolesAsync(user, userRoles).Wait();
+				userManager.AddToRolesAsync(user, userSelectedRoles).Wait();
+				return Redirect($"/Admin/User/Details?name={name}");
+			}
+			return Redirect($"/Admin/User/EditRights?name={name}");
 		}
 	}
 }

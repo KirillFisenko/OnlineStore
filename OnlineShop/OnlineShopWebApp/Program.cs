@@ -7,7 +7,6 @@ using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
 
 // 1. заменить userId на конкретного
-// 2. добавить защиту от невыбора ролей
 
 // создание нового экземпл€ра web application builder
 var builder = WebApplication.CreateBuilder(args);
