@@ -29,3 +29,5 @@ namespace OnlineShop.Db
 		}
 	}
 }
+// Add-Migration Inizialization -context DatabaseContext
+// Add-Migration Identity -context IdentityContext -OutputDir Migrations/Identity

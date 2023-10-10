@@ -17,12 +17,8 @@ namespace OnlineShopWebApp.Controllers
         }
 
         public IActionResult Login(string returnUrl)
-        {
-            if (returnUrl == null)
-            {
-                returnUrl = "/Home";
-            }
-            return View(new Login() { ReturnUrl = returnUrl });
+        {            
+            return View(new Login() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
@@ -44,12 +40,8 @@ namespace OnlineShopWebApp.Controllers
         }
 
         public IActionResult Register(string returnUrl)
-        {
-            if (returnUrl == null)
-            {
-                returnUrl = "/Home";
-            }
-            return View(new Register() { ReturnUrl = returnUrl });
+        {            
+            return View(new Register() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
