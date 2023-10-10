@@ -38,8 +38,8 @@ namespace OnlineShopWebApp.Controllers
                 User = userViewModel.ToUser(),
                 Items = existingCart.Items
             };			
-			ordersRepository.Add(order); //здесь заказ полностью добавляется
-            cartsRepository.Clear(Constants.UserId); //после этого очищаются items из заказа тоже
+			ordersRepository.Add(order);
+            cartsRepository.Clear(Constants.UserId);
             return View(order.ToOrderViewModel());
         }
     }

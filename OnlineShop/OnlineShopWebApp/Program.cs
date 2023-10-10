@@ -7,7 +7,7 @@ using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
 
 // 1. заменить userId на конкретного
-// 2. Проблема с очитской Items при заказе
+// 2. избавиться от лишних user name phone
 // 3. добавить защиту от невыбора ролей
 
 // создание нового экземпляра web application builder
