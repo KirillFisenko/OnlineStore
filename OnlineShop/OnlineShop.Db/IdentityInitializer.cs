@@ -19,7 +19,7 @@ namespace OnlineShop.Db
 			}
 			if (roleManager.FindByNameAsync(adminEmail).Result == null)
 			{
-				var admin = new User { Email = adminEmail, UserName = adminEmail, Name = adminEmail, Phone = "896254357" };
+				var admin = new User { Email = adminEmail, UserName = adminEmail };
 				var result = userManager.CreateAsync(admin, password).Result;
 				if(result.Succeeded)
 				{

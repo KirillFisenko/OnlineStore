@@ -79,17 +79,17 @@ namespace OnlineShopWebApp.Helpers
             return new EditUserViewModel
             {
                 UserName = user.UserName,
-                Phone = user.Phone
-            };
+                Phone = user.PhoneNumber
+			};
         }
 
         public static UserViewModel ToUserViewModel(this User user)
         {
             return new UserViewModel
             {               
-                Name = user.Name,              
-                Phone = user.Phone             
-            };
+                Name = user.UserName,              
+                Phone = user.PhoneNumber
+			};
         }
 
         public static List<UserViewModel> ToUserViewModels(this List<User> users)

@@ -54,7 +54,7 @@ namespace OnlineShopWebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = new User { Email = register.UserName, UserName = register.UserName, Name = register.UserName, PhoneNumber = register.Phone, Phone = register.Phone };
+                User user = new User { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
                 // добавляем пользователя
                 var result = userManager.CreateAsync(user, register.Password).Result;
                 if (result.Succeeded)
