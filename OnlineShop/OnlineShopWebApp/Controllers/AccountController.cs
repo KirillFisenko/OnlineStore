@@ -61,9 +61,8 @@ namespace OnlineShopWebApp.Controllers
                 {
                     // установка куки
                     signInManager.SignInAsync(user, false).Wait();
-
-                    TryAssignUserRole(user);
-                    return Redirect(register.ReturnUrl ?? "/Home");
+					userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+					return Redirect(register.ReturnUrl ?? "/Home");
                 }
                 else
                 {
@@ -74,19 +73,7 @@ namespace OnlineShopWebApp.Controllers
                 }
             }
             return View(register);
-        }
-
-        public void TryAssignUserRole(User user)
-        {
-            try
-            {
-                userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
-            }
-            catch
-            {
-                // log
-            }
-        }
+        }        
 
         public IActionResult Logout()
         {

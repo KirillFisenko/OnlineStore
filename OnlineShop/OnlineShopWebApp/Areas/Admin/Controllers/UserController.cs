@@ -45,7 +45,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 				var result = userManager.CreateAsync(user, register.Password).Result;
 				if (result.Succeeded)
 				{
-					TryAssignUserRole(user);
+					userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
 					return RedirectToAction(nameof(Index));
 				}
 				else
@@ -58,17 +58,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			}
 			return View(register);
 		}
-		public void TryAssignUserRole(User user)
-		{
-			try
-			{
-				userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
-			}
-			catch
-			{
-				// log
-			}
-		}
+		
 		public IActionResult Details(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
