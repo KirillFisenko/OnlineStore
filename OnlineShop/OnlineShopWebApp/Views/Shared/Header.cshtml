@@ -6,6 +6,8 @@
 				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
 					<li ><a asp-controller="Home" asp-area="" asp-action="Index" class="nav-link px-2 text-warning">Домашняя</a></li>
 					<li><a asp-controller="Home" asp-area="" asp-action="About" class="nav-link px-2 text-white">О Компании</a></li>
+					
+					@* если пользователь администратор - появиться панель управления администратора *@
 					@if (User.IsInRole(Constants.AdminRoleName))
 					{
 						<li><a asp-area="Admin" asp-controller="Order" asp-action="Index" class="nav-link px-2 text-white">Администратор</a></li>
@@ -20,6 +22,7 @@
 				</form>
 
 				<div class="text-center">
+					@* если пользователь вошел, появится кнопка выйти и его имя (email), иначе войти и регистрация *@
 					@if (User.Identity.IsAuthenticated)
 					{
 						<a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>

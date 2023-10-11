@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Controllers
@@ -20,27 +19,27 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Index()
 		{
-			var cart = cartsRepository.TryGetById(Constants.UserId);
+			var cart = cartsRepository.TryGetById(User.Identity.Name);
 			return View(cart.ToCartViewModel());
 		}
 
 		public IActionResult Add(Guid productId)
 		{
 			var product = productRepository.TryGetById(productId);
-			cartsRepository.Add(product, Constants.UserId);
+			cartsRepository.Add(product, User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 
 		public IActionResult DecreaseAmount(Guid productId)
 		{
 			var product = productRepository.TryGetById(productId);
-			cartsRepository.DecreaseAmount(product, Constants.UserId);
+			cartsRepository.DecreaseAmount(product, User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 
 		public IActionResult Clear()
 		{			
-			cartsRepository.Clear(Constants.UserId);
+			cartsRepository.Clear(User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 	}

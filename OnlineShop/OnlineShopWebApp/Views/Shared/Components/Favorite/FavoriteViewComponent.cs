@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
 
 namespace OnlineShopWebApp.Views.Shared.ViewComponents.FavoriteViewComponent
 {
@@ -14,7 +13,7 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.FavoriteViewComponent
 		}
 		public IViewComponentResult Invoke()
 		{
-			var productsCount = favoriteRepository.GetAll(Constants.UserId)?.Count() ?? 0;			
+			var productsCount = favoriteRepository.GetAll(User.Identity.Name)?.Count() ?? 0;			
 			return View("Favorite", productsCount);
 		}
 	}
