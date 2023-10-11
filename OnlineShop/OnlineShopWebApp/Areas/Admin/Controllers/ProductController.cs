@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -11,10 +13,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 	[Authorize(Roles = Constants.AdminRoleName)]
 	public class ProductController : Controller
     {
-        private readonly IProductsRepository productsRepository;       
-        public ProductController(IProductsRepository productsRepository)
+        private readonly IProductsRepository productsRepository;
+        private readonly ImagesProvider imagesProvider;
+        
+        public ProductController(IProductsRepository productsRepository, ImagesProvider imagesProvider)
         {
-            this.productsRepository = productsRepository;            
+            this.productsRepository = productsRepository;   
+            this.imagesProvider = imagesProvider;
         }       
                 
         public IActionResult Index()
@@ -48,8 +53,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             {
                 Name = product.Name,
                 Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
+                Description = product.Description                
             };
 
             productsRepository.Edit(prduct, productId);
@@ -62,7 +66,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ProductViewModel product)
+        public IActionResult Add(AddProductViewModel product)
         {
             if (productsRepository.TryGetByName(product.Name) != null)
             {
@@ -73,15 +77,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 return View(product);
             }
 
-            var prductDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-
-            productsRepository.Add(prductDb);
+            var imagesPaths = imagesProvider.SafeFiles(product.UploadedFiles, ImageFolders.Products);
+            productsRepository.Add(product.ToProduct(imagesPaths));
             return RedirectToAction(nameof(Index));
         }
     }

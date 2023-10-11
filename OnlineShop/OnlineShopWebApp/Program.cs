@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
+using OnlineShopWebApp.Helpers;
 
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
 builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
+builder.Services.AddTransient<ImagesProvider>();
 
 // настройка параметров локализации запросов
 builder.Services.Configure<RequestLocalizationOptions>(options =>

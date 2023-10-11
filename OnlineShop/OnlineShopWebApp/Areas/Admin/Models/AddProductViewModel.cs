@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShopWebApp.Models
+namespace OnlineShopWebApp.Areas.Admin.Models
 {
-    public class ProductViewModel
+    public class AddProductViewModel
     {
-        public Guid Id { get; set; }
-
         [Required(ErrorMessage = "Не указано наименование товара")]
         [StringLength(70, MinimumLength = 3, ErrorMessage = "Наименование должно содержать от 3 до 70 символов")]
         public string Name { get; set; }
@@ -17,8 +15,7 @@ namespace OnlineShopWebApp.Models
         [Required(ErrorMessage = "Не указано описание товара")]
         [StringLength(300, MinimumLength = 1, ErrorMessage = "Описание должно содержать от 1 до 300 символов")]
         public string Description { get; set; }
-       
-        public string[] ImagePaths { get; set; }
-        public string ImagePath => ImagePaths.Length == 0 ? "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" : ImagePaths[0];
+
+       public IFormFile[] UploadedFiles { get; set; }
     }
 }

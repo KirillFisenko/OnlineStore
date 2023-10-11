@@ -1,4 +1,5 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
@@ -13,12 +14,12 @@ namespace OnlineShop.Db
 
         public List<Product> GetAll()
         {
-            return databaseContext.Products.ToList();
+            return databaseContext.Products.Include(x => x.Images).ToList();
         }
 
         public Product TryGetById(Guid productId)
         {
-            return databaseContext.Products.FirstOrDefault(product => product.Id == productId);
+            return databaseContext.Products.Include(x => x.Images).FirstOrDefault(product => product.Id == productId);
         }
 
         public Product TryGetByName(string name)
@@ -44,8 +45,7 @@ namespace OnlineShop.Db
             var currentProduct = TryGetById(productId);
             currentProduct.Name = product.Name;
             currentProduct.Cost = product.Cost;
-            currentProduct.Description = product.Description;
-            currentProduct.ImagePath = product.ImagePath;
+            currentProduct.Description = product.Description;            
             databaseContext.SaveChanges();
         }
     }

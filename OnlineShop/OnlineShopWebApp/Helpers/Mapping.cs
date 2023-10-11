@@ -24,8 +24,24 @@ namespace OnlineShopWebApp.Helpers
                 Name = product.Name,
                 Cost = product.Cost,
                 Description = product.Description,
-                ImagePath = product.ImagePath
+                ImagePaths = product.Images.Select(x => x.Url).ToArray()
             };
+        }
+
+        public static Product ToProduct(this AddProductViewModel product, List<string> imagesPaths)
+        {
+            return new Product
+            {                
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                Images = ToImages(imagesPaths)
+            };
+        }
+
+        public static List<Image> ToImages(this List<string> paths)
+        {
+            return paths.Select(x => new Image { Url = x }).ToList();
         }
 
         public static OrderViewModel ToOrderViewModel(this Order order)
@@ -49,7 +65,7 @@ namespace OnlineShopWebApp.Helpers
                 Phone = deliveryInfo.Phone,
                 Address = deliveryInfo.Address
             };
-        }      
+        }
 
         public static UserDeliveryInfo ToUser(this UserDeliveryInfoViewModel user)
         {
@@ -60,7 +76,7 @@ namespace OnlineShopWebApp.Helpers
                 Phone = user.Phone,
                 Address = user.Address
             };
-        }	
+        }
 
         public static EditUserViewModel ToEditUserViewModel(this User user)
         {
@@ -68,17 +84,17 @@ namespace OnlineShopWebApp.Helpers
             {
                 UserName = user.UserName,
                 Phone = user.PhoneNumber
-			};
+            };
         }
 
         public static UserViewModel ToUserViewModel(this User user)
         {
             return new UserViewModel
-            {               
-                Name = user.UserName,              
+            {
+                Name = user.UserName,
                 Phone = user.PhoneNumber
-			};
-        }              
+            };
+        }
 
         public static CartViewModel ToCartViewModel(this Cart cart)
         {
