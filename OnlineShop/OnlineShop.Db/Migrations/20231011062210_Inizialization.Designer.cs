@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231010160832_Inizialization")]
+    [Migration("20231011062210_Inizialization")]
     partial class Inizialization
     {
         /// <inheritdoc />
@@ -162,7 +162,7 @@ namespace OnlineShop.Db.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f16a2b53-726c-44d7-a2c3-36bd5951a135"),
+                            Id = new Guid("54f22de1-cb79-445a-9d05-2b9657539b39"),
                             Cost = 33060m,
                             Description = "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort",
                             ImagePath = "/images/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb.webp",
@@ -170,7 +170,7 @@ namespace OnlineShop.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d017b999-1cc1-4e3e-aeb7-812e2cd8b155"),
+                            Id = new Guid("c75756c2-1e12-4834-b3ae-a45458050c14"),
                             Cost = 109580m,
                             Description = "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort",
                             ImagePath = "/images/NVIDIA GeForce RTX 4080 Gigabyte 16Gb.webp",
@@ -178,7 +178,7 @@ namespace OnlineShop.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4fa8abf8-303c-4a6b-bc0f-f50cc81be38c"),
+                            Id = new Guid("8bd02e61-ce55-41c9-8aec-4258994b1854"),
                             Cost = 35720m,
                             Description = "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort",
                             ImagePath = "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp",
@@ -186,7 +186,7 @@ namespace OnlineShop.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2bc7f696-05f0-44ab-8384-dc9c31ff72f4"),
+                            Id = new Guid("1b9e9198-cc0f-4021-bb39-a13145b9812d"),
                             Cost = 93320m,
                             Description = "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort",
                             ImagePath = "/images/NVIDIA GeForce RTX 4070 Ti MSI 12Gb.webp",
@@ -194,7 +194,7 @@ namespace OnlineShop.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("18ff519b-76f6-4f0b-b5f2-d45e35b624ab"),
+                            Id = new Guid("a62bd6ba-4490-4fb6-b06a-83a82db2a268"),
                             Cost = 48660m,
                             Description = "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort",
                             ImagePath = "/images/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR.webp",
@@ -202,7 +202,7 @@ namespace OnlineShop.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9c283df0-c55d-4230-be9d-4822e6a09ef1"),
+                            Id = new Guid("fd7ff98c-54d0-4776-9da8-ea8b36da99d1"),
                             Cost = 182350m,
                             Description = "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort",
                             ImagePath = "/images/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp",
