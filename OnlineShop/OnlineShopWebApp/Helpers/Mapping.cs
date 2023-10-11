@@ -72,32 +72,24 @@ namespace OnlineShopWebApp.Helpers
                 Phone = user.Phone,
                 Address = user.Address
             };
+        }	
+
+        public static EditUserViewModel ToEditUserViewModel(this User user)
+        {
+            return new EditUserViewModel
+            {
+                UserName = user.UserName,
+                Phone = user.PhoneNumber
+			};
         }
 
-		public static EditUser ToUser(this EditUserViewModel user)
-		{
-			return new EditUser
-			{
-				Id = user.Id,
-				UserName = user.UserName,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				Phone = user.Phone
-			};
-		}
-
-		public static UserViewModel ToUserViewModel(this User user)
+        public static UserViewModel ToUserViewModel(this User user)
         {
             return new UserViewModel
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Phone = user.Phone,
-                Role = user.Role.ToRoleViewModel()
-            };
+            {               
+                Name = user.UserName,              
+                Phone = user.PhoneNumber
+			};
         }
 
         public static List<UserViewModel> ToUserViewModels(this List<User> users)
@@ -108,34 +100,7 @@ namespace OnlineShopWebApp.Helpers
                 usersViewModels.Add(ToUserViewModel(user));
             }
             return usersViewModels;
-        }
-
-        public static Role ToRole(this RoleViewModel role)
-        {
-            return new Role
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
-        }
-
-        public static RoleViewModel ToRoleViewModel(this Role role)
-        {
-            return new RoleViewModel
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
-        }
-        public static List<RoleViewModel> ToRoleViewModels(this List<Role> roles)
-        {
-            var rolesViewModels = new List<RoleViewModel>();
-            foreach (var role in roles)
-            {
-                rolesViewModels.Add(ToRoleViewModel(role));
-            }
-            return rolesViewModels;
-        }
+        }        
 
         public static CartViewModel ToCartViewModel(this Cart cart)
         {

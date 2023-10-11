@@ -34,8 +34,7 @@ namespace OnlineShop.Db
 						new CartItem()
 						{
 							Quantity = 1,
-							Product = product,
-							Cart = newCart
+							Product = product							
 						}
 					};				
                 databaseContext.Carts.Add(newCart);
@@ -53,8 +52,7 @@ namespace OnlineShop.Db
 					existingCart.Items.Add(new CartItem
 					{						
 						Quantity = 1,
-						Product = product,
-						Cart = existingCart
+						Product = product						
 					});
 				}
 			}
@@ -85,7 +83,7 @@ namespace OnlineShop.Db
 		public void Clear(string userId)
 		{
 			var existingCart = TryGetById(userId);
-			databaseContext.Carts.Remove(existingCart); //проблема с очисткой items
+			databaseContext.Carts.Remove(existingCart);
 			databaseContext.SaveChanges();
 		}
 	}

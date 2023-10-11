@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
@@ -7,21 +8,23 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-	[Area("Admin")]
+	[Area(Constants.AdminRoleName)]
+	[Authorize(Roles = Constants.AdminRoleName)]
 	public class UserController : Controller
 	{
-		private readonly IUsersRepository usersRepository;
-		private readonly IRolesRepository rolesRepository;
-		public UserController(IUsersRepository usersRepository, IRolesRepository rolesRepository)
-        {
-            this.usersRepository = usersRepository;
-            this.rolesRepository = rolesRepository;
-        }
-
-        public IActionResult Index()
+		private readonly UserManager<User> userManager;
+		private readonly RoleManager<IdentityRole> roleManager;
+		
+		public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
 		{
-			var users = usersRepository.GetAll();
-			return View(users.ToUserViewModels());
+			this.userManager = userManager;
+			this.roleManager = roleManager;			
+		}
+
+		public IActionResult Index()
+		{
+			var users = userManager.Users.ToList();
+			return View(users.Select(x => x.ToUserViewModel()).ToList());
 		}
 
 		public IActionResult Add()
@@ -32,112 +35,118 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		[HttpPost]
 		public IActionResult Add(Register register)
 		{
-			var userAccount = usersRepository.TryGetByName(register.UserName);
-			if (userAccount != null)
-			{
-				ModelState.AddModelError("", "Пользователь с таким именем уже есть.");
-			}
 			if (register.UserName == register.Password)
 			{
 				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
 			}
-			if (!register.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
+			if (ModelState.IsValid)
 			{
-				ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");
+				User user = new User { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
+				var result = userManager.CreateAsync(user, register.Password).Result;
+				if (result.Succeeded)
+				{
+					userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+					return RedirectToAction(nameof(Index));
+				}
+				else
+				{
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError(string.Empty, error.Description);
+					}
+				}
 			}
-			if (!register.FirstName.All(char.IsLetter))
-			{
-				ModelState.AddModelError("", "Имя должно содержать только буквы");
-			}
-			if (!register.LastName.All(char.IsLetter))
-			{
-				ModelState.AddModelError("", "Фамилия должна содержать только буквы");
-			}
-			if (!ModelState.IsValid)
-			{
-				return View(register);
-			}
-			var newUser = new User
-			{
-				Id = Guid.NewGuid(),
-				Name = register.UserName,
-				Password = register.Password,
-				FirstName = register.FirstName,
-				LastName = register.LastName,
-				Phone = register.Phone,
-				Role = new Role {  Name = "User" }
-			};
-			usersRepository.Add(newUser);
-            return RedirectToAction(nameof(Index));
+			return View(register);
 		}
-
-		public IActionResult Details(Guid userId)
+		
+		public IActionResult Details(string name)
 		{
-			var user = usersRepository.TryGetById(userId);
+			var user = userManager.FindByNameAsync(name).Result;
 			return View(user.ToUserViewModel());
 		}
 
-		public IActionResult Remove(Guid userId)
+		public IActionResult Remove(string name)
 		{
-			usersRepository.Remove(userId);
+			var user = userManager.FindByNameAsync(name).Result;
+			userManager.DeleteAsync(user).Wait();
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult Edit(Guid userId)
+		public IActionResult Edit(string name)
 		{
-			var user = usersRepository.TryGetById(userId);
-			var editUser = new EditUserViewModel
-			{
-				Id = user.Id,
-				UserName = user.Name,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				Phone = user.Phone
-			};
-			return View(editUser);
+			var user = userManager.FindByNameAsync(name).Result;
+			return View(user.ToEditUserViewModel());
 		}
 
 		[HttpPost]
-		public IActionResult Edit(EditUserViewModel user, Guid userId)
+		public IActionResult Edit(EditUserViewModel editUserViewModel, string name)
 		{
-			if (!ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
-				return View(user);
+				var user = userManager.FindByNameAsync(name).Result;				
+				user.PhoneNumber = editUserViewModel.Phone;
+				user.UserName = editUserViewModel.UserName;				
+				userManager.UpdateAsync(user).Wait();
+				return RedirectToAction(nameof(Index));
 			}
-			usersRepository.Edit(Mapping.ToUser(user), userId);
-			return RedirectToAction(nameof(Index));
+			return View(editUserViewModel);
 		}
 
-		public IActionResult ChangePassword(Guid userId)
+		public IActionResult ChangePassword(string name)
 		{
-			var user = usersRepository.TryGetById(userId);
-			ViewData["userId"] = userId;
-			ViewData["userName"] = user.Name;
-			return View();
-		}
-
-		[HttpPost]
-		public IActionResult ChangePassword(Guid userId, string password)
-		{
-			usersRepository.ChangePassword(userId, password);
-			return RedirectToAction(nameof(Index));
-		}
-
-		public IActionResult ChangeAccess(Guid userId)
-		{
-			var user = usersRepository.TryGetById(userId);
-			var roles = rolesRepository.GetAll();
-			ViewData["userId"] = userId;
-			ViewData["userName"] = user.Name;
-			ViewData["userRole"] = user.Role.Name;
-			return View(roles.ToRoleViewModels());
+			var changePassword = new ChangePasswordViewModel()
+			{
+				UserName = name
+			};
+			return View(changePassword);
 		}
 
 		[HttpPost]
-		public IActionResult ChangeAccess(Guid userId, string role)
+		public IActionResult ChangePassword(ChangePasswordViewModel changePassword)
 		{
-			usersRepository.ChangeAccess(userId, role);
-			return RedirectToAction(nameof(Index));
+			if (changePassword.UserName == changePassword.Password)
+			{
+				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+			}
+
+			if (ModelState.IsValid)
+			{
+				var user = userManager.FindByNameAsync(changePassword.UserName).Result;
+				var newHashPassword = userManager.PasswordHasher.HashPassword(user, changePassword.Password);
+				user.PasswordHash = newHashPassword;
+				userManager.UpdateAsync(user).Wait();
+				return RedirectToAction(nameof(Index));
+			}
+			return RedirectToAction(nameof(ChangePassword));
+		}
+		
+		public IActionResult EditRights(string name)
+		{
+			var user = userManager.FindByNameAsync(name).Result;
+			var userRoles = userManager.GetRolesAsync(user).Result;
+			var roles = roleManager.Roles.ToList();
+			var model = new EditRightsViewModel
+			{
+				UserName = user.UserName,
+				UserRoles = userRoles.Select(x => new RoleViewModel { Name = x }).ToList(),
+				AllRoles = roles.Select(x => new RoleViewModel { Name = x.Name }).ToList()
+			};
+			return View(model);
+		}
+
+		[HttpPost]
+		public IActionResult EditRights(string name, Dictionary<string, bool> userRolesViewsModel)
+		{			
+			if (ModelState.IsValid)
+			{
+				var userSelectedRoles = userRolesViewsModel.Select(x => x.Key);
+				var user = userManager.FindByNameAsync(name).Result;
+				var userRoles = userManager.GetRolesAsync(user).Result;
+				userManager.RemoveFromRolesAsync(user, userRoles).Wait();
+				userManager.AddToRolesAsync(user, userSelectedRoles).Wait();
+				return Redirect($"/Admin/User/Details?name={name}");
+			}
+			return Redirect($"/Admin/User/EditRights?name={name}");
 		}
 	}
 }

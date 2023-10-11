@@ -20,8 +20,7 @@
 			this.Name = Name;
 			this.Cost = Cost;
 			this.Description = Description;
-			this.ImagePath = ImagePath;
-			CartItems = new List<CartItem>();
+			this.ImagePath = ImagePath;			
 		}
 	}
 }

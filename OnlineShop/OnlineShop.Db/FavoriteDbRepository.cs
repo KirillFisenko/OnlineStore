@@ -30,8 +30,8 @@ namespace OnlineShop.Db
             databaseContext.FavoriteProducts.Remove(removingFavorite);
             databaseContext.SaveChanges();
         }
-
-        public void Clear(string userId)
+		
+		public void Clear(string userId)
         {
             var userFavoriteProducts = databaseContext.FavoriteProducts
 				.Where(u => u.UserId == userId)

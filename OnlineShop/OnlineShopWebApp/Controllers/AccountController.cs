@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
+using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 
@@ -7,81 +7,78 @@ namespace OnlineShopWebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUsersRepository usersRepository;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
-        public AccountController(IUsersRepository usersRepository)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            this.usersRepository = usersRepository;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
-        public IActionResult Login()
-        {
-            return View();
+
+        public IActionResult Login(string returnUrl)
+        {            
+            return View(new Login() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
-        public IActionResult Login(Login user)
-        {
-            var userAccount = usersRepository.TryGetByName(user.UserName);
-            if (userAccount == null)
+        public IActionResult Login(Login login)
+        {              
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Пользователь с таким именем не найден. Проверьте имя или зарегистрируйтесь.");
+                var result = signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
+                if (result.Succeeded)
+                {
+                    return Redirect(login.ReturnUrl ?? "/Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Неправильный логин или пароль");
+                }
             }
-            if (userAccount != null && userAccount.Password != user.Password)
-            {
-                ModelState.AddModelError("", "Не верный пароль");
-            }
-            if (!ModelState.IsValid)
-            {
-                return View(user);
-            }
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return View(login);
         }
 
-        public IActionResult Register()
-        {
-            return View();
+        public IActionResult Register(string returnUrl)
+        {            
+            return View(new Register() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
         public IActionResult Register(Register register)
         {
-            var userAccount = usersRepository.TryGetByName(register.UserName);
-            if (userAccount != null)
-            {
-                ModelState.AddModelError("", "Пользователь с таким именем уже есть.");
-            }
             if (register.UserName == register.Password)
             {
                 ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
             }
-            if (!register.Phone.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
+
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы '+()-'");
+                User user = new User { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
+                // добавляем пользователя
+                var result = userManager.CreateAsync(user, register.Password).Result;
+                if (result.Succeeded)
+                {
+                    // установка куки
+                    signInManager.SignInAsync(user, false).Wait();
+					userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+					return Redirect(register.ReturnUrl ?? "/Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
-            if (!register.FirstName.All(char.IsLetter))
-            {
-                ModelState.AddModelError("", "Имя должно содержать только буквы");
-            }
-            if (!register.LastName.All(char.IsLetter))
-            {
-                ModelState.AddModelError("", "Фамилия должна содержать только буквы");
-            }
-            if (!ModelState.IsValid)
-            {
-                return View(register);
-            }
-			var newUser = new User
-			{
-				Id = Guid.NewGuid(),
-				Name = register.UserName,
-				Password = register.Password,
-				FirstName = register.FirstName,
-				LastName = register.LastName,
-				Phone = register.Phone,
-				Role = new Role { Name = "User" }
-			};
-			usersRepository.Add(newUser);
-			return RedirectToAction(nameof(HomeController.Index), "Home");
+            return View(register);
+        }        
+
+        public IActionResult Logout()
+        {
+            signInManager.SignOutAsync().Wait();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

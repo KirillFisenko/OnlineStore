@@ -5,11 +5,15 @@
 			<div class="modal-header p-5 pb-4 border-bottom-0">
 				<h1 class="fw-bold mb-0 fs-2">Регистрация</h1>
 				<a type="button" class="btn-close" asp-controller="Home" asp-action="Index"></a>
-			</div>
+			</div>			
 
 			<div class="modal-body p-5 pt-0">
 				<form method="post">
 					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+					
+					@* на какую страницу перейти после регистрации *@
+					<input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+					
 					<div class="form-floating mb-3">
 						<input asp-for="UserName" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
 						<label asp-for="UserName">Email</label>
@@ -24,17 +28,7 @@
 						<input asp-for="ConfirmPassword" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
 						<label asp-for="ConfirmPassword">Повторите пароль</label>
 						<span asp-validation-for="ConfirmPassword" />
-					</div>
-					<div class="form-floating mb-3">
-						<input asp-for="FirstName" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Кирилл">
-						<label asp-for="FirstName">Имя</label>
-						<span asp-validation-for="FirstName" />
-					</div>
-					<div class="form-floating mb-3">
-						<input asp-for="LastName" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Фисенко">
-						<label asp-for="LastName">Фамилия</label>
-						<span asp-validation-for="LastName" />
-					</div>
+					</div>					
 					<div class="form-floating mb-3">
 						<input asp-for="Phone" type="text" class="form-control rounded-3" id="floatingInput" placeholder="+79265463469">
 						<label asp-for="Phone">Телефон</label>
