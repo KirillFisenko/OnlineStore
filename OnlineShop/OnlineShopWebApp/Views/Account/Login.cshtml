@@ -10,6 +10,7 @@
             <div class="modal-body p-5 pt-0">
                 <form method="post">
                     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+                    
                     @* на какую страницу перейти после авторизации *@
                     <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
 

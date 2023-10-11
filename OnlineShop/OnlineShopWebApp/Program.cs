@@ -6,8 +6,6 @@ using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
 
-// 1. заменить userId на конкретного
-
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
 

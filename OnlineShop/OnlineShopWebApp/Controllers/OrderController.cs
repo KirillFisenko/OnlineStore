@@ -31,7 +31,7 @@ namespace OnlineShopWebApp.Controllers
 			{
 				return View(nameof(Index), userViewModel);
 			}
-			var existingCart = cartsRepository.TryGetById(Constants.UserId);           
+			var existingCart = cartsRepository.TryGetById(User.Identity.Name);           
 
             var order = new Order
             {
@@ -39,7 +39,7 @@ namespace OnlineShopWebApp.Controllers
                 Items = existingCart.Items
             };			
 			ordersRepository.Add(order);
-            cartsRepository.Clear(Constants.UserId);
+            cartsRepository.Clear(User.Identity.Name);
             return View(order.ToOrderViewModel());
         }
     }
