@@ -49,19 +49,7 @@ namespace OnlineShopWebApp.Helpers
                 Phone = deliveryInfo.Phone,
                 Address = deliveryInfo.Address
             };
-        }
-
-        public static Product ToProduct(this ProductViewModel productViewModel)
-        {
-            return new Product
-            {
-                Id = productViewModel.Id,
-                Name = productViewModel.Name,
-                Cost = productViewModel.Cost,
-                Description = productViewModel.Description,
-                ImagePath = productViewModel.ImagePath
-            };
-        }
+        }      
 
         public static UserDeliveryInfo ToUser(this UserDeliveryInfoViewModel user)
         {
@@ -90,17 +78,7 @@ namespace OnlineShopWebApp.Helpers
                 Name = user.UserName,              
                 Phone = user.PhoneNumber
 			};
-        }
-
-        public static List<UserViewModel> ToUserViewModels(this List<User> users)
-        {
-            var usersViewModels = new List<UserViewModel>();
-            foreach (var user in users)
-            {
-                usersViewModels.Add(ToUserViewModel(user));
-            }
-            return usersViewModels;
-        }        
+        }              
 
         public static CartViewModel ToCartViewModel(this Cart cart)
         {
