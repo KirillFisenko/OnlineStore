@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231013101713_Inizialization")]
+    [Migration("20231013182339_Inizialization")]
     partial class Inizialization
     {
         /// <inheritdoc />
