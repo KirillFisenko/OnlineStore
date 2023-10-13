@@ -2,33 +2,32 @@
 
 <div class="row">
 
-	<div class="col-lg-3">
-		<div class="my-4">
-			@await Html.PartialAsync("LeftMenu")
-		</div>
-	</div>
+    <div class="col-lg-3">
+        <div class="my-4">
+            @await Html.PartialAsync("LeftMenu")
+        </div>
+    </div>
 
-	<div class="col-lg-9">
-		<div class="row my-4 d-flex align-items-lg-center">
-
-			<div class="col-5">
-				<img class="card-img-top img-fluid" src="@Model.ImagePath" alt="Изображение товара">
-			</div>
-
-			<div class="col-1"></div>
-
-			<div class="col-6">
-				<h4>@Model.Name</h4>
-				<h5>@Model.Cost &#8381;</h5>
-				<p>@Model.Description</p>
-				<div class="btn-group d-flex align-items-end justify-content-around" >
-					<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-cart"> Купить</i></a>
-					<a class="btn btn-outline-warning" asp-controller="Favorite" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-heart"> Отложить</i></a>
-					<a class="btn btn-outline-warning" asp-controller="Compare" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-clipboard2-plus"> Сравнить</i></a>
-					<a class="btn btn-outline-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить</i></a>
-				</div>
-			</div>
-		</div>
-
-	</div>
+    <div class="col-lg-9">
+        <div class="row my-4 d-flex align-items-lg-center">
+            <div class="col-4">
+                @foreach (var image in Model.ImagesPaths)
+                {
+                    <img class="card-img-top img-fluid my-2" src="@image" alt="Изображение товара">
+                }
+            </div>
+            <div class="col-1"></div>
+            <div class="col-7">
+                <h4>@Model.Name</h4>
+                <h5>@Model.Cost &#8381;</h5>
+                <p>@Model.Description</p>
+                <div class="btn-group d-flex align-items-end justify-content-around">
+                    <a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-cart"> Купить</i></a>
+                    <a class="btn btn-outline-warning" asp-controller="Favorite" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-heart"> Отложить</i></a>
+                    <a class="btn btn-outline-warning" asp-controller="Compare" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-clipboard2-plus"> Сравнить</i></a>
+                    <a class="btn btn-outline-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

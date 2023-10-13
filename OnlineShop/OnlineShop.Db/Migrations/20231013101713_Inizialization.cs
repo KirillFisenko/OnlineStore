@@ -94,7 +94,7 @@ namespace OnlineShop.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -103,9 +103,9 @@ namespace OnlineShop.Db.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Products_ProductId",
+                        name: "FK_Images_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -177,16 +177,16 @@ namespace OnlineShop.Db.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Image",
+                table: "Images",
                 columns: new[] { "Id", "ProductId", "Url" },
                 values: new object[,]
                 {
-                    { new Guid("11f0ada9-6749-4202-abc2-0e0798c28956"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" },
-                    { new Guid("3b86338f-39a1-49be-97e0-8dafb3cde5e4"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" },
-                    { new Guid("515113c4-e7ec-4375-8dd8-5ee691534916"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" },
-                    { new Guid("566f1b95-98d0-4ffe-8674-613fb2805f87"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" },
-                    { new Guid("615aa542-835d-477e-944f-c7e52379a833"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" },
-                    { new Guid("f1a36166-5459-4e4e-9c12-38286acc700d"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" }
+                    { new Guid("11f0ada9-6749-4202-abc2-0e0798c28956"), new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"), "/images/Products/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" },
+                    { new Guid("3b86338f-39a1-49be-97e0-8dafb3cde5e4"), new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"), "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp" },
+                    { new Guid("515113c4-e7ec-4375-8dd8-5ee691534916"), new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"), "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb.webp" },
+                    { new Guid("566f1b95-98d0-4ffe-8674-613fb2805f87"), new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"), "/images/Products/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR.webp" },
+                    { new Guid("615aa542-835d-477e-944f-c7e52379a833"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/Products/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb.webp" },
+                    { new Guid("f1a36166-5459-4e4e-9c12-38286acc700d"), new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"), "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb.webp" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -215,8 +215,8 @@ namespace OnlineShop.Db.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_ProductId",
-                table: "Image",
+                name: "IX_Images_ProductId",
+                table: "Images",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
@@ -238,7 +238,7 @@ namespace OnlineShop.Db.Migrations
                 name: "FavoriteProducts");
 
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Carts");

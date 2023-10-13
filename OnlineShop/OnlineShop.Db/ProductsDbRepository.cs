@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
@@ -40,12 +41,27 @@ namespace OnlineShop.Db
             databaseContext.SaveChanges();
         }
 
-        public void Edit(Product product, Guid productId)
+        public void Edit(Product product, IFormFile[] uploadedFiles)
         {
-            var currentProduct = TryGetById(productId);
+            var currentProduct = TryGetById(product.Id);
             currentProduct.Name = product.Name;
             currentProduct.Cost = product.Cost;
-            currentProduct.Description = product.Description;            
+            currentProduct.Description = product.Description;
+            
+            if(uploadedFiles != null)
+            {
+                foreach (var image in currentProduct.Images)
+                {
+                    databaseContext.Images.Remove(image);
+                }
+
+                foreach (var image in product.Images)
+                {
+                    image.ProductId = product.Id;
+                    databaseContext.Images.Add(image);
+                }
+            }          
+
             databaseContext.SaveChanges();
         }
     }

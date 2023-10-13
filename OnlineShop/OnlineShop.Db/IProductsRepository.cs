@@ -1,4 +1,5 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.AspNetCore.Http;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
@@ -9,6 +10,6 @@ namespace OnlineShop.Db
         Product TryGetByName(string name);
         void Remove(Guid id);
         void Add(Product product);
-        void Edit(Product product, Guid productId);        
+        void Edit(Product product, IFormFile[] uploadedFiles);        
     }
 }

@@ -24,7 +24,7 @@ namespace OnlineShopWebApp.Helpers
                 Name = product.Name,
                 Cost = product.Cost,
                 Description = product.Description,
-                ImagePaths = product.Images.Select(x => x.Url).ToArray()
+                ImagesPaths = product.Images.Select(x => x.Url).ToArray()
             };
         }
 
@@ -35,13 +35,42 @@ namespace OnlineShopWebApp.Helpers
                 Name = product.Name,
                 Cost = product.Cost,
                 Description = product.Description,
-                Images = ToImages(imagesPaths)
+                Images = ToImages(imagesPaths)                
+            };
+        }
+
+        public static Product ToProduct(this EditProductViewModel product)
+        {
+            return new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                Images = product.ImagesPaths.ToImages()                
+            };
+        }
+
+        public static EditProductViewModel ToEditProductViewModel(this Product product)
+        {
+            return new EditProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagesPaths = product.Images.ToPaths()                
             };
         }
 
         public static List<Image> ToImages(this List<string> paths)
         {
             return paths.Select(x => new Image { Url = x }).ToList();
+        }
+
+        public static List<string> ToPaths(this List<Image> paths)
+        {
+            return paths.Select(x => x.Url).ToList();
         }
 
         public static OrderViewModel ToOrderViewModel(this Order order)

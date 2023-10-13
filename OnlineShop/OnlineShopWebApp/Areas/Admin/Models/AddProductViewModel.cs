@@ -16,6 +16,6 @@ namespace OnlineShopWebApp.Areas.Admin.Models
         [StringLength(300, MinimumLength = 1, ErrorMessage = "Описание должно содержать от 1 до 300 символов")]
         public string Description { get; set; }
 
-       public IFormFile[] UploadedFiles { get; set; }
+        public IFormFile[] UploadedFiles { get; set; }
     }
 }
