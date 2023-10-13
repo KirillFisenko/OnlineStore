@@ -11,13 +11,7 @@
         <form method="post">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
             <div class="row g-3">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>
-
-                <div class="col-12">
-                    <label asp-for="Name">Email:</label>
-                    <input asp-for="Name" type="email" class="form-control" value="@Model.Name" />
-                    <span asp-validation-for="Name" />
-                </div>
+                <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>                
 
                 <div class="col-12">
                     <label asp-for="Phone">Телефон:</label>
@@ -26,8 +20,8 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="" asp-controller="Account" asp-action="Edit" asp-route-name="@Model.Name">Сохранить</button>
-            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="" asp-controller="Account" asp-action="Index">Отмена</a>
+            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="" asp-controller="Account" asp-action="Edit">Сохранить</button>
+            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="" asp-controller="Home" asp-action="Index">Отмена</a>
 
         </form>
     </div>

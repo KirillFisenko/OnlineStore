@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShop.Db;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -10,11 +12,13 @@ namespace OnlineShopWebApp.Controllers
 	{
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
+		private readonly IOrdersRepository ordersRepository;
 
-		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IOrdersRepository ordersRepository)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
+			this.ordersRepository = ordersRepository;
 		}
 
 		public IActionResult Login(string returnUrl)
@@ -86,6 +90,25 @@ namespace OnlineShopWebApp.Controllers
 		{
 			var user = userManager.FindByNameAsync(User.Identity.Name).Result;
 			return View(user.ToEditUserByUserViewModel());
+		}
+
+		[HttpPost]
+		public IActionResult Edit(EditUserByUserViewModel editUserByUserViewModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = userManager.FindByNameAsync(User.Identity.Name).Result;
+				user.PhoneNumber = editUserByUserViewModel.Phone;				
+				userManager.UpdateAsync(user).Wait();
+				return RedirectToAction(nameof(HomeController.Index), "Home");
+			}
+			return View(editUserByUserViewModel);
+		}
+
+		public IActionResult Orders()
+		{			
+			var order = ordersRepository.GetAll().Where(o => o.User.Email == User.Identity.Name);            
+            return View(order.Select(o => o.ToOrderViewModel()).ToList());			
 		}
 	}
 }

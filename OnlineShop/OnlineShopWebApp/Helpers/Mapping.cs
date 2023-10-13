@@ -128,8 +128,7 @@ namespace OnlineShopWebApp.Helpers
 		public static EditUserByUserViewModel ToEditUserByUserViewModel(this User user)
 		{
 			return new EditUserByUserViewModel
-			{
-				Name = user.UserName,
+			{				
 				Phone = user.PhoneNumber
 			};
 		}
