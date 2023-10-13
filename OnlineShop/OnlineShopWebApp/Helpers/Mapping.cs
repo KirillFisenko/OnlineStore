@@ -125,7 +125,16 @@ namespace OnlineShopWebApp.Helpers
             };
         }
 
-        public static CartViewModel ToCartViewModel(this Cart cart)
+		public static EditUserByUserViewModel ToEditUserByUserViewModel(this User user)
+		{
+			return new EditUserByUserViewModel
+			{
+				Name = user.UserName,
+				Phone = user.PhoneNumber
+			};
+		}
+
+		public static CartViewModel ToCartViewModel(this Cart cart)
         {
             if (cart == null)
             {
