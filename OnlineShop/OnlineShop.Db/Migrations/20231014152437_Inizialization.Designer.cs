@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231013182339_Inizialization")]
+    [Migration("20231014152437_Inizialization")]
     partial class Inizialization
     {
         /// <inheritdoc />
@@ -277,6 +277,10 @@ namespace OnlineShop.Db.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIdentityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

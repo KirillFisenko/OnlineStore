@@ -35,7 +35,7 @@
 				<div class="col-12">
 					<label class="my-2">Изображения:</label>
 					<input type="hidden" name="ImagesPaths" value="@Model.ImagesPaths" />
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-around">
 						@foreach (var imagePath in Model.ImagesPaths)
 						{
 							<img class="w-25" src="@imagePath" alt="Изображение товара">
