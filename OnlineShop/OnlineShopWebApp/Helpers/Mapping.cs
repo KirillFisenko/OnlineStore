@@ -114,7 +114,9 @@ namespace OnlineShopWebApp.Helpers
             return new EditUserViewModel
             {
                 UserName = user.UserName,
-                Phone = user.PhoneNumber
+                Phone = user.PhoneNumber,
+				FirstName = user.FirstName,
+                Address = user.Address
             };
         }
 
@@ -123,15 +125,19 @@ namespace OnlineShopWebApp.Helpers
             return new UserViewModel
             {
                 Name = user.UserName,
-                Phone = user.PhoneNumber
-            };
+                Phone = user.PhoneNumber,
+				FirstName = user.FirstName,
+				Address = user.Address
+			};
         }
 
 		public static EditUserByUserViewModel ToEditUserByUserViewModel(this User user)
 		{
 			return new EditUserByUserViewModel
 			{				
-				Phone = user.PhoneNumber
+				Phone = user.PhoneNumber,
+				FirstName = user.FirstName,
+				Address = user.Address
 			};
 		}
 

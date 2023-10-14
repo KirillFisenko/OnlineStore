@@ -22,5 +22,8 @@ namespace OnlineShopWebApp.Models
         public string Phone { get; set; }
 
 		public string ReturnUrl { get; set; }
-	}
+
+        public string? FirstName { get; set; }
+        public string? Address { get; set; }
+    }
 }

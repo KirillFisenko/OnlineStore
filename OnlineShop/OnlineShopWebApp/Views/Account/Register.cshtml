@@ -16,24 +16,40 @@
 					
 					<div class="form-floating mb-3">
 						<input asp-for="UserName" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
-						<label asp-for="UserName">Email</label>
+						<label asp-for="UserName">Email*</label>
 						<span asp-validation-for="UserName" />
 					</div>
+
 					<div class="form-floating mb-3">
 						<input asp-for="Password" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
-						<label asp-for="Password">Пароль</label>
+						<label asp-for="Password">Пароль*</label>
 						<span asp-validation-for="Password" />
 					</div>
+
 					<div class="form-floating mb-3">
 						<input asp-for="ConfirmPassword" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
-						<label asp-for="ConfirmPassword">Повторите пароль</label>
+						<label asp-for="ConfirmPassword">Повторите пароль*</label>
 						<span asp-validation-for="ConfirmPassword" />
-					</div>					
+					</div>		
+					
 					<div class="form-floating mb-3">
 						<input asp-for="Phone" type="text" class="form-control rounded-3" id="floatingInput" placeholder="+79265463469">
-						<label asp-for="Phone">Телефон</label>
+						<label asp-for="Phone">Телефон*</label>
 						<span asp-validation-for="Phone" />
-					</div>					
+					</div>	
+
+					<div class="form-floating mb-3">
+						<input asp-for="FirstName" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Кирилл">
+						<label asp-for="FirstName">Имя</label>
+						<span asp-validation-for="FirstName" />
+					</div>
+
+					<div class="form-floating mb-3">
+						<input asp-for="Address" type="text" class="form-control rounded-3" id="floatingInput" placeholder="г. Москва">
+						<label asp-for="Address">Адресс</label>
+						<span asp-validation-for="Address" />
+					</div>
+
 					<button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
 					<small class="text-body-secondary">Нажав кнопку "Зарегистрироваться", вы соглашаетесь с условиями использования.</small>					
 				</form>

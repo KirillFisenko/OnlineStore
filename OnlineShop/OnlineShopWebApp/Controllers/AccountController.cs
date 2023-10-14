@@ -59,7 +59,14 @@ namespace OnlineShopWebApp.Controllers
 
 			if (ModelState.IsValid)
 			{
-				User user = new User { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
+				User user = new User 
+				{ 
+					Email = register.UserName, 
+					UserName = register.UserName, 
+					PhoneNumber = register.Phone,
+					FirstName = register.FirstName,
+					Address = register.Address
+                };
 				// добавляем пользователя
 				var result = userManager.CreateAsync(user, register.Password).Result;
 				if (result.Succeeded)
@@ -98,7 +105,9 @@ namespace OnlineShopWebApp.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = userManager.FindByNameAsync(User.Identity.Name).Result;
-				user.PhoneNumber = editUserByUserViewModel.Phone;				
+				user.PhoneNumber = editUserByUserViewModel.Phone;
+				user.FirstName = editUserByUserViewModel.FirstName;
+				user.Address = editUserByUserViewModel.Address;
 				userManager.UpdateAsync(user).Wait();
 				return RedirectToAction(nameof(HomeController.Index), "Home");
 			}
