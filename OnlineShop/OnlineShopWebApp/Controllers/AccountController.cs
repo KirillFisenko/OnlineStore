@@ -106,9 +106,15 @@ namespace OnlineShopWebApp.Controllers
 		}
 
 		public IActionResult Orders()
-		{			
-			var order = ordersRepository.GetAll().Where(o => o.User.Email == User.Identity.Name);            
-            return View(order.Select(o => o.ToOrderViewModel()).ToList());			
+		{
+			var orders = ordersRepository.GetAll().Where(o => o.User.UserIdentityName == User.Identity.Name);			
+			return View(orders.Select(o => o.ToOrderViewModel()).ToList());			
 		}
-	}
+		
+        public IActionResult Details(Guid orderId)
+        {
+            var order = ordersRepository.TryGetById(orderId);
+            return View(order.ToOrderViewModel());
+        }
+    }
 }

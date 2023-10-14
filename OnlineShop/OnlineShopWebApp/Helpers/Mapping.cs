@@ -92,8 +92,9 @@ namespace OnlineShopWebApp.Helpers
                 Name = deliveryInfo.Name,
                 Email = deliveryInfo.Email,
                 Phone = deliveryInfo.Phone,
-                Address = deliveryInfo.Address
-            };
+                Address = deliveryInfo.Address,
+				UserIdentityName = deliveryInfo.UserIdentityName
+			};
         }
 
         public static UserDeliveryInfo ToUser(this UserDeliveryInfoViewModel user)
@@ -103,8 +104,9 @@ namespace OnlineShopWebApp.Helpers
                 Name = user.Name,
                 Email = user.Email,
                 Phone = user.Phone,
-                Address = user.Address
-            };
+                Address = user.Address,
+				UserIdentityName = user.UserIdentityName
+			};
         }
 
         public static EditUserViewModel ToEditUserViewModel(this User user)

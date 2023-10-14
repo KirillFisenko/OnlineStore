@@ -1,54 +1,55 @@
 ﻿@model EditProductViewModel
 
 <div class="row">
-    <div class="col-lg-3">
-        <div class="my-4">
-            @await Html.PartialAsync("MenuAdministrator")
-        </div>
-    </div>
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("MenuAdministrator")
+		</div>
+	</div>
 
-    <div class="col-lg-9 my-4">
-        <form method="post" enctype="multipart/form-data">
-            <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <input type="hidden" name="Id" value="@Model?.Id" />
-            <div class="row g-3">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование товара</h4>
+	<div class="col-lg-9 my-4">
+		<form method="post" enctype="multipart/form-data">
+			<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+			<input type="hidden" name="Id" value="@Model?.Id" />
+			<div class="row g-3">
+				<h4 class="bg-warning-subtle text-emphasis-warning">Редактирование товара</h4>
 
-                <div class="col-12">
-                    <label asp-for="Name">Название товара:</label>
-                    <input asp-for="Name" type="text" class="form-control" value="@Model.Name" />
-                    <span asp-validation-for="Name" />
-                </div>
+				<div class="col-12">
+					<label asp-for="Name">Название товара:</label>
+					<input asp-for="Name" type="text" class="form-control" value="@Model.Name" />
+					<span asp-validation-for="Name" />
+				</div>
 
-                <div class="col-12">
-                    <label asp-for="Cost">Цена товара, руб.:</label>
-                    <input asp-for="Cost" type="text" class="form-control" value="@Model.Cost" />
-                    <span asp-validation-for="Cost" />
-                </div>
+				<div class="col-12">
+					<label asp-for="Cost">Цена товара, руб.:</label>
+					<input asp-for="Cost" type="text" class="form-control" value="@Model.Cost" />
+					<span asp-validation-for="Cost" />
+				</div>
 
-                <div class="col-12">
-                    <label asp-for="Description">Описание:</label>
-                    <input asp-for="Description" type="text" class="form-control" value="@Model.Description" />
-                    <span asp-validation-for="Description" />
-                </div>
+				<div class="col-12">
+					<label asp-for="Description">Описание:</label>
+					<input asp-for="Description" type="text" class="form-control" value="@Model.Description" />
+					<span asp-validation-for="Description" />
+				</div>
 
-                <div class="col-12">
-                    <label>Изображения:</label>
-                    <input type="hidden" name="ImagesPaths" value="@Model.ImagesPaths" />
-                    @foreach (var imagePath in Model.ImagesPaths)
-                    {
-                        <img class="col-6 mx-auto d-block my-2" src="@imagePath" alt="Изображение товара">
-                    }
-                </div>               
+				<div class="col-12">
+					<label class="my-2">Изображения:</label>
+					<input type="hidden" name="ImagesPaths" value="@Model.ImagesPaths" />
+					<div class="d-flex justify-content-between">
+						@foreach (var imagePath in Model.ImagesPaths)
+						{
+							<img class="w-25" src="@imagePath" alt="Изображение товара">
+						}
+					</div>
+				</div>
 
-                <div class="col-12">
-                    <label>Загрузить новые изображения:</label>
-                    <input name="UploadedFiles" class="form-control" type="file" multiple accept="image/*" value="@Model.UploadedFiles" />
-                </div>
-
-                <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-productid="@Model.Id">Сохранить</button>
-                <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Index">Отмена</a>
-            </div>
-        </form>
-    </div>
+				<div class="col-12">
+					<label>Загрузить новые изображения:</label>
+					<input name="UploadedFiles" class="form-control" type="file" multiple accept="image/*" value="@Model.UploadedFiles" />
+				</div>				
+			</div>
+			<button type="submit" class="btn btn-warning my-4" asp-area="Admin" asp-controller="Product" asp-action="Edit">Сохранить</button>
+			<a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Index">Отмена</a>
+		</form>
+	</div>
 </div>

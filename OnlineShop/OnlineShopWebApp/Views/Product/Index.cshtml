@@ -20,6 +20,7 @@
             <div class="col-7">
                 <h4>@Model.Name</h4>
                 <h5>@Model.Cost &#8381;</h5>
+                <p class="textId">ID: @Model.Id.ToString().Split('-').Last()</p>
                 <p>@Model.Description</p>
                 <div class="btn-group d-flex align-items-end justify-content-around">
                     <a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-cart"> Купить</i></a>

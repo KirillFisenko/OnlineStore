@@ -27,9 +27,10 @@
                     <thead>
                         <tr>
                             <th scope="col">№</th>
+                            <th scope="col">Id заказа</th>
                             <th scope="col">Сумма</th>
-                            <th scope="col">Статус</th>
-                            <th scope="col">Пользователь</th>
+                            <th scope="col">Статус</th>                           
+                            <th scope="col">УЗ заказчика</th>
                             <th scope="col">Дата</th>                           
                             <th scope="col"></th>
                         </tr>
@@ -39,11 +40,12 @@
                         {
                             <tr>
                                 <th scope="row">@i</th>
+                                <th>@order.Id.ToString().Split('-').Last()</th>
                                 <td>@order.Amount &#8381;</td>
-                                <td>@EnumHelper.GetDisplayName(order.Status)</td>
-                                <td>@order.User.Email</td>
+                                <td>@EnumHelper.GetDisplayName(order.Status)</td>                                
+                                <td>@order.User.UserIdentityName</td>
                                 <td>@order.CreateDateTime</td>                                
-                                <td class="col-4 text-end">
+                                <td class="text-end">
                                     <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-orderId="@order.Id"><i class="bi bi-pencil"> Подробнее</i></a>
                                 </td>
                             </tr>

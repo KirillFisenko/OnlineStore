@@ -24,7 +24,7 @@
                     </tr>
                     
                 </table>
-                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
+                <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-name="@Model.Name">Смена пароля</a></li>
                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-name="@Model.Name">Редактирование данных</a></li>
@@ -33,6 +33,7 @@
                     <!-- Кнопка-триггер модального окна -->
                     <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить пользователя</button></li>
                 </ul>
+                <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
             </div>            
         </form>
     </div>

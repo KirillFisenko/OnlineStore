@@ -13,6 +13,7 @@
 				<h4 class="mb-3">Ваши данные</h4>
 				<form method="post">
 					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+					<input type="hidden" name="UserIdentityName" value="@User.Identity.Name" />
 					<div class="row g-3">
 						<div class="col-12">
 							<label asp-for="Name">ФИО*</label>
@@ -22,13 +23,13 @@
 
 						<div class="col-12">
 							<label asp-for="Email">Email*</label>
-							<input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" />
+							<input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" value="@User.Identity.Name" />
 							<span asp-validation-for="Email" />
 						</div>
 
 						<div class="col-12">
 							<label asp-for="Phone">Телефон*</label>
-							<input asp-for="Phone" type="text" class="form-control" placeholder="+7 (926) 546-3469" />
+							<input asp-for="Phone" type="text" class="form-control" placeholder="+7 (926) 546-3469"/>
 							<span asp-validation-for="Phone" />
 						</div>
 
