@@ -25,6 +25,7 @@ builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
 builder.Services.AddTransient<ImagesProvider>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // настройка параметров локализации запросов
 builder.Services.Configure<RequestLocalizationOptions>(options =>

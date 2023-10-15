@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
@@ -14,16 +15,18 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 	{
 		private readonly UserManager<User> userManager;
 		private readonly RoleManager<IdentityRole> roleManager;
-		
-		public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly IMapper mapper;
+
+        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
 		{
 			this.userManager = userManager;
-			this.roleManager = roleManager;			
+			this.roleManager = roleManager;
+			this.mapper = mapper;
 		}
 
 		public IActionResult Index()
 		{
-			var users = userManager.Users.ToList();
+			var users = userManager.Users.ToList();			
 			return View(users.Select(x => x.ToUserViewModel()).ToList());
 		}
 
@@ -69,7 +72,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult Details(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
-			return View(user.ToUserViewModel());
+            var model = mapper.Map<UserViewModel>(user);
+            return View(model);
 		}
 
 		public IActionResult Remove(string name)
