@@ -26,7 +26,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			var users = userManager.Users.ToList();			
+			var users = userManager.Users.ToList();
+
 			return View(users.Select(x => x.ToUserViewModel()).ToList());
 		}
 
@@ -44,7 +45,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				User user = new User 
+				var user = new User 
 				{ 
 					Email = register.UserName, 
 					UserName = register.UserName, 
