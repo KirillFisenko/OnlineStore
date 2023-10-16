@@ -41,12 +41,12 @@
                         {
                             <tr>
                                 <td> @i </td>
-                                <td>@user.Name</td>                                
-                                <td>@user.Phone</td>
+                                <td>@user.UserName</td>                                
+                                <td>@user.PhoneNumber</td>
                                 <td>@user.FirstName</td>
                                 <td>@user.Address</td>
                                 <td class="col-4 text-end">
-                                    <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-name="@user.Name"><i class="bi bi-pencil"> Подробнее</i></a>
+                                    <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-name="@user.UserName"><i class="bi bi-pencil"> Подробнее</i></a>
                                 </td>
                             </tr>
                             i += 1;

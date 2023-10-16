@@ -72,8 +72,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult Details(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
-            var model = mapper.Map<UserViewModel>(user);
-            return View(model);
+			//var model = user.ToUserViewModel();
+			var model = mapper.Map<UserViewModel>(user);
+			return View(model);
 		}
 
 		public IActionResult Remove(string name)

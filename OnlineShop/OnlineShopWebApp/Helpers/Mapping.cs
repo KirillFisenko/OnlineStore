@@ -124,8 +124,8 @@ namespace OnlineShopWebApp.Helpers
         {
             return new UserViewModel
             {
-                Name = user.UserName,
-                Phone = user.PhoneNumber,
+                UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber,
 				FirstName = user.FirstName,
 				Address = user.Address
 			};
