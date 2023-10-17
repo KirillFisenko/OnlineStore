@@ -114,7 +114,7 @@ namespace OnlineShopWebApp.Helpers
             return new EditUserViewModel
             {
                 UserName = user.UserName,
-                Phone = user.PhoneNumber,
+                PhoneNumber = user.PhoneNumber,
 				FirstName = user.FirstName,
                 Address = user.Address
             };

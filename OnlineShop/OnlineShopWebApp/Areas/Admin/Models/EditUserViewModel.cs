@@ -11,7 +11,7 @@ namespace OnlineShopWebApp.Areas.Admin.Models
 
         [Required(ErrorMessage = "Не указан телефон пользователя")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Телефон пользователя должен содержать от 5 до 50 символов")]
-        public string Phone { get; set; }		
+        public string PhoneNumber { get; set; }		
 		
 		public string? FirstName { get; set; }		
 		

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -27,11 +26,18 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult Index()
 		{
 			var users = userManager.Users.ToList();
-
-			return View(users.Select(x => x.ToUserViewModel()).ToList());
+			var model = users.Select(mapper.Map<UserViewModel>).ToList();
+            return View(model);
 		}
 
-		public IActionResult Add()
+        public IActionResult Details(string name)
+        {
+            var user = userManager.FindByNameAsync(name).Result;
+            var model = mapper.Map<UserViewModel>(user);
+            return View(model);
+        }
+
+        public IActionResult Add()
 		{
 			return View();
 		}
@@ -41,7 +47,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		{
 			if (register.UserName == register.Password)
 			{
-				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+				ModelState.AddModelError(string.Empty, "Имя пользователя и пароль не должны совпадать");
 			}
 			if (ModelState.IsValid)
 			{
@@ -50,7 +56,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 					Email = register.UserName, 
 					UserName = register.UserName, 
 					PhoneNumber = register.Phone,
-					FirstName = register.UserName,
+					FirstName = register.FirstName,
 					Address = register.Address
 				};
 				var result = userManager.CreateAsync(user, register.Password).Result;
@@ -68,15 +74,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 				}
 			}
 			return View(register);
-		}
-		
-		public IActionResult Details(string name)
-		{
-			var user = userManager.FindByNameAsync(name).Result;
-			//var model = user.ToUserViewModel();
-			var model = mapper.Map<UserViewModel>(user);
-			return View(model);
-		}
+		}		
 
 		public IActionResult Remove(string name)
 		{
@@ -88,7 +86,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		public IActionResult Edit(string name)
 		{
 			var user = userManager.FindByNameAsync(name).Result;
-			return View(user.ToEditUserViewModel());
+            var model = mapper.Map<EditUserViewModel>(user);
+            return View(model);
 		}
 
 		[HttpPost]
@@ -97,7 +96,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = userManager.FindByNameAsync(name).Result;				
-				user.PhoneNumber = editUserViewModel.Phone;
+				user.PhoneNumber = editUserViewModel.PhoneNumber;
 				user.UserName = editUserViewModel.UserName;	
 				user.Address = editUserViewModel.Address;
 				user.FirstName = editUserViewModel.FirstName;
@@ -121,9 +120,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 		{
 			if (changePassword.UserName == changePassword.Password)
 			{
-				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+				ModelState.AddModelError(string.Empty, "Имя пользователя и пароль не должны совпадать");
 			}
-
 			if (ModelState.IsValid)
 			{
 				var user = userManager.FindByNameAsync(changePassword.UserName).Result;
