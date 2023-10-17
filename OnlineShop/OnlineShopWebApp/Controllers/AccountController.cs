@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 using OnlineShopWebApp.Helpers;
-using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShop.Db;
 
 namespace OnlineShopWebApp.Controllers
@@ -38,7 +37,7 @@ namespace OnlineShopWebApp.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", "Неправильный логин или пароль");
+					ModelState.AddModelError(string.Empty, "Неправильный логин или пароль");
 				}
 			}
 			return View(login);
@@ -54,16 +53,15 @@ namespace OnlineShopWebApp.Controllers
 		{
 			if (register.UserName == register.Password)
 			{
-				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
+				ModelState.AddModelError(string.Empty, "Имя пользователя и пароль не должны совпадать");
 			}
-
 			if (ModelState.IsValid)
 			{
-				User user = new User 
+				var user = new User 
 				{ 
 					Email = register.UserName, 
 					UserName = register.UserName, 
-					PhoneNumber = register.Phone,
+					PhoneNumber = register.PhoneNumber,
 					FirstName = register.FirstName,
 					Address = register.Address
                 };
@@ -105,7 +103,7 @@ namespace OnlineShopWebApp.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = userManager.FindByNameAsync(User.Identity.Name).Result;
-				user.PhoneNumber = editUserByUserViewModel.Phone;
+				user.PhoneNumber = editUserByUserViewModel.PhoneNumber;
 				user.FirstName = editUserByUserViewModel.FirstName;
 				user.Address = editUserByUserViewModel.Address;
 				userManager.UpdateAsync(user).Wait();
@@ -116,7 +114,8 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Orders()
 		{
-			var orders = ordersRepository.GetAll().Where(o => o.User.UserIdentityName == User.Identity.Name);			
+			var orders = ordersRepository.GetAll()
+				.Where(o => o.User.UserIdentityName == User.Identity.Name);			
 			return View(orders.Select(o => o.ToOrderViewModel()).ToList());			
 		}
 		

@@ -21,7 +21,8 @@
         else
         {
             <div class="my-4">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Список ролей</h4>
+                <p class="text-end text-danger">*удалить роль Admin и User - нельзя</p>
+                <h4 class="bg-warning-subtle text-emphasis-warning">Список ролей</h4>                              
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -35,7 +36,14 @@
                             <tr>
                                 <td>@role.Name</td>
                                 <td class="col-4 text-end">
-                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name"><i class="bi bi-trash-fill"> Удалить роль</i></a>
+                                    @if (role.Name != "Admin" && role.Name != "User")
+                                    {
+                                        <a class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name"><i class="bi bi-trash-fill"> Удалить роль</i></a>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-warning" disabled><i class="bi bi-trash-fill"> Удалить роль</i></button>
+                                    }
                                 </td>
                             </tr>
                         }

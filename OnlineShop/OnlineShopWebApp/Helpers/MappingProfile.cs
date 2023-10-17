@@ -10,7 +10,8 @@ namespace OnlineShopWebApp.Helpers
         public MappingProfile()
         {
             CreateMap<User, UserViewModel>().ReverseMap();
-            CreateMap<User, EditUserViewModel>().ReverseMap();
+            CreateMap<User, EditUserViewModel>().ReverseMap();           
+            
             CreateMap<Product, ProductViewModel>().ReverseMap();
         }
     }
