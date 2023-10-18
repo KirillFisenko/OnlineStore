@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OnlineShopWebApp.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShopWebApp.Areas.Admin.Models
 {
@@ -15,7 +16,7 @@ namespace OnlineShopWebApp.Areas.Admin.Models
         [Required(ErrorMessage = "Не указано описание товара")]
         [StringLength(300, MinimumLength = 1, ErrorMessage = "Описание должно содержать от 1 до 300 символов")]
         public string Description { get; set; }
-
-        public IFormFile[] UploadedFiles { get; set; }
+		public List<ImageViewModel> Images { get; set; }
+		public IFormFile[] UploadedFiles { get; set; }
     }
 }

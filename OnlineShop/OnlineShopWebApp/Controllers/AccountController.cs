@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShop.Db;
+using AutoMapper;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -12,12 +12,14 @@ namespace OnlineShopWebApp.Controllers
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
 		private readonly IOrdersRepository ordersRepository;
+		private readonly IMapper mapper;
 
-		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IOrdersRepository ordersRepository)
+		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IOrdersRepository ordersRepository, IMapper mapper)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
 			this.ordersRepository = ordersRepository;
+			this.mapper = mapper;
 		}
 
 		public IActionResult Login(string returnUrl)
@@ -94,7 +96,8 @@ namespace OnlineShopWebApp.Controllers
 		public IActionResult Data()
 		{
 			var user = userManager.FindByNameAsync(User.Identity.Name).Result;
-			return View(user.ToEditUserByUserViewModel());
+			var model = mapper.Map<EditUserByUserViewModel>(user);
+			return View(model);
 		}
 
 		[HttpPost]
@@ -115,14 +118,16 @@ namespace OnlineShopWebApp.Controllers
 		public IActionResult Orders()
 		{
 			var orders = ordersRepository.GetAll()
-				.Where(o => o.User.UserIdentityName == User.Identity.Name);			
-			return View(orders.Select(o => o.ToOrderViewModel()).ToList());			
+				.Where(o => o.User.UserIdentityName == User.Identity.Name);
+			var model = orders.Select(mapper.Map<OrderViewModel>).ToList();
+			return View(model);			
 		}
 		
         public IActionResult Details(Guid orderId)
         {
             var order = ordersRepository.TryGetById(orderId);
-            return View(order.ToOrderViewModel());
+			var model = mapper.Map<OrderViewModel>(order);
+            return View(model);
         }
     }
 }

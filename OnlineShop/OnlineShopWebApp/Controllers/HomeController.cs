@@ -1,22 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IProductsRepository productRepository;		
+		private readonly IProductsRepository productRepository;	
+        private readonly IMapper mapper;
 
-		public HomeController(IProductsRepository productRepository)
+		public HomeController(IProductsRepository productRepository, IMapper mapper)
 		{
-			this.productRepository = productRepository;			
+			this.productRepository = productRepository;		
+            this.mapper = mapper;
 		}
 
 		public IActionResult Index()
 		{			
-			var products = productRepository.GetAll();            
-			return View(products.ToProductViewModels());
+			var products = productRepository.GetAll();
+            var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+			return View(model);
 		}
 
         public IActionResult About()
@@ -31,8 +35,9 @@ namespace OnlineShopWebApp.Controllers
 			{
                 var products = productRepository.GetAll();
                 var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
-                return View(findProducts.ToProductViewModels());
-            }
+				var model = findProducts.Select(mapper.Map<ProductViewModel>).ToList();
+				return View(model);
+			}
             return RedirectToAction(nameof(Index));
         }
     }

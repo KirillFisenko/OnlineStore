@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -12,22 +12,26 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
     public class OrderController : Controller
     {        
         private readonly IOrdersRepository ordersRepository;
-        
-        public OrderController(IOrdersRepository ordersRepository)
+		private readonly IMapper mapper;
+
+		public OrderController(IOrdersRepository ordersRepository, IMapper mapper)
         {            
-            this.ordersRepository = ordersRepository;            
+            this.ordersRepository = ordersRepository; 
+            this.mapper = mapper;
         }       
        
         public IActionResult Index()
         {
             var orders = ordersRepository.GetAll();
-            return View(orders.Select(order => order.ToOrderViewModel()).ToList());
+			var model = orders.Select(mapper.Map<OrderViewModel>).ToList();
+			return View(model);
         }
         public IActionResult Details(Guid orderId)
         {
             var order = ordersRepository.TryGetById(orderId);
-            return View(order.ToOrderViewModel());
-        }
+			var model = mapper.Map<OrderViewModel>(order);
+			return View(model);
+		}
 
         [HttpPost]
         public IActionResult UpdateStatus(Guid orderId, OrderStatusViewModel status)

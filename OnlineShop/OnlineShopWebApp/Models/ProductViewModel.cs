@@ -17,8 +17,7 @@ namespace OnlineShopWebApp.Models
         [Required(ErrorMessage = "Не указано описание товара")]
         [StringLength(300, MinimumLength = 1, ErrorMessage = "Описание должно содержать от 1 до 300 символов")]
         public string Description { get; set; }
-       
-        public string[] ImagesPaths { get; set; }
-        public string ImagePath => ImagesPaths.Length == 0 ? "/images/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp" : ImagesPaths[0];
+
+        public List<ImageViewModel> Images { get; set; }       
     }
 }

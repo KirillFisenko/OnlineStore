@@ -26,9 +26,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var products = productsRepository.GetAll();            
-            //return View(products.Select(mapper.Map<ProductViewModel>));            
-            return View(products.Select(product => product.ToProductViewModel()).ToList());
+            var products = productsRepository.GetAll();
+            var model = products.Select(mapper.Map<ProductViewModel>).ToList();			          
+			return View(model);
         }
 
         public IActionResult Remove(Guid productId)
@@ -40,7 +40,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Edit(Guid productId)
         {
             var product = productsRepository.TryGetById(productId);
-            return View(product.ToEditProductViewModel());
+			var model = mapper.Map<EditProductViewModel>(product);
+			return View(model);
         }
 
         [HttpPost]
@@ -53,9 +54,10 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             if (editProductViewModel.UploadedFiles != null)
             {
                 var addedImagesPaths = imagesProvider.SafeFiles(editProductViewModel.UploadedFiles, ImageFolders.Products);
-                editProductViewModel.ImagesPaths = addedImagesPaths;
-            }           
-            productsRepository.Edit(editProductViewModel.ToProduct(), editProductViewModel.UploadedFiles);
+                editProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
+			}
+			var model = mapper.Map<Product>(editProductViewModel);
+			productsRepository.Edit(model, editProductViewModel.UploadedFiles);
             return RedirectToAction(nameof(Index));
         }
 
@@ -71,12 +73,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Продукт с таким именем уже сущствует");
             }
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && addProductViewModel.Images != null)
             {
                 return View(addProductViewModel);
             }
-            var imagesPaths = imagesProvider.SafeFiles(addProductViewModel.UploadedFiles, ImageFolders.Products);
-            productsRepository.Add(addProductViewModel.ToProduct(imagesPaths));
+            var addedImagesPaths = imagesProvider.SafeFiles(addProductViewModel.UploadedFiles, ImageFolders.Products);
+			addProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
+			var model = mapper.Map<Product>(addProductViewModel);
+			productsRepository.Add(model);
             return RedirectToAction(nameof(Index));
         }
     }

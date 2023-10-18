@@ -24,7 +24,10 @@
 				{
 					<div class="col-lg-4 mb-4">
 						<div class="card box-shadow h-70">
-							<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><img class="card-img-top rounded mx-auto d-block w-50 h-50" src="@product.ImagePath" alt="Изображение товара"></a>
+							@foreach (var image in product.Images)
+							{
+								<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><img class="card-img-top rounded mx-auto d-block w-50 h-50" src="@image.Url" alt="Изображение товара"></a>
+							}							
 							<div class="card-body">
 								<h5 class="price">@product.Cost &#8381;</h5>
 								<p class="textId">ID: @product.Id.ToString().Split('-').Last()</p>

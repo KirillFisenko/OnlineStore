@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -9,17 +11,20 @@ namespace OnlineShopWebApp.Controllers
 	public class CompareController : Controller
 	{
 		private readonly IProductsRepository productsRepository;
-		private readonly ICompareRepository compareRepository;		
-		public CompareController(IProductsRepository productsRepository, ICompareRepository compareRepository)
+		private readonly ICompareRepository compareRepository;
+		private readonly IMapper mapper;
+		public CompareController(IProductsRepository productsRepository, ICompareRepository compareRepository, IMapper mapper)
 		{
 			this.productsRepository = productsRepository;
 			this.compareRepository = compareRepository;
+			this.mapper = mapper;
 		}
 
 		public IActionResult Index()
 		{
 			var products = compareRepository.GetAll(User.Identity.Name);
-			return View(products.ToProductViewModels());
+			var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+			return View(model);
 		}
 
 		public IActionResult Add(Guid productId)
