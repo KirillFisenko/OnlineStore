@@ -52,34 +52,14 @@
             {
                 <div class="col-lg-4 mb-3">
                     <div class="card box-shadow h-100">
-
-                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active p-1">
-                                    <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
-                                        <div class="scale">
-                                            <img src="@product.Images.First().Url" class="d-block scale w-100 rounded" alt="Изображение товара">
-                                        </div>
-                                    </a>
+                        @foreach (var image in product.Images)
+                        {
+                            <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
+                                <div class="scale">
+                                    <img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@image.Url" alt="Изображение товара">
                                 </div>
-                                @if (product.Images.Count > 1)
-                                {
-                                    @for (var i = 1; i < product.Images.Count; i++)
-                                    {
-                                        <div class="carousel-item p-1">
-                                            <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
-                                                <div class="scale">
-                                                    <img class="d-block scale w-100 rounded" src="@product.Images[i].Url" alt="Изображение товара">
-                                                </div>
-                                            </a>
-                                        </div>
-                                    }
-                                }
-
-                            </div>
-                        </div>
-
-
+                            </a>
+                        }
                         <div class="card-body">
                             <h5 class="price">@product.Cost &#8381;</h5>
                             <p class="textId">ID: @product.Id.ToString().Split('-').Last()</p>
