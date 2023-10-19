@@ -19,10 +19,9 @@ namespace OnlineShopWebApp.Models
 
         [Required(ErrorMessage = "Не указан телефон пользователя")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Телефон пользователя должно содержать от 5 до 50 символов")]
-        public string PhoneNumber { get; set; }
-
+        public string PhoneNumber { get; set; }		
+		public IFormFile? UploadedFile { get; set; }
 		public string ReturnUrl { get; set; }
-
         public string? FirstName { get; set; }
         public string? Address { get; set; }
     }

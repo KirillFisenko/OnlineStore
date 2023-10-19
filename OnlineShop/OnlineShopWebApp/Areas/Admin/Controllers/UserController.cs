@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -15,12 +16,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IMapper mapper;
+        private readonly ImagesProvider imagesProvider;
 
-        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
+        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, ImagesProvider imagesProvider)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.mapper = mapper;
+            this.imagesProvider = imagesProvider;
         }
 
         public IActionResult Index()
@@ -53,14 +56,18 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
+                var addedImagePath = imagesProvider.SafeFile(register.UploadedFile, ImageFolders.Profiles);
+
                 var user = new User
                 {
                     Email = register.UserName,
                     UserName = register.UserName,
                     PhoneNumber = register.PhoneNumber,
                     FirstName = register.FirstName,
-                    Address = register.Address
+                    Address = register.Address,
+                    AvatarUrl = addedImagePath
                 };
+
                 var result = userManager.CreateAsync(user, register.Password).Result;
                 if (result.Succeeded)
                 {
@@ -99,17 +106,23 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(EditUserViewModel editUserViewModel, string name)
         {
-            if (ModelState.IsValid)
+            if (editUserViewModel.UploadedFile != null && !ModelState.IsValid)
             {
-                var user = userManager.FindByNameAsync(name).Result;
-                user.PhoneNumber = editUserViewModel.PhoneNumber;
-                user.UserName = editUserViewModel.UserName;
-                user.Address = editUserViewModel.Address;
-                user.FirstName = editUserViewModel.FirstName;
-                userManager.UpdateAsync(user).Wait();
-                return RedirectToAction(nameof(Index));
+                return View(editUserViewModel);
             }
-            return View(editUserViewModel);
+            if (editUserViewModel.UploadedFile != null)
+            {
+                var addedImagesPaths = imagesProvider.SafeFile(editUserViewModel.UploadedFile, ImageFolders.Profiles);
+                editUserViewModel.AvatarUrl = addedImagesPaths;
+            }
+            var user = userManager.FindByNameAsync(name).Result;
+            user.PhoneNumber = editUserViewModel.PhoneNumber;
+            user.UserName = editUserViewModel.UserName;
+            user.Address = editUserViewModel.Address;
+            user.FirstName = editUserViewModel.FirstName;
+            user.AvatarUrl = editUserViewModel.AvatarUrl;
+            userManager.UpdateAsync(user).Wait();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult ChangePassword(string name)

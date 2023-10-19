@@ -10,8 +10,8 @@ namespace OnlineShop.Db
         public DbSet<CompareProduct> CompareProducts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Image> Images { get; set; }
-               
+        public DbSet<Image> Images { get; set; }        
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.Migrate();

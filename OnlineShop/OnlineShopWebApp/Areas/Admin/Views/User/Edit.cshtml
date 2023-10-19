@@ -8,10 +8,22 @@
     </div>
 
     <div class="col-lg-9 my-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
             <div class="row g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>
+                <input type="hidden" name="name" value="@Model.UserName" />
+
+                <div class="col-12">
+                    <label class="my-2">Аватар:</label>
+                    <input type="hidden" name="AvatarUrl" value="@Model.AvatarUrl" />
+                    <img class="rounded-circle z-depth-0" src="@Model.AvatarUrl" alt="" height="70" width="70">
+                </div>
+
+                <div class="col-12">
+                    <label>Загрузить новый аватар:</label>
+                    <input name="UploadedFile" class="form-control" type="file" />
+                </div>
 
                 <div class="col-12">
                     <label asp-for="UserName">Email:</label>

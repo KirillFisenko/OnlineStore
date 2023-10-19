@@ -8,7 +8,7 @@
     </div>
 
     <div class="col-lg-9 my-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
             <div class="row g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Добавление пользователя</h4>
@@ -50,6 +50,12 @@
                     <input asp-for="Address" type="text" class="form-control" placeholder="г. Москва, ул. Тверская, д. 1" />
                     <span asp-validation-for="Address" />
                 </div>
+
+                <div class="col-12 mb-3">
+                    <label>Загрузить аватар:</label>
+                    <input name="UploadedFile" class="form-control" type="file" />
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="Add">Сохранить</button>

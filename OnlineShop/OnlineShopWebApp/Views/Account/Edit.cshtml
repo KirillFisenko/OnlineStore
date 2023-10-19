@@ -8,10 +8,21 @@
     </div>
 
     <div class="col-lg-9 my-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
             <div class="row g-3">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>                
+                <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>
+
+                <div class="col-12">
+                    <label class="my-2">Аватар:</label>
+                    <input type="hidden" name="AvatarUrl" value="@Model.AvatarUrl" />
+                    <img class="rounded-circle z-depth-0" src="@Model.AvatarUrl" alt="" height="80" width="80">
+                </div>
+
+                <div class="col-12">
+                    <label>Загрузить новый аватар:</label>
+                    <input name="UploadedFile" class="form-control" type="file" />
+                </div>
 
                 <div class="col-12">
                     <label asp-for="PhoneNumber">Телефон:</label>
@@ -29,7 +40,8 @@
                     <label asp-for="Address">Адресс:</label>
                     <input asp-for="Address" type="text" class="form-control" value="@Model.Address" />
                     <span asp-validation-for="Address" />
-                </div>
+                </div>            
+
             </div>
 
             <button type="submit" class="btn btn-warning my-4" asp-area="" asp-controller="Account" asp-action="Edit">Сохранить</button>

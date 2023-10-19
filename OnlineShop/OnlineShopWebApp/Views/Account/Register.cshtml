@@ -8,7 +8,7 @@
 			</div>			
 
 			<div class="modal-body p-5 pt-0">
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 					
 					@* на какую страницу перейти после регистрации *@
@@ -48,6 +48,11 @@
 						<input asp-for="Address" type="text" class="form-control rounded-3" id="floatingInput" placeholder="г. Москва">
 						<label asp-for="Address">Адресс</label>
 						<span asp-validation-for="Address" />
+					</div>					
+
+					<div class="col-12 mb-3">
+						<label>Загрузить аватар:</label>
+						<input name="UploadedFile" class="form-control" type="file" />
 					</div>
 
 					<button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>

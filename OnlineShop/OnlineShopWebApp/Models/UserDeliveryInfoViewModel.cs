@@ -19,7 +19,6 @@ namespace OnlineShopWebApp.Models
         [Required(ErrorMessage = "Поле Адрес должно быть заполнено")]
 		[StringLength(200, MinimumLength = 5, ErrorMessage = "Поле Адрес должно содержать от 5 до 200 символов")]
 		public string Address { get; set; }
-
-        public string UserIdentityName { get; set; }
+		public string UserIdentityName { get; set; }
 	}
 }

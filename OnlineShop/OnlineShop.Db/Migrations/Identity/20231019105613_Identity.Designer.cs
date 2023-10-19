@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231017110630_Identity")]
+    [Migration("20231019105613_Identity")]
     partial class Identity
     {
         /// <inheritdoc />
@@ -167,6 +167,9 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
