@@ -41,6 +41,7 @@ body {
     color: #DAA520
 }
 
+/* Увелечение изображения */
 .scale {
     display: inline-block; /* Строчно-блочный элемент */
     overflow: hidden; /* Скрываем всё за контуром */
@@ -55,6 +56,7 @@ body {
             transform: scale(1.2); /* Увеличиваем масштаб */
         }
 
+/* Увелечение текста */
 /* Текст слева */
 .gain-left {
     transition: 0.1s; /* Время эффекта */
@@ -75,6 +77,7 @@ body {
         transform: scale(1.05); /* Увеличиваем масштаб */
     }
 
+/* Цвет текста */
 .change-text {
 }
 
@@ -82,11 +85,16 @@ body {
         color: orangered; /* Меняем цвет текста */
     }
 
-
+/* Анимация аватарки */
 .avatar {
     border: 3px solid #DAA520;
 }
 
     .avatar:hover {
-        border: 1px solid #dbd11f; /* Ширина, вид и цвет рамки */
+        border: 0px solid #dbd11f; /* Ширина, вид и цвет рамки */
     }
+
+
+.borderProduct {
+    border: 1px solid #cccccc
+}

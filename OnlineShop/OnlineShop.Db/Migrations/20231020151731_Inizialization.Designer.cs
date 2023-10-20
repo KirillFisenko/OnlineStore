@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231019105606_Inizialization")]
+    [Migration("20231020151731_Inizialization")]
     partial class Inizialization
     {
         /// <inheritdoc />
@@ -209,6 +209,9 @@ namespace OnlineShop.Db.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Сategories")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -219,42 +222,48 @@ namespace OnlineShop.Db.Migrations
                             Id = new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"),
                             Cost = 33060m,
                             Description = "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb"
+                            Name = "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb",
+                            Сategories = 2
                         },
                         new
                         {
                             Id = new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"),
                             Cost = 109580m,
                             Description = "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 4080 Gigabyte 16Gb"
+                            Name = "NVIDIA GeForce RTX 4080 Gigabyte 16Gb",
+                            Сategories = 2
                         },
                         new
                         {
                             Id = new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"),
                             Cost = 35720m,
                             Description = "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort",
-                            Name = "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC"
+                            Name = "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC",
+                            Сategories = 2
                         },
                         new
                         {
                             Id = new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"),
                             Cost = 93320m,
                             Description = "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 4070 Ti MSI 12Gb"
+                            Name = "NVIDIA GeForce RTX 4070 Ti MSI 12Gb",
+                            Сategories = 2
                         },
                         new
                         {
                             Id = new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"),
                             Cost = 48660m,
                             Description = "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR"
+                            Name = "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR",
+                            Сategories = 2
                         },
                         new
                         {
                             Id = new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"),
                             Cost = 182350m,
                             Description = "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 4090 ASUS 24Gb"
+                            Name = "NVIDIA GeForce RTX 4090 ASUS 24Gb",
+                            Сategories = 2
                         });
                 });
 

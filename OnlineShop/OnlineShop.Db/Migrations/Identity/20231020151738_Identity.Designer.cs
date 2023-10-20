@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231019105613_Identity")]
+    [Migration("20231020151738_Identity")]
     partial class Identity
     {
         /// <inheritdoc />
