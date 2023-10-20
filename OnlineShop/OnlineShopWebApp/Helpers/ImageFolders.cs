@@ -3,6 +3,9 @@
     public enum ImageFolders
     {
         Products,
-        Profiles
+        Profiles,
+        Carousel,
+        Index,
+        About
     }
 }
