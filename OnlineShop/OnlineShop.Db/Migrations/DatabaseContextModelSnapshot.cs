@@ -131,39 +131,111 @@ namespace OnlineShop.Db.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("615aa542-835d-477e-944f-c7e52379a833"),
+                            Id = new Guid("615aa542-835d-477e-944f-c7e52379a831"),
                             ProductId = new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"),
                             Url = "/images/Products/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb.webp"
                         },
                         new
                         {
-                            Id = new Guid("f1a36166-5459-4e4e-9c12-38286acc700d"),
+                            Id = new Guid("615aa542-835d-477e-944f-c7e52379a842"),
+                            ProductId = new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb_1.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("635aa542-835d-477e-944f-c7e51259a833"),
+                            ProductId = new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb_2.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("f1a36166-5459-4e4e-9c12-38286acc7201"),
                             ProductId = new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"),
                             Url = "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb.webp"
                         },
                         new
                         {
-                            Id = new Guid("11f0ada9-6749-4202-abc2-0e0798c28956"),
+                            Id = new Guid("f1a36456-5459-4e4e-9c12-38876acc7012"),
+                            ProductId = new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb_1.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("f1a37166-5469-4e4e-9c12-35236acc7003"),
+                            ProductId = new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb_2.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("11f0ada9-6749-4202-abc2-0e0798c28951"),
                             ProductId = new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"),
                             Url = "/images/Products/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC.webp"
                         },
                         new
                         {
-                            Id = new Guid("515113c4-e7ec-4375-8dd8-5ee691534916"),
+                            Id = new Guid("11f0ada9-6749-4202-abc2-0e0798c28932"),
+                            ProductId = new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"),
+                            Url = "/images/Products/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC_1.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("11f0ada9-6749-4202-abc2-0e0798c28953"),
+                            ProductId = new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"),
+                            Url = "/images/Products/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC_2.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("515113c4-e7ec-4375-8dd8-5ee691534911"),
                             ProductId = new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"),
                             Url = "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb.webp"
                         },
                         new
                         {
-                            Id = new Guid("566f1b95-98d0-4ffe-8674-613fb2805f87"),
+                            Id = new Guid("515143c4-e7ec-4375-8dd8-5ee691634712"),
+                            ProductId = new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb_1.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("515313c4-e7ec-4875-8dd8-5ee641534903"),
+                            ProductId = new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb_2.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("566f1b95-98d0-4ffe-8674-613fb2805f81"),
                             ProductId = new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"),
                             Url = "/images/Products/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR.webp"
                         },
                         new
                         {
-                            Id = new Guid("3b86338f-39a1-49be-97e0-8dafb3cde5e4"),
+                            Id = new Guid("564f1b95-94d0-4ffe-8674-613fb6805f62"),
+                            ProductId = new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR_1.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("566f1b97-98d0-4ffe-8694-613fb2305f43"),
+                            ProductId = new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR_2.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("3b86338f-39a1-49be-97e0-8dafb3cde5e1"),
                             ProductId = new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"),
                             Url = "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("5b86338f-37a1-49be-97e0-8dafb3cde9e2"),
+                            ProductId = new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb_1.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("3b87338f-39a1-43be-97e0-8dafb7cde5e3"),
+                            ProductId = new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"),
+                            Url = "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb_2.webp"
                         });
                 });
 

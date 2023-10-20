@@ -54,7 +54,7 @@
                     <div class="card box-shadow h-100 w-100">                        
                             <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
                                 <div class="scale p-2">
-                                <img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@product.Images.FirstOrDefault().Url" alt="Изображение товара">
+                                <img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@product.Images.FirstOrDefault(image => image.Url.Contains("_") == false).Url" alt="Изображение товара">
                                 </div>
                             </a>                        
                         <div class="card-body">
