@@ -1,4 +1,5 @@
-﻿namespace OnlineShop.Db.Models
+﻿
+namespace OnlineShop.Db.Models
 {
 	public class Product
 	{	
@@ -10,13 +11,16 @@
 
 		public List<Image> Images { get; set; }        
 
-        public Product(Guid id, string Name, decimal Cost, string Description) : this()
+		public Сategories Сategories { get; set; }
+
+        public Product(Guid id, string Name, decimal Cost, string Description, Сategories Сategories) : this()
 		{
 			Id = id;
 			this.Name = Name;
 			this.Cost = Cost;
-			this.Description = Description;					
-		}
+			this.Description = Description;
+			this.Сategories = Сategories;
+        }
 
 		public Product()
 		{

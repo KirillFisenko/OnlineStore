@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
@@ -20,8 +21,15 @@ namespace OnlineShopWebApp.Controllers
 		{			
 			var products = productRepository.GetAll();
             var model = products.Select(mapper.Map<ProductViewModel>).ToList();
-			return View(model);
-		}
+            return View(model);
+        }
+
+        public IActionResult Category(Сategories categories)
+        {
+            var products = productRepository.GetAll().Where(product => product.Сategories == categories);
+            var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+            return View("Index", model);
+        }        
 
         public IActionResult About()
         {            
