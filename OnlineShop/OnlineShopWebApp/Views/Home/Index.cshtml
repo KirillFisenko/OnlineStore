@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="col-lg-9">
+    <div class="col-lg-9">        
         <div id="carouselExampleAutoplaying" class="carousel slide my-4" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -22,19 +22,19 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/images/pa_rtx4080_GP_1920_680_183.jpg" class="d-block img-fluid" alt="Изображение карусели">
+                    <img src="/images/pa_rtx4080_GP_1920_680_183.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
                 </div>
                 <div class="carousel-item">
-                    <img src="/images/pa_ow2s6_1920_680_01_ru_412.jpg" class="d-block img-fluid" alt="Изображение карусели">
+                    <img src="/images/pa_ow2s6_1920_680_01_ru_412.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
                 </div>
                 <div class="carousel-item">
-                    <img src="/images/pa_rtx4060Ti_js_1920_680_01_en_717.jpg" class="d-block img-fluid" alt="Изображение карусели">
+                    <img src="/images/pa_rtx4060Ti_js_1920_680_01_en_717.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
                 </div>
                 <div class="carousel-item">
-                    <img src="/images/pa_rtx4070_1920_680_01_en_302.jpg" class="d-block img-fluid" alt="Изображение карусели">
+                    <img src="/images/pa_rtx4070_1920_680_01_en_302.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
                 </div>
                 <div class="carousel-item">
-                    <img src="/images/pa_rtx4080_70Ti_js_1920_680_02_ru_162.jpg" class="d-block img-fluid" alt="Изображение карусели">
+                    <img src="/images/pa_rtx4080_70Ti_js_1920_680_02_ru_162.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -51,40 +51,17 @@
             @foreach (var product in Model)
             {
                 <div class="col-lg-4 mb-3">
-                    <div class="card box-shadow h-100">
-
-                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active p-1">
-                                    <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
-                                        <div class="scale">
-                                            <img src="@product.Images.First().Url" class="d-block scale w-100 rounded" alt="Изображение товара">
-                                        </div>
-                                    </a>
+                    <div class="card box-shadow h-100 w-100">                        
+                            <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
+                                <div class="scale p-2">
+                                <img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@product.Images.FirstOrDefault().Url" alt="Изображение товара">
                                 </div>
-                                @if (product.Images.Count > 1)
-                                {
-                                    @for (var i = 1; i < product.Images.Count; i++)
-                                    {
-                                        <div class="carousel-item p-1">
-                                            <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
-                                                <div class="scale">
-                                                    <img class="d-block scale w-100 rounded" src="@product.Images[i].Url" alt="Изображение товара">
-                                                </div>
-                                            </a>
-                                        </div>
-                                    }
-                                }
-
-                            </div>
-                        </div>
-
-
+                            </a>                        
                         <div class="card-body">
                             <h5 class="price">@product.Cost &#8381;</h5>
                             <p class="textId">ID: @product.Id.ToString().Split('-').Last()</p>
                             <p class="card-title">
-                                <a class="titleName" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a>
+                                <a class="titleName" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><p class="gain-left">@product.Name</p></a>
                             </p>
                             <p class="textDescription">@product.Description</p>
                         </div>

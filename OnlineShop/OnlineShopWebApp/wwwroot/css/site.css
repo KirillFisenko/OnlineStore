@@ -54,3 +54,39 @@ body {
         .scale img:hover {
             transform: scale(1.2); /* Увеличиваем масштаб */
         }
+
+/* Текст слева */
+.gain-left {
+    transition: 0.1s; /* Время эффекта */
+    text-align: left;
+}
+
+    .gain-left:hover {
+        transform: scale(1.02); /* Увеличиваем масштаб */
+    }
+
+/* Текст по центру */
+.gain-center {
+    transition: 0.1s; /* Время эффекта */
+    text-align: center;
+}
+
+    .gain-center:hover {
+        transform: scale(1.05); /* Увеличиваем масштаб */
+    }
+
+.change-text {
+}
+
+    .change-text:hover {
+        color: orangered; /* Меняем цвет текста */
+    }
+
+
+.avatar {
+    border: 3px solid #DAA520;
+}
+
+    .avatar:hover {
+        border: 1px solid #dbd11f; /* Ширина, вид и цвет рамки */
+    }

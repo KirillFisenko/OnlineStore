@@ -10,48 +10,48 @@
     <div class="col-lg-9 my-4">
         <form method="post" enctype="multipart/form-data">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <div class="row g-3">
+            <div class="col-12 g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Добавление пользователя</h4>
                 @* на какую страницу перейти после регистрации *@
                 <input type="hidden" name="returnUrl" value="/User/Index" />
                 
-                <div class="col-12">
+                <div class="col-6 my-3">
                     <label asp-for="UserName">Email:</label>
                     <input asp-for="UserName" type="text" class="form-control" placeholder="example@gmail.com" />
                     <span asp-validation-for="UserName" />
                 </div>
 
-                <div class="col-12">
+                <div class="col-6 my-3">
                     <label asp-for="Password">Пароль:</label>
                     <input asp-for="Password" type="password" class="form-control" />
                     <span asp-validation-for="Password" />
                 </div>
 
-                <div class="col-12">
+                <div class="col-6 my-3">
                     <label asp-for="ConfirmPassword">Подтвердите пароль:</label>
                     <input asp-for="ConfirmPassword" type="password" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" />
                 </div>               
 
-                <div class="col-12">
+                <div class="col-6 my-3">
                     <label asp-for="PhoneNumber">Телефон:</label>
                     <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="+79265463469" />
                     <span asp-validation-for="PhoneNumber" />
                 </div>
 
-                <div class="col-12">
+                <div class="col-6 my-3">
                     <label asp-for="FirstName">Имя:</label>
                     <input asp-for="FirstName" type="text" class="form-control" placeholder="Кирилл" />
                     <span asp-validation-for="FirstName" />
                 </div>
 
-                <div class="col-12">
+                <div class="col-6 my-3">
                     <label asp-for="Address">Адресс:</label>
                     <input asp-for="Address" type="text" class="form-control" placeholder="г. Москва, ул. Тверская, д. 1" />
                     <span asp-validation-for="Address" />
                 </div>
 
-                <div class="col-12 mb-3">
+                <div class="col-6 my-3">
                     <label>Загрузить аватар:</label>
                     <input name="UploadedFile" class="form-control" type="file" />
                 </div>

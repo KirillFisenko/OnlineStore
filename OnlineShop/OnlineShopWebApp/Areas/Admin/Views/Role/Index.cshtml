@@ -35,7 +35,7 @@
                         {
                             <tr>
                                 <td>@role.Name</td>
-                                <td class="col-4 text-end">
+                                <td class="text-end">
                                     @if (role.Name != "Admin" && role.Name != "User")
                                     {
                                         <a class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name"><i class="bi bi-trash-fill"> Удалить роль</i></a>
