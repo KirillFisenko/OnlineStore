@@ -48,7 +48,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Register register)
+        public IActionResult Add(RegisterViewModel register)
         {
             if (register.UserName == register.Password)
             {

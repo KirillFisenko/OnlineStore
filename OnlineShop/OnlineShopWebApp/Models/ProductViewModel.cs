@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OnlineShop.Db.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShopWebApp.Models
 {
@@ -18,6 +19,8 @@ namespace OnlineShopWebApp.Models
         [StringLength(300, MinimumLength = 1, ErrorMessage = "Описание должно содержать от 1 до 300 символов")]
         public string Description { get; set; }
 
-        public List<ImageViewModel> Images { get; set; }       
-    }
+        public List<ImageViewModel> Images { get; set; }
+
+		public CategoriesViewModel Categories { get; set; }
+	}
 }

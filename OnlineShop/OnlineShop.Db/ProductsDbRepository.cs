@@ -47,6 +47,7 @@ namespace OnlineShop.Db
             currentProduct.Name = product.Name;
             currentProduct.Cost = product.Cost;
             currentProduct.Description = product.Description;
+            currentProduct.Categories = product.Categories;
             
             if(uploadedFiles != null)
             {

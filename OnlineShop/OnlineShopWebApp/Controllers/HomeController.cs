@@ -25,9 +25,9 @@ namespace OnlineShopWebApp.Controllers
             return View(model);
         }
         
-        public IActionResult Category(Сategories categories)
+        public IActionResult Category(Categories categories)
         {
-            var products = productRepository.GetAll().Where(product => product.Сategories == categories);
+            var products = productRepository.GetAll().Where(product => product.Categories == categories);
             var model = products.Select(mapper.Map<ProductViewModel>).ToList();
             return View("Index", model);
         }        

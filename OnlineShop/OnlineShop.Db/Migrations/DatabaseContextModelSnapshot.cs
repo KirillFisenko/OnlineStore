@@ -236,6 +236,12 @@ namespace OnlineShop.Db.Migrations
                             Id = new Guid("3b87338f-39a1-43be-97e0-8dafb7cde5e3"),
                             ProductId = new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"),
                             Url = "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb_2.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("b4985364-e448-411c-a2f2-70a5f4859607"),
+                            ProductId = new Guid("a9e8c758-3456-4c89-b0e4-6190e193cc1c"),
+                            Url = "/images/Products/Intel Core i5 - 12400F OEM.webp"
                         });
                 });
 
@@ -267,6 +273,9 @@ namespace OnlineShop.Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Categories")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
@@ -278,9 +287,6 @@ namespace OnlineShop.Db.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Сategories")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -289,50 +295,58 @@ namespace OnlineShop.Db.Migrations
                         new
                         {
                             Id = new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"),
+                            Categories = 2,
                             Cost = 33060m,
                             Description = "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb",
-                            Сategories = 2
+                            Name = "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb"
                         },
                         new
                         {
                             Id = new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"),
+                            Categories = 2,
                             Cost = 109580m,
                             Description = "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 4080 Gigabyte 16Gb",
-                            Сategories = 2
+                            Name = "NVIDIA GeForce RTX 4080 Gigabyte 16Gb"
                         },
                         new
                         {
                             Id = new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"),
+                            Categories = 2,
                             Cost = 35720m,
                             Description = "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort",
-                            Name = "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC",
-                            Сategories = 2
+                            Name = "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC"
                         },
                         new
                         {
                             Id = new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"),
+                            Categories = 2,
                             Cost = 93320m,
                             Description = "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 4070 Ti MSI 12Gb",
-                            Сategories = 2
+                            Name = "NVIDIA GeForce RTX 4070 Ti MSI 12Gb"
                         },
                         new
                         {
                             Id = new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"),
+                            Categories = 2,
                             Cost = 48660m,
                             Description = "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR",
-                            Сategories = 2
+                            Name = "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR"
                         },
                         new
                         {
                             Id = new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"),
+                            Categories = 2,
                             Cost = 182350m,
                             Description = "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort",
-                            Name = "NVIDIA GeForce RTX 4090 ASUS 24Gb",
-                            Сategories = 2
+                            Name = "NVIDIA GeForce RTX 4090 ASUS 24Gb"
+                        },
+                        new
+                        {
+                            Id = new Guid("a9e8c758-3456-4c89-b0e4-6190e193cc1c"),
+                            Categories = 0,
+                            Cost = 16490m,
+                            Description = "LGA 1700, 6-ядерный, 2500 МГц, Turbo: 4400 МГц, Alder Lake, Кэш L2 - 7.5 Мб, L3 - 18 Мб, 10 нм, 117 Вт",
+                            Name = "Intel Core i5 - 12400F OEM"
                         });
                 });
 

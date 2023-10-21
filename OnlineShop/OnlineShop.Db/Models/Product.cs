@@ -11,15 +11,15 @@ namespace OnlineShop.Db.Models
 
 		public List<Image> Images { get; set; }        
 
-		public Сategories Сategories { get; set; }
+		public Categories Categories { get; set; }
 
-        public Product(Guid id, string Name, decimal Cost, string Description, Сategories Сategories) : this()
+        public Product(Guid id, string Name, decimal Cost, string Description, Categories Сategories) : this()
 		{
 			Id = id;
 			this.Name = Name;
 			this.Cost = Cost;
 			this.Description = Description;
-			this.Сategories = Сategories;
+			this.Categories = Сategories;
         }
 
 		public Product()

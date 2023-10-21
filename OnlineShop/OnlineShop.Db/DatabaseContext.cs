@@ -33,6 +33,8 @@ namespace OnlineShop.Db
             var product5Id = Guid.Parse("9cef72c1-745c-4188-8455-22f117cb24a4");
             var product6Id = Guid.Parse("1da615a9-1274-49b1-a5e3-1de9eb4def1e");
 
+            var product7Id = Guid.Parse("a9e8c758-3456-4c89-b0e4-6190e193cc1c");
+
             var image1 = new Image
             {
                 Id = Guid.Parse("615aa542-835d-477e-944f-c7e52379a831"),
@@ -159,7 +161,14 @@ namespace OnlineShop.Db
                 ProductId = product6Id
             };
 
-            modelBuilder.Entity<Image>().HasData(image1, image1_1, image1_2, image2, image2_1, image2_2, image3, image3_1, image3_2, image4, image4_1, image4_2, image5, image5_1, image5_2, image6, image6_1, image6_2);
+            var image7 = new Image
+            {
+                Id = Guid.Parse("b4985364-e448-411c-a2f2-70a5f4859607"),
+                Url = "/images/Products/Intel Core i5 - 12400F OEM.webp",
+                ProductId = product7Id
+            };
+
+            modelBuilder.Entity<Image>().HasData(image1, image1_1, image1_2, image2, image2_1, image2_2, image3, image3_1, image3_2, image4, image4_1, image4_2, image5, image5_1, image5_2, image6, image6_1, image6_2, image7);
 
             modelBuilder.Entity<Product>().HasData(new List<Product>()
             {
@@ -168,41 +177,48 @@ namespace OnlineShop.Db
                     "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb",
                     33_060,
                     "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort",
-                    Сategories.VideoCards
+                    Categories.VideoCards
                 ),
             new Product(
                 product2Id,
                     "NVIDIA GeForce RTX 4080 Gigabyte 16Gb",
                     109_580,
                     "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort",
-                    Сategories.VideoCards
+                    Categories.VideoCards
                 ),
             new Product(
                 product3Id,
                     "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC",
                     35_720,
                     "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort",
-                    Сategories.VideoCards
+                    Categories.VideoCards
                 ),
             new Product(
                 product4Id,
                     "NVIDIA GeForce RTX 4070 Ti MSI 12Gb",
                     93_320,
                     "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort",
-                    Сategories.VideoCards
+                    Categories.VideoCards
                 ),
             new Product(
                 product5Id,
                     "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR",
                     48_660, "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort",
-                    Сategories.VideoCards
+                    Categories.VideoCards
                 ),
             new Product(
                 product6Id,
                     "NVIDIA GeForce RTX 4090 ASUS 24Gb",
                     182_350,
                     "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort",
-                    Сategories.VideoCards
+                    Categories.VideoCards
+                ),
+            new Product(
+                product7Id,
+                    "Intel Core i5 - 12400F OEM",
+                    16_490,
+                    "LGA 1700, 6-ядерный, 2500 МГц, Turbo: 4400 МГц, Alder Lake, Кэш L2 - 7.5 Мб, L3 - 18 Мб, 10 нм, 117 Вт",
+                    Categories.Processors
                 )
             });
         }

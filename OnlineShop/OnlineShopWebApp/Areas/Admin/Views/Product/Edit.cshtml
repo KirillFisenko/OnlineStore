@@ -32,6 +32,14 @@
                     <span asp-validation-for="Description" />
                 </div>
 
+                <div class="col-9 my-3">
+                    <label asp-for="Categories">Категория:</label>
+                    <select asp-for="@Model.Categories"
+                            asp-items="@Html.GetEnumSelectList<CategoriesViewModel>()"
+                            class="form-control-sm">
+                    </select>
+                </div>
+
                 <div class="col-5 my-3">
                     <label class="my-2">Изображения:</label>
                     <input type="hidden" name="Images" value="@Model.Images" />

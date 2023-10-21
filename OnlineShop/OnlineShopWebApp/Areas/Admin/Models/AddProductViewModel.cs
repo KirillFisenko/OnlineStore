@@ -18,5 +18,7 @@ namespace OnlineShopWebApp.Areas.Admin.Models
         public string Description { get; set; }
 		public List<ImageViewModel> Images { get; set; }
 		public IFormFile[] UploadedFiles { get; set; }
-    }
+
+		public CategoriesViewModel Categories { get; set; }
+	}
 }

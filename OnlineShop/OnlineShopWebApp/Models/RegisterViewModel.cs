@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Models
 {
-    public class Register
+    public class RegisterViewModel
     {
         [Required(ErrorMessage = "Не указан логин")]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Логин должен содержать от 2 до 200 символов")]

@@ -29,11 +29,11 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Login(string returnUrl)
         {
-            return View(new Login() { ReturnUrl = returnUrl ?? "/Home" });
+            return View(new LoginViewModel() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
-        public IActionResult Login(Login login)
+        public IActionResult Login(LoginViewModel login)
         {
             if (ModelState.IsValid)
             {
@@ -52,11 +52,11 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Register(string returnUrl)
         {
-            return View(new Register() { ReturnUrl = returnUrl ?? "/Home" });
+            return View(new RegisterViewModel() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
-        public IActionResult Register(Register register)
+        public IActionResult Register(RegisterViewModel register)
         {
             if (register.UserName == register.Password)
             {

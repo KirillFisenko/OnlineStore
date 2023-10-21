@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Db.Models
 {
-    public enum Сategories
+    public enum Categories
     {
         Processors,
         Motherboards,

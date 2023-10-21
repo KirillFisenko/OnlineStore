@@ -32,6 +32,14 @@
                 </div>
 
                 <div class="col-9 my-3">
+                    <label asp-for="Categories">Категория:</label>
+                    <select asp-for="@Model.Categories"
+                            asp-items="@Html.GetEnumSelectList<CategoriesViewModel>()"
+                            class="form-control-sm">
+                    </select>                  
+                </div>
+
+                <div class="col-9 my-3">
                     <label asp-for="UploadedFiles">Загрузить изображения:</label>
                     <input asp-for="UploadedFiles" type="text" class="form-control" type="file" multiple accept="image/*" />
                     <span asp-validation-for="UploadedFiles" />
