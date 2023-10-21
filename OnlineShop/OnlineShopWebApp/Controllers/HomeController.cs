@@ -10,11 +10,12 @@ namespace OnlineShopWebApp.Controllers
 	{
 		private readonly IProductsRepository productRepository;	
         private readonly IMapper mapper;
+       
 
-		public HomeController(IProductsRepository productRepository, IMapper mapper)
+        public HomeController(IProductsRepository productRepository, IMapper mapper)
 		{
 			this.productRepository = productRepository;		
-            this.mapper = mapper;
+            this.mapper = mapper;            
 		}
 
 		public IActionResult Index()
@@ -23,7 +24,7 @@ namespace OnlineShopWebApp.Controllers
             var model = products.Select(mapper.Map<ProductViewModel>).ToList();
             return View(model);
         }
-
+        
         public IActionResult Category(Сategories categories)
         {
             var products = productRepository.GetAll().Where(product => product.Сategories == categories);

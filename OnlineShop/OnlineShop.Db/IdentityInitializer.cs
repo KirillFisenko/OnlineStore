@@ -7,7 +7,7 @@ namespace OnlineShop.Db
     {
         public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var adminEmail = "admin@gmail.com";
+            var adminEmail = "proPConlineShop@gmail.com";
             var password = "adminADMIN123$";
             if (roleManager.FindByNameAsync(Constants.AdminRoleName).Result == null)
             {
