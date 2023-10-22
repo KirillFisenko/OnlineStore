@@ -18,8 +18,7 @@ namespace OnlineShop.Db.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,10 +170,12 @@ namespace OnlineShop.Db.Migrations
                 values: new object[,]
                 {
                     { new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), 2, 33060m, "PCI-E 4.0; 1320 МГц; 1837 МГц; 12 Гб; GDDR6; 15000 МГц; 192 бит; HDMI, 3xDisplayPort", "NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb" },
+                    { new Guid("1d0f8db8-8935-40ba-9d4f-36eb7c62e4f0"), 1, 10070m, "LGA 1700, Intel B660, 2xDDR4, PCI-E 4.0, 2xM.2, 4xUSB 3.2 Gen1, HDMI, mATX", "ASUS PRIME B660M-K D4" },
                     { new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"), 2, 182350m, "PCI-E 4.0; 2235 МГц; 2595 МГц; 24 Гб; GDDR6X; 21000 МГц; 384 бит; HDMI, 3xDisplayPort", "NVIDIA GeForce RTX 4090 ASUS 24Gb" },
                     { new Guid("9cef72c1-745c-4188-8455-22f117cb24a4"), 2, 48660m, "PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort", "NVIDIA GeForce RTX 3070 Gigabyte 8Gb LHR" },
                     { new Guid("a9e8c758-3456-4c89-b0e4-6190e193cc1c"), 0, 16490m, "LGA 1700, 6-ядерный, 2500 МГц, Turbo: 4400 МГц, Alder Lake, Кэш L2 - 7.5 Мб, L3 - 18 Мб, 10 нм, 117 Вт", "Intel Core i5 - 12400F OEM" },
                     { new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"), 2, 93320m, "PCI-E 4.0; 2310 МГц; 2760 МГц; 12 Гб; GDDR6X; 21000 МГц; 192 бит; HDMI, 3xDisplayPort", "NVIDIA GeForce RTX 4070 Ti MSI 12Gb" },
+                    { new Guid("b19eba8a-9fe4-4e17-9329-3b8c370eaccd"), 4, 8840m, "внутренний SSD, M.2, 1000 Гб, PCI-E x4, NVMe, чтение: 3500 МБ/сек, запись: 3300 МБ/сек, TLC, кэш - 1024 Мб", "1Tb Samsung 970 EVO Plus (MZ-V7S1T0BW)" },
                     { new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"), 2, 35720m, "PCI-E 4.0; 1720 МГц; 2755 МГц; 8 Гб; GDDR6; 18000 МГц; 128 бит; HDMI, 3xDisplayPort", "AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC" },
                     { new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"), 2, 109580m, "PCI-E 4.0; 2535 МГц; 2535 МГц; 16 Гб; GDDR6X; 22400 МГц; 256 бит; HDMI, 3xDisplayPort", "NVIDIA GeForce RTX 4080 Gigabyte 16Gb" }
                 });
@@ -189,6 +190,7 @@ namespace OnlineShop.Db.Migrations
                     { new Guid("11f0ada9-6749-4202-abc2-0e0798c28953"), new Guid("e5650031-f46d-4a08-95e3-73bdcfbe0e03"), "/images/Products/AMD Radeon RX 7600 ASRock Phantom Gaming 8G OC_2.webp" },
                     { new Guid("3b86338f-39a1-49be-97e0-8dafb3cde5e1"), new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"), "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp" },
                     { new Guid("3b87338f-39a1-43be-97e0-8dafb7cde5e3"), new Guid("1da615a9-1274-49b1-a5e3-1de9eb4def1e"), "/images/Products/NVIDIA GeForce RTX 4090 ASUS 24Gb_2.webp" },
+                    { new Guid("4dac46b6-1266-46d2-82a4-0d659e330671"), new Guid("1d0f8db8-8935-40ba-9d4f-36eb7c62e4f0"), "/images/Products/ASUS PRIME B660M-K D4.webp" },
                     { new Guid("515113c4-e7ec-4375-8dd8-5ee691534911"), new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"), "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb.webp" },
                     { new Guid("515143c4-e7ec-4375-8dd8-5ee691634712"), new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"), "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb_1.webp" },
                     { new Guid("515313c4-e7ec-4875-8dd8-5ee641534903"), new Guid("b1911e79-bc5a-4ddc-9a05-5f0128c956e2"), "/images/Products/NVIDIA GeForce RTX 4070 Ti MSI 12Gb_2.webp" },
@@ -200,6 +202,7 @@ namespace OnlineShop.Db.Migrations
                     { new Guid("615aa542-835d-477e-944f-c7e52379a842"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/Products/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb_1.webp" },
                     { new Guid("635aa542-835d-477e-944f-c7e51259a833"), new Guid("02ee2bb1-9dc4-4296-8119-ee264d8168f3"), "/images/Products/NVIDIA GeForce RTX 3060 Palit Dual OC 12Gb_2.webp" },
                     { new Guid("b4985364-e448-411c-a2f2-70a5f4859607"), new Guid("a9e8c758-3456-4c89-b0e4-6190e193cc1c"), "/images/Products/Intel Core i5 - 12400F OEM.webp" },
+                    { new Guid("d81dad65-df25-41f0-88d3-48c9b842c10f"), new Guid("b19eba8a-9fe4-4e17-9329-3b8c370eaccd"), "/images/Products/1Tb Samsung 970 EVO Plus (MZ-V7S1T0BW).webp" },
                     { new Guid("f1a36166-5459-4e4e-9c12-38286acc7201"), new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"), "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb.webp" },
                     { new Guid("f1a36456-5459-4e4e-9c12-38876acc7012"), new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"), "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb_1.webp" },
                     { new Guid("f1a37166-5469-4e4e-9c12-35236acc7003"), new Guid("f545d4a3-40b1-4f3b-953a-e2e70275fc27"), "/images/Products/NVIDIA GeForce RTX 4080 Gigabyte 16Gb_2.webp" }

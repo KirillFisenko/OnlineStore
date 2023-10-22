@@ -12,7 +12,7 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231021183604_Inizialization")]
+    [Migration("20231022173344_Inizialization")]
     partial class Inizialization
     {
         /// <inheritdoc />
@@ -30,9 +30,6 @@ namespace OnlineShop.Db.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -245,6 +242,18 @@ namespace OnlineShop.Db.Migrations
                             Id = new Guid("b4985364-e448-411c-a2f2-70a5f4859607"),
                             ProductId = new Guid("a9e8c758-3456-4c89-b0e4-6190e193cc1c"),
                             Url = "/images/Products/Intel Core i5 - 12400F OEM.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("4dac46b6-1266-46d2-82a4-0d659e330671"),
+                            ProductId = new Guid("1d0f8db8-8935-40ba-9d4f-36eb7c62e4f0"),
+                            Url = "/images/Products/ASUS PRIME B660M-K D4.webp"
+                        },
+                        new
+                        {
+                            Id = new Guid("d81dad65-df25-41f0-88d3-48c9b842c10f"),
+                            ProductId = new Guid("b19eba8a-9fe4-4e17-9329-3b8c370eaccd"),
+                            Url = "/images/Products/1Tb Samsung 970 EVO Plus (MZ-V7S1T0BW).webp"
                         });
                 });
 
@@ -350,6 +359,22 @@ namespace OnlineShop.Db.Migrations
                             Cost = 16490m,
                             Description = "LGA 1700, 6-ядерный, 2500 МГц, Turbo: 4400 МГц, Alder Lake, Кэш L2 - 7.5 Мб, L3 - 18 Мб, 10 нм, 117 Вт",
                             Name = "Intel Core i5 - 12400F OEM"
+                        },
+                        new
+                        {
+                            Id = new Guid("1d0f8db8-8935-40ba-9d4f-36eb7c62e4f0"),
+                            Categories = 1,
+                            Cost = 10070m,
+                            Description = "LGA 1700, Intel B660, 2xDDR4, PCI-E 4.0, 2xM.2, 4xUSB 3.2 Gen1, HDMI, mATX",
+                            Name = "ASUS PRIME B660M-K D4"
+                        },
+                        new
+                        {
+                            Id = new Guid("b19eba8a-9fe4-4e17-9329-3b8c370eaccd"),
+                            Categories = 4,
+                            Cost = 8840m,
+                            Description = "внутренний SSD, M.2, 1000 Гб, PCI-E x4, NVMe, чтение: 3500 МБ/сек, запись: 3300 МБ/сек, TLC, кэш - 1024 Мб",
+                            Name = "1Tb Samsung 970 EVO Plus (MZ-V7S1T0BW)"
                         });
                 });
 

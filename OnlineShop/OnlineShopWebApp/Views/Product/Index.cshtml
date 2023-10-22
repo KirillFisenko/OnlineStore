@@ -51,6 +51,7 @@
             </div>
             
             <div class="col-7">
+                <p>@EnumHelper.GetDisplayName(Model.Categories)</p>
                 <h4>@Model.Name</h4>
                 <h5>@Model.Cost &#8381;</h5>
                 <p class="textId">ID: @Model.Id.ToString().Split('-').Last()</p>

@@ -35,6 +35,10 @@ namespace OnlineShop.Db
 
             var product7Id = Guid.Parse("a9e8c758-3456-4c89-b0e4-6190e193cc1c");
 
+            var product8Id = Guid.Parse("1d0f8db8-8935-40ba-9d4f-36eb7c62e4f0");
+
+            var product9Id = Guid.Parse("b19eba8a-9fe4-4e17-9329-3b8c370eaccd");
+
             var image1 = new Image
             {
                 Id = Guid.Parse("615aa542-835d-477e-944f-c7e52379a831"),
@@ -168,7 +172,21 @@ namespace OnlineShop.Db
                 ProductId = product7Id
             };
 
-            modelBuilder.Entity<Image>().HasData(image1, image1_1, image1_2, image2, image2_1, image2_2, image3, image3_1, image3_2, image4, image4_1, image4_2, image5, image5_1, image5_2, image6, image6_1, image6_2, image7);
+            var image8 = new Image
+            {
+                Id = Guid.Parse("4dac46b6-1266-46d2-82a4-0d659e330671"),
+                Url = "/images/Products/ASUS PRIME B660M-K D4.webp",
+                ProductId = product8Id
+            };
+
+            var image9 = new Image
+            {
+                Id = Guid.Parse("d81dad65-df25-41f0-88d3-48c9b842c10f"),
+                Url = "/images/Products/1Tb Samsung 970 EVO Plus (MZ-V7S1T0BW).webp",
+                ProductId = product9Id
+            };
+
+            modelBuilder.Entity<Image>().HasData(image1, image1_1, image1_2, image2, image2_1, image2_2, image3, image3_1, image3_2, image4, image4_1, image4_2, image5, image5_1, image5_2, image6, image6_1, image6_2, image7, image8, image9);
 
             modelBuilder.Entity<Product>().HasData(new List<Product>()
             {
@@ -219,6 +237,20 @@ namespace OnlineShop.Db
                     16_490,
                     "LGA 1700, 6-ядерный, 2500 МГц, Turbo: 4400 МГц, Alder Lake, Кэш L2 - 7.5 Мб, L3 - 18 Мб, 10 нм, 117 Вт",
                     Categories.Processors
+                ),
+            new Product(
+                product8Id,
+                    "ASUS PRIME B660M-K D4",
+                    10_070,
+                    "LGA 1700, Intel B660, 2xDDR4, PCI-E 4.0, 2xM.2, 4xUSB 3.2 Gen1, HDMI, mATX",
+                    Categories.Motherboards
+                ),
+            new Product(
+                product9Id,
+                    "1Tb Samsung 970 EVO Plus (MZ-V7S1T0BW)",
+                    8_840,
+                    "внутренний SSD, M.2, 1000 Гб, PCI-E x4, NVMe, чтение: 3500 МБ/сек, запись: 3300 МБ/сек, TLC, кэш - 1024 Мб",
+                    Categories.SSD
                 )
             });
         }
