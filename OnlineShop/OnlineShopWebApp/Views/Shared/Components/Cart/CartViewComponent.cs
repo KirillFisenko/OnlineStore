@@ -5,6 +5,7 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 {
+	// Компонена представления количества товаров в корзине
 	public class CartViewComponent : ViewComponent
 	{		
 		private readonly ICartsRepository cartsRepository;
@@ -14,7 +15,7 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 		{			
 			this.cartsRepository = cartsRepository;
 			this.mapper = mapper;
-		}
+		}		
 		public IViewComponentResult Invoke()
 		{
 			var cart = cartsRepository.TryGetById(User.Identity.Name);

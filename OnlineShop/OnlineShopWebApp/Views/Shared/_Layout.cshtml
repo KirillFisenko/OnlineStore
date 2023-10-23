@@ -12,8 +12,8 @@
 
 <body>
 
-   @await Html.PartialAsync("Header")    
-    
+    @await Html.PartialAsync("Header")
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -24,7 +24,7 @@
         <div class="container">
             © 2023 ПАО ProPC, г. Москва, Проектируемый пр., д. 124 +7 (495) 548-85-54
         </div>
-    </footer>  
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -32,7 +32,7 @@
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
-    @await RenderSectionAsync("Scripts", required: false)   
-    
+    @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

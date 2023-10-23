@@ -42,7 +42,25 @@
 								<td class="text-end">
 									@if (role.Name != "Admin" && role.Name != "User")
 									{
-										<a class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name"><i class="bi bi-trash-fill"> Удалить роль</i></a>
+										<!-- Кнопка-триггер модального окна удаления позиции избранного -->
+										<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-trash-fill"> Удалить роль</i></button>
+
+										<!-- Модальное окно для очистки позиции избранного -->
+										<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="exampleModalLabel">Удаление роли @role.Name</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+													</div>
+													<div class="modal-body text-start">Вы уверены, что хотите удалить данную роль?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+														<a type="button" class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name">Удалить</a>
+													</div>
+												</div>
+											</div>
+										</div>										
 									}
 									else
 									{

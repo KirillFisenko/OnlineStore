@@ -1,65 +1,45 @@
 ﻿@model UserDeliveryInfoViewModel;
 
 <div class="container">
-	<main>
-		<div class="py-5 text-center">
-			<img class="d-block mx-auto mb-4" src="/images/mainIcon.png" alt="иконка" width="72" height="57">
-			<h2>Форма оформления заказа</h2>
-			<p class="lead">Пожалуйста заполните форму заказа. Обязательные поля для заполнения обозначены *</p>
-		</div>
+    <main>
+        <div class="py-3 text-center">
+            <img class="d-block mx-auto mb-4" src="/images/Index/mainIcon.png" alt="иконка" width="72" height="57">
+            <h2>Форма оформления заказа</h2>
+            <p class="lead">Пожалуйста заполните форму заказа. Обязательные поля для заполнения обозначены *</p>
+        </div>
 
-		<div class="row g-5">
-			<div class="col-md-7 col-lg-7">
-				<h4 class="mb-3">Ваши данные</h4>
-				<form method="post">
-					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-					<input type="hidden" name="UserIdentityName" value="@User.Identity.Name" />
-					<div class="row g-3">
-						<div class="col-12">
-							<label asp-for="Name">ФИО*</label>
-							<input asp-for="Name" type="text" class="form-control" placeholder="Фисенко Кирилл Андреевич" />
-							<span asp-validation-for="Name" />
-						</div>
+        <div class="d-flex justify-content-center">            
+            <form method="post">
+                <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" name="UserIdentityName" value="@User.Identity.Name" />
 
-						<div class="col-12">
-							<label asp-for="Email">Email*</label>
-							<input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" value="@User.Identity.Name" />
-							<span asp-validation-for="Email" />
-						</div>
+                <div class="my-4">
+                    <label asp-for="Name">ФИО*</label>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Фисенко Кирилл Андреевич" />
+                    <span asp-validation-for="Name" />
+                </div>
 
-						<div class="col-12">
-							<label asp-for="Phone">Телефон*</label>
-							<input asp-for="Phone" type="text" class="form-control" placeholder="+7 (926) 546-3469"/>
-							<span asp-validation-for="Phone" />
-						</div>
+                <div class="my-4">
+                    <label asp-for="Email">Email*</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" value="@User.Identity.Name" />
+                    <span asp-validation-for="Email" />
+                </div>
 
-						<div class="col-12">
-							<label asp-for="Address">Адрес*</label>
-							<input asp-for="Address" type="text" class="form-control" placeholder="г. Москва, ул. Тверская, д. 1" />
-							<span asp-validation-for="Address" />
-						</div>						
-					</div>
+                <div class="my-4">
+                    <label asp-for="Phone">Телефон*</label>
+                    <input asp-for="Phone" type="text" class="form-control" placeholder="+7 (926) 546-3469" />
+                    <span asp-validation-for="Phone" />
+                </div>
 
-					<hr class="my-4">
+                <div class="my-4">
+                    <label asp-for="Address">Адрес*</label>
+                    <input asp-for="Address" type="text" class="form-control" placeholder="г. Москва, ул. Тверская, д. 1" />
+                    <span asp-validation-for="Address" />
+                </div>
 
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="same-address" value="true">
-						<label class="form-check-label" for="same-address">Даю согласие на обработку персональных данных</label>
-					</div>
-
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="save-info" value="true">
-						<label class="form-check-label" for="save-info">Сохранить информацию для следующих покупок</label>
-					</div>
-
-					<hr class="my-4">					
-					
-					<button class="w-100 btn btn-lg btn-warning" type="submit" asp-controller="Order" asp-action="Buy"><i class="bi bi-check-circle-fill"> Оформить заказ</i></button>
-										
-					<a class="w-100 btn btn-lg btn-outline-warning my-4" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
-
-				</form>
-			</div>
-		</div>
-	</main>	
+                <button class="btn btn-lg btn-warning my-4" type="submit" asp-controller="Order" asp-action="Buy"><i class="bi bi-check-circle-fill"> Оформить заказ</i></button>
+                <a class="btn btn-lg btn-outline-warning my-4" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+            </form>
+        </div>
+    </main>
 </div>

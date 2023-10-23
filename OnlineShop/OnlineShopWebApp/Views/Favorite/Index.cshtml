@@ -36,7 +36,27 @@
 								<td><a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>
 								<td>@product.Cost &#8381;</td>
 								<td class="text-end">
-									<a class="btn btn-outline-warning" title="Удалить" asp-controller="Favorite" asp-action="Remove" asp-route-productId="@product.Id"><i class="bi bi-trash-fill"></i></a>
+									
+									<!-- Кнопка-триггер модального окна удаления позиции избранного -->
+									<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-trash-fill"></i></button>
+
+									<!-- Модальное окно для очистки позиции избранного -->
+									<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="exampleModalLabel">Удаление позиции избранного</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+												</div>
+												<div class="modal-body text-start">Вы уверены, что хотите удалить данную позицию?</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+													<a type="button" class="btn btn-warning" asp-controller="Favorite" asp-action="Remove" asp-route-productId="@product.Id">Удалить</a>
+												</div>
+											</div>
+										</div>
+									</div>								
+									
 									<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> Купить</a>
 								</td>
 							</tr>
@@ -45,8 +65,8 @@
 				</table>
 				<div class="text-center">
 					<a class="btn btn-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
-					<!-- Кнопка-триггер модального окна -->
-					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					<!-- Кнопка-триггер модального окна очистки избранного -->
+					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2">
 						<i class="bi bi-x-circle"> Очистить избранное</i>
 					</button>
 				</div>
@@ -55,8 +75,8 @@
 	</div>
 </div>
 
-<!-- Модальное окно -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Модальное окно очистки избранного -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

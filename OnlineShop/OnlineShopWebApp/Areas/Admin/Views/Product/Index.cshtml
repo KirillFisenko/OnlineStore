@@ -42,12 +42,31 @@
 							<tr>
 								<td>@i</td>
 								<td><a asp-area="" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>
-								<td><img width="60" height="54" src="@product.Images.FirstOrDefault(@* image => image.Url.Contains("_") == false *@).Url" alt="Изображение товара"></td>
+								<td><img width="60" height="54" src="@product.Images.FirstOrDefault(image => image.Url.Contains("_") == false).Url" alt="Изображение товара"></td>
 								<td>@product.Cost &#8381;</td>
 								<td>@EnumHelper.GetDisplayName(product.Categories)</td>
 								<td class="text-end">
 									<a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-productId="@product.Id"><i class="bi bi-pencil"></i></a>
-									<a class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Remove" asp-route-productId="@product.Id"> <i class="bi bi-trash-fill"></i></a>
+
+									<!-- Кнопка-триггер модального окна удаления позиции избранного -->
+									<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-trash-fill"></i></button>
+
+									<!-- Модальное окно для очистки позиции избранного -->
+									<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5 text-start" id="exampleModalLabel">Удаление товара @product.Name</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+												</div>
+												<div class="modal-body text-start">Вы уверены, что хотите удалить данную позицию?</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+													<a type="button" class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Remove" asp-route-productId="@product.Id">Удалить</a>
+												</div>
+											</div>
+										</div>
+									</div>									
 								</td>
 							</tr>
 							i += 1;
