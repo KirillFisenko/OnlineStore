@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using System.ComponentModel;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -31,9 +33,9 @@ namespace OnlineShopWebApp.Controllers
 		public IActionResult Add(Guid productId)
 		{
 			var product = productsRepository.TryGetById(productId);
-			favoriteRepository.Add(User.Identity.Name, product);
-			return RedirectToAction(nameof(Index));
-        }
+			favoriteRepository.Add(User.Identity.Name, product);			
+			return RedirectToAction(nameof(Index), "Home");
+		}
 
         public IActionResult Remove(Guid productId)
         {            

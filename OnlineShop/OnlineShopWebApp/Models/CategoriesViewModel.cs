@@ -2,7 +2,8 @@
 
 namespace OnlineShopWebApp.Models
 {
-    public enum CategoriesViewModel
+	// перечисление категорий продуктов в представлении
+	public enum CategoriesViewModel
     {
         [Display(Name = "Процессоры")]
         Processors,

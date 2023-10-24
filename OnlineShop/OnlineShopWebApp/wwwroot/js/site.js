@@ -1,4 +1,5 @@
-﻿const toastTrigger = document.getElementById('liveToastBtn')
+﻿/*всплывающие окна*/
+const toastTrigger = document.getElementById('liveToastBtn')
 const toastLiveExample = document.getElementById('liveToast')
 
 if (toastTrigger) {
