@@ -1,10 +1,14 @@
 ﻿namespace OnlineShop.Db.Models
 {
-    // модель позиции в корзине в БД содержит продукт и его количество
+    // модель карточки товара в БД 
     public class CartItem
 	{
 		public Guid Id { get; set; }
-		public Product? Product { get; set; }		
+
+		// продукт
+		public Product? Product { get; set; }
+
+		// количество продукта
 		public int Quantity { get; set; }
 	}
 }

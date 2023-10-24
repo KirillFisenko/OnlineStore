@@ -1,9 +1,9 @@
 ﻿namespace OnlineShop.Db.Models
 {
-	// Константы
+	// константы
 	public class Constants
 	{		
-		// Для создания роли администратора и пользователя по умолчанию
+		// для создания роли администратора и пользователя по умолчанию
 		public const string AdminRoleName = "Admin";
 		public const string UserRoleName = "User";
 	}

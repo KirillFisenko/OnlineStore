@@ -1,9 +1,9 @@
-﻿using OnlineShop.Db.Models;
-
-namespace OnlineShopWebApp.Models
+﻿namespace OnlineShopWebApp.Models
 {
+	// модель изображения для представления
     public class ImageViewModel
     {		
-		public string Url { get; set; }		
+		// ссылка изображения товара
+		public string? Url { get; set; }		
 	}
 }

@@ -1,11 +1,21 @@
 ﻿namespace OnlineShopWebApp.Models
 {
-    public class UserViewModel
-    {        
-        public string UserName { get; set; }              
-        public string PhoneNumber { get; set; }
+	// модель пользователя для представления
+	public class UserViewModel
+    {
+		// имя пользователя == Email из IdentityUser
+		public string? UserName { get; set; }
+
+		// номер телефона из IdentityUser
+		public string? PhoneNumber { get; set; }
+
+		// Имя
 		public string? FirstName { get; set; }
+
+		// Адрес
 		public string? Address { get; set; }
-        public string? AvatarUrl { get; set; }
+
+		// Ссылка на аватар
+		public string? AvatarUrl { get; set; }
     }
 }

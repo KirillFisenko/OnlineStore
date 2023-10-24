@@ -1,14 +1,14 @@
 ﻿namespace OnlineShopWebApp.Models
 {
-    // одна позиция в корине
+    // модель карточки продукта для представления
     public class CartItemViewModel
     {                
         public ProductViewModel? Product { get; set; }
 
-        // количество единиц продукта
+        // количество продукта
         public int Quantity { get; set; }
 
-        // автосвойство для расчета суммы по одной позиции в корзине
+        // автосвойство для расчета суммы по одной карточке
         public decimal? Amount
         {
             get

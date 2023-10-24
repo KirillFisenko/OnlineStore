@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Db.Models
 {
-	// Избранные продукты в БД, привязаны к UserId
+	// модель избранного продукта в БД
 	public class FavoriteProduct
     {
         public Guid Id { get; set; }

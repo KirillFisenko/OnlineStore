@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Models
 {
-	// перечисление категорий продуктов в представлении
+	// перечисление категорий продуктов для представления
 	public enum CategoriesViewModel
     {
         [Display(Name = "Процессоры")]

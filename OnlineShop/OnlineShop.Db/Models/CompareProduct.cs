@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Db.Models
 {
-    // Продукт для сравнения в БД, привязан к UserId
+    // модель продукта для сравнения в БД
     public class CompareProduct
     {
         public Guid Id { get; set; }
