@@ -5,6 +5,7 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
+	// контроллер продукта
     public class ProductController : Controller
     {
 		private readonly IProductsRepository productsRepository;

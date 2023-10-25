@@ -5,12 +5,13 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Helpers
 {
+    // автомаппинг моделей
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<User, UserViewModel>().ReverseMap();
-            CreateMap<User, EditUserViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>().ReverseMap();			
+			CreateMap<User, EditUserViewModel>().ReverseMap();
             CreateMap<User, EditUserByUserViewModel>().ReverseMap();
 			CreateMap<UserDeliveryInfo, UserDeliveryInfoViewModel>().ReverseMap();
 			

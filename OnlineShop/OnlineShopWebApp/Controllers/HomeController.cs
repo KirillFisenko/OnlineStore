@@ -25,20 +25,23 @@ namespace OnlineShopWebApp.Controllers
             return View(model);
         }
         
-        public IActionResult Category(Categories categories)
+        // получить товары по категории
+        public IActionResult GetProductsByCategory(Categories categories)
         {
             var products = productRepository.GetAll().Where(product => product.Categories == categories);
             var model = products.Select(mapper.Map<ProductViewModel>).ToList();
             return View("Index", model);
         }        
 
+        // страница о компании
         public IActionResult About()
         {            
             return View();
         }
 
+        // поиск товаров
         [HttpPost]
-        public IActionResult Search(string name)
+        public IActionResult SearchProduct(string name)
         {            
             if (name != null)
 			{

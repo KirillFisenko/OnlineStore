@@ -7,7 +7,9 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize]
+    // контроллер заказов
+
+	[Authorize] // только для авторизованного пользователя
 	public class OrderController : Controller
     {
         private readonly ICartsRepository cartsRepository;
@@ -33,14 +35,14 @@ namespace OnlineShopWebApp.Controllers
 			{
 				return View(nameof(Index), userViewModel);
 			}
-			var existingCart = cartsRepository.TryGetByUserId(User.Identity.Name);			
+			var existingCart = cartsRepository.TryGetByUserId(User.Identity?.Name);			
 			var order = new Order
             {
                 User = mapper.Map<UserDeliveryInfo>(userViewModel),
                 Items = existingCart.Items
             };			
 			ordersRepository.Add(order);
-            cartsRepository.Clear(User.Identity.Name);
+            cartsRepository.Clear(User.Identity?.Name);
 			var model = mapper.Map<OrderViewModel>(order);
 			return View(model);			
         }

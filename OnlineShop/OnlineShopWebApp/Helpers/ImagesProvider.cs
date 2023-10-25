@@ -1,5 +1,5 @@
 ﻿namespace OnlineShopWebApp.Helpers
-{
+{    
     public class ImagesProvider
     {
         private readonly IWebHostEnvironment appEnvironment;
@@ -8,6 +8,7 @@
             this.appEnvironment = appEnvironment;
         }
 
+        // сохранить файлы
         public List<string> SafeFiles(IFormFile[] files, ImageFolders folder)
         {
             var imagesPaths = new List<string>();
@@ -19,7 +20,8 @@
             return imagesPaths;
         }
 
-        public string SafeFile(IFormFile file, ImageFolders folder)
+		// сохранить файл
+		public string SafeFile(IFormFile file, ImageFolders folder)
         {
             if (file != null)
             {
