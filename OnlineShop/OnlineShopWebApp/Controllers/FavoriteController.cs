@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using System.ComponentModel;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize] // только авторизованный пользователь может зайти
+	[Authorize]
 	public class FavoriteController : Controller
 	{
 		private readonly IProductsRepository productsRepository;
@@ -27,26 +30,11 @@ namespace OnlineShopWebApp.Controllers
 			return View(model);
 		}
 
-		public IActionResult AddOrRemove(Guid productId, string actionName = "Index", string controllerName = "Home")
-		{
-			var product = productsRepository.TryGetById(productId);
-			var favoriteProducts = favoriteRepository.GetAll(User.Identity.Name);
-			if (favoriteProducts.Contains(product))
-			{
-				favoriteRepository.Remove(User.Identity.Name, productId);
-			}
-			else
-			{
-				favoriteRepository.Add(User.Identity.Name, product);
-			}
-			return RedirectToAction(actionName, controllerName);
-		}
-
 		public IActionResult Add(Guid productId)
 		{
 			var product = productsRepository.TryGetById(productId);
 			favoriteRepository.Add(User.Identity.Name, product);			
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index), "Home");
 		}
 
         public IActionResult Remove(Guid productId)
