@@ -39,13 +39,13 @@
 								</td>
 								<td>@item.Product.Cost &#8381;</td>
 								<td class="text-center">
-									<div class="btn-group" role="group" aria-label="Basic outlined example">										
-										<a type="button" class="btn btn-outline-secondary" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id">+</a>
-										<a class="btn btn-outline-secondary text-warning">@item.Quantity</a>
+									<div class="btn-group" role="group" aria-label="Basic outlined example">
+										<a type="button" class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id">+</a>
+										<a class="btn btn-warning">@item.Quantity</a>
 										@if(item.Quantity == 1)
 										{
-											<!-- Кнопка-триггер модального окна очистки позиции корзины -->											
-											<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1">-</button>
+											<!-- Кнопка-триггер модального окна очистки позиции корзины -->
+											<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1">-</button>
 
 											<!-- Модальное окно для очистки позиции корзины-->
 											<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,8 +65,8 @@
 											</div>
 										}
 										else
-										{											
-											<a type="button" class="btn btn-outline-secondary" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id">-</a>
+										{
+											<a type="button" class="btn btn-warning" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id">-</a>
 										}										
 									</div>
 								</td>

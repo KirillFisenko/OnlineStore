@@ -8,27 +8,56 @@ namespace OnlineShopWebApp.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IProductsRepository productRepository;	
-        private readonly IMapper mapper;
+		private readonly IProductsRepository productRepository;
+		private readonly IFavoriteRepository favoriteRepository;
+		private readonly ICompareRepository compareRepository;
+		private readonly ICartsRepository cartsRepository;
+		private readonly IMapper mapper;
        
 
-        public HomeController(IProductsRepository productRepository, IMapper mapper)
+        public HomeController(IProductsRepository productRepository, IMapper mapper, IFavoriteRepository favoriteRepository, ICompareRepository compareRepository, ICartsRepository cartsRepository)
 		{
-			this.productRepository = productRepository;		
-            this.mapper = mapper;            
+			this.productRepository = productRepository;            
+            this.favoriteRepository = favoriteRepository;
+            this.compareRepository = compareRepository;
+            this.cartsRepository = cartsRepository;
+			this.mapper = mapper;
 		}
 
 		public IActionResult Index()
-		{			
-			var products = productRepository.GetAll();
-            var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+		{
+            var model = GetLists();
             return View(model);
         }
-        
+
+        public AllListsProductViewModel GetLists()
+        {
+            var allProducts = productRepository.GetAll();
+            var favoriteProducts = favoriteRepository.GetAll(User.Identity.Name);
+            var compareProducts = compareRepository.GetAll(User.Identity.Name);
+            var cart = cartsRepository.TryGetById(User.Identity.Name);
+
+            var allProductsViewModel = allProducts.Select(mapper.Map<ProductViewModel>).ToList();
+            var favoriteProductsViewModel = favoriteProducts.Select(mapper.Map<ProductViewModel>).ToList();
+            var compareProductsViewModel = compareProducts.Select(mapper.Map<ProductViewModel>).ToList();
+            var cartViewModel = mapper.Map<CartViewModel>(cart);
+
+            var model = new AllListsProductViewModel()
+            {
+                productsViewModel = allProductsViewModel,
+                favoriteProductsViewModel = favoriteProductsViewModel,
+                compareProductsViewModel = compareProductsViewModel,
+                cartViewModel = cartViewModel
+            };
+            return model;
+        }
+
         public IActionResult Category(Categories categories)
         {
-            var products = productRepository.GetAll().Where(product => product.Categories == categories);
-            var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+            var productsCategory = productRepository.GetAll().Where(product => product.Categories == categories);
+            var productsCategoryModel = productsCategory.Select(mapper.Map<ProductViewModel>).ToList();
+            var model = GetLists();
+            model.productsViewModel = productsCategoryModel;
             return View("Index", model);
         }        
 
@@ -39,14 +68,14 @@ namespace OnlineShopWebApp.Controllers
 
         [HttpPost]
         public IActionResult Search(string name)
-        {            
+        {
             if (name != null)
-			{
+            {
                 var products = productRepository.GetAll();
                 var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
-				var model = findProducts.Select(mapper.Map<ProductViewModel>).ToList();
-				return View(model);
-			}
+                var model = findProducts.Select(mapper.Map<ProductViewModel>).ToList();
+                return View(model);
+            }
             return RedirectToAction(nameof(Index));
         }
     }
