@@ -66,7 +66,7 @@
 							<p class="textDescription">@product.Description</p>
 						</div>
 						<div class="d-flex flex-wrap align-items-end justify-content-around p-2">
-							<a class="btn btn-outline-warning flex-fill m-1" title="Подробнее о товаре" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><i class="bi bi-info-square"></i></a>
+							<a class="btn btn-outline-warning flex-fill m-1" title="Подробнее о товаре" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><i class="bi bi-info"></i></a>
 							<a class="btn btn-outline-warning flex-fill m-1" title="Добавить в избранное" asp-controller="Favorite" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-heart"></i></a>
 							<a class="btn btn-outline-warning flex-fill m-1" title="Сравнить" asp-controller="Compare" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-clipboard2-plus"></i></a>
 							<a class="btn btn-warning flex-fill m-1" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> В корзину</a>

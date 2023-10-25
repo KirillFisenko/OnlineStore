@@ -8,6 +8,7 @@ namespace OnlineShop.Db
 	{
 		public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
 		{
+			// использование миграций
 			Database.Migrate();
 		}        
     }

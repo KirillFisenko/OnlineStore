@@ -24,7 +24,7 @@ namespace OnlineShopWebApp.Controllers
 
 		public IActionResult Index()
 		{
-			var cart = cartsRepository.TryGetById(User.Identity.Name);
+			var cart = cartsRepository.TryGetByUserId(User.Identity.Name);
 			var model = mapper.Map<CartViewModel>(cart);
 			return View(model);
 		}

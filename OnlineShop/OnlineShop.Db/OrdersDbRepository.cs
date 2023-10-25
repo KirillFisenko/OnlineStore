@@ -12,29 +12,29 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-        public void Add(Order order)
+		public List<Order> GetAll()
+		{
+			return databaseContext.Orders
+				.Include(x => x.User)
+				.Include(x => x.Items)
+				.ThenInclude(x => x.Product)
+				.ToList();
+		}
+
+		public Order TryGetById(Guid orderId)
+		{
+			return databaseContext.Orders
+				.Include(x => x.User)
+				.Include(x => x.Items)
+				.ThenInclude(x => x.Product)
+				.FirstOrDefault(o => o.Id == orderId);
+		}
+
+		public void Add(Order order)
         {
             databaseContext.Orders.Add(order);
             databaseContext.SaveChanges();
-        }
-
-        public List<Order> GetAll()
-        {
-            return databaseContext.Orders
-                .Include(x => x.User)
-                .Include(x => x.Items)
-                .ThenInclude(x => x.Product)
-                .ToList();
-        }
-
-        public Order TryGetById(Guid orderId)
-        {
-            return databaseContext.Orders
-                .Include(x => x.User)
-                .Include(x => x.Items)
-                .ThenInclude(x => x.Product)                
-                .FirstOrDefault(o => o.Id == orderId);
-        }
+        }       
 
         public void UpdateStatus(Guid orderId, OrderStatus newStatus)
         {

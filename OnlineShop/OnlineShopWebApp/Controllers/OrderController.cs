@@ -33,7 +33,7 @@ namespace OnlineShopWebApp.Controllers
 			{
 				return View(nameof(Index), userViewModel);
 			}
-			var existingCart = cartsRepository.TryGetById(User.Identity.Name);			
+			var existingCart = cartsRepository.TryGetByUserId(User.Identity.Name);			
 			var order = new Order
             {
                 User = mapper.Map<UserDeliveryInfo>(userViewModel),

@@ -20,20 +20,9 @@ namespace OnlineShop.Db
 
         public Product TryGetById(Guid productId)
         {
-            return databaseContext.Products.Include(x => x.Images).FirstOrDefault(product => product.Id == productId);
-        }
-
-        public Product TryGetByName(string name)
-        {
-            return databaseContext.Products.FirstOrDefault(product => product.Name == name);
-        }
-
-        public void Remove(Guid productId)
-        {
-            var product = TryGetById(productId);
-            databaseContext.Products.Remove(product);
-            databaseContext.SaveChanges();
-        }
+            return databaseContext.Products.Include(x => x.Images)
+                .FirstOrDefault(product => product.Id == productId);
+        }              
 
         public void Add(Product product)
         {
@@ -65,5 +54,12 @@ namespace OnlineShop.Db
 
             databaseContext.SaveChanges();
         }
-    }
+
+		public void Remove(Guid productId)
+		{
+			var product = TryGetById(productId);
+			databaseContext.Products.Remove(product);
+			databaseContext.SaveChanges();
+		}
+	}
 }

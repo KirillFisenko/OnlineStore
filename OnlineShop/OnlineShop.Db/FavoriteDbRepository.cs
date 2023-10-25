@@ -3,7 +3,8 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
-    public class FavoriteDbRepository : IFavoriteRepository
+	// репозиторий списка избранных товаров пользователя
+	public class FavoriteDbRepository : IFavoriteRepository
     {
         private readonly DatabaseContext databaseContext;
 
@@ -12,7 +13,18 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-        public void Add(string userId, Product product)
+		// получить список избранных продуктов пользователя
+		public List<Product> GetAll(string userId)
+		{
+			return databaseContext.FavoriteProducts
+				.Where(u => u.UserId == userId)
+				.Include(x => x.Product)
+				.Select(x => x.Product)
+				.ToList();
+		}
+
+		// добавить в список избранного пользователя продукт
+		public void Add(string userId, Product product)
         {
             var existingProduct = databaseContext.FavoriteProducts
 				.FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
@@ -23,14 +35,20 @@ namespace OnlineShop.Db
             }
         }
 
-        public void Remove(string userId, Guid productId)
+		// удалить из списка избранного пользователя продукт
+		public void Remove(string userId, Guid productId)
         {
-            var removingFavorite = databaseContext.FavoriteProducts
+            var removingProduct = databaseContext.FavoriteProducts
 				.FirstOrDefault(u => u.UserId == userId && u.Product.Id == productId);
-            databaseContext.FavoriteProducts.Remove(removingFavorite);
+			
+            if (removingProduct != null)
+            {
+				databaseContext.FavoriteProducts.Remove(removingProduct);
+			}				
             databaseContext.SaveChanges();
         }
-		
+
+		// очистить список избранного пользователя
 		public void Clear(string userId)
         {
             var userFavoriteProducts = databaseContext.FavoriteProducts
@@ -38,15 +56,6 @@ namespace OnlineShop.Db
                 .ToList();
             databaseContext.FavoriteProducts.RemoveRange(userFavoriteProducts);
             databaseContext.SaveChanges();
-        }
-
-        public List<Product> GetAll(string userId)
-        {
-            return databaseContext.FavoriteProducts
-				.Where(u => u.UserId == userId)
-                .Include(x => x.Product)
-                .Select(x => x.Product)
-                .ToList();
-        }
+        }       
     }
 }

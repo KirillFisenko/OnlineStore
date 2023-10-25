@@ -3,6 +3,7 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
+	// репозиторий корзин в БД
 	public class CartsDbRepository : ICartsRepository
 	{
 		private readonly DatabaseContext databaseContext;
@@ -11,7 +12,9 @@ namespace OnlineShop.Db
         {
             this.databaseContext = databaseContext;
         }
-        public Cart TryGetById(string userId)
+
+		// получить корзину пользователя
+        public Cart TryGetByUserId(string? userId)
 		{
 			return databaseContext.Carts
 				.Include(x => x.Items)
@@ -19,9 +22,10 @@ namespace OnlineShop.Db
 				.FirstOrDefault(cart => cart.UserId == userId);
 		}
 
-		public void Add(Product product, string userId)
+		// добавить продукт в корзину пользователя
+		public void Add(Product product, string? userId)
 		{
-			var existingCart = TryGetById(userId);
+			var existingCart = TryGetByUserId(userId);
 			if (existingCart == null)
 			{
 				var newCart = new Cart
@@ -42,7 +46,7 @@ namespace OnlineShop.Db
 			else
 			{
 				var existingCartItem = existingCart.Items
-					.FirstOrDefault(item => item.Product.Id == product.Id);
+					.FirstOrDefault(item => item.Product?.Id == product.Id);
 				if (existingCartItem != null)
 				{
 					existingCartItem.Quantity++;
@@ -59,11 +63,12 @@ namespace OnlineShop.Db
             databaseContext.SaveChanges();
         }
 
+		// уменьшить количество товара в корзине, если 1 шт. - удалить товар, если корзина пустая - удалить ее
 		public void DecreaseAmount(Product product, string userId)
 		{
-			var existingCart = TryGetById(userId);			
+			var existingCart = TryGetByUserId(userId);			
 			var existingCartItem = existingCart?.Items?
-				.FirstOrDefault(item => item.Product.Id == product.Id);
+				.FirstOrDefault(item => item.Product?.Id == product.Id);
 			if(existingCartItem == null)
 			{
 				return;
@@ -71,18 +76,19 @@ namespace OnlineShop.Db
 			existingCartItem.Quantity--;
 			if (existingCartItem.Quantity == 0)
 			{
-				existingCart.Items.Remove(existingCartItem);
+				existingCart?.Items.Remove(existingCartItem);
 			}
-			if (existingCart.Items.Count == 0)
+			if (existingCart?.Items.Count == 0)
 			{
                 databaseContext.Carts.Remove(existingCart);
 			}
             databaseContext.SaveChanges();
         }
 
+		// очистить корзину пользователя
 		public void Clear(string userId)
 		{
-			var existingCart = TryGetById(userId);
+			var existingCart = TryGetByUserId(userId);
 			databaseContext.Carts.Remove(existingCart);
 			databaseContext.SaveChanges();
 		}

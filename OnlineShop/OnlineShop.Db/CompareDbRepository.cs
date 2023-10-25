@@ -3,6 +3,7 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
+	// репозиторий списка сравнения товаров пользователя
 	public class CompareDbRepository : ICompareRepository
 	{
 		private readonly DatabaseContext databaseContext;
@@ -12,6 +13,17 @@ namespace OnlineShop.Db
 			this.databaseContext = databaseContext;
 		}
 
+		// получить список сравнения продуктов пользователя
+		public List<Product> GetAll(string userId)
+		{
+			return databaseContext.CompareProducts
+				.Where(u => u.UserId == userId)
+				.Include(x => x.Product)
+				.Select(x => x.Product)
+				.ToList();
+		}
+
+		// добавить в список сравнения пользователя продукт
 		public void Add(string userId, Product product)
 		{
 			var existingProduct = databaseContext.CompareProducts
@@ -23,14 +35,20 @@ namespace OnlineShop.Db
 			}
 		}
 
+		// удалить из списка сравнения пользователя продукт
 		public void Remove(string userId, Guid productId)
 		{
-			var removingCompare = databaseContext.CompareProducts
+			var removingProduct = databaseContext.CompareProducts
 				.FirstOrDefault(u => u.UserId == userId && u.Product.Id == productId);
-			databaseContext.CompareProducts.Remove(removingCompare);
+			
+			if (removingProduct != null)
+			{
+				databaseContext.CompareProducts.Remove(removingProduct);
+			}
 			databaseContext.SaveChanges();
 		}
-		
+
+		// очистить список сравнения пользователя
 		public void Clear(string userId)
 		{
 			var userCompareProducts = databaseContext.CompareProducts
@@ -38,15 +56,6 @@ namespace OnlineShop.Db
 				.ToList();
 			databaseContext.CompareProducts.RemoveRange(userCompareProducts);
 			databaseContext.SaveChanges();
-		}
-
-		public List<Product> GetAll(string userId)
-		{
-			return databaseContext.CompareProducts
-				.Where(u => u.UserId == userId)
-				.Include(x => x.Product)
-				.Select(x => x.Product)
-				.ToList();
 		}
 	}
 }

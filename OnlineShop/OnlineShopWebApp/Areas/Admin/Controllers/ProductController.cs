@@ -31,11 +31,28 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
 			return View(model);
         }
 
-        public IActionResult Remove(Guid productId)
-        {
-            productsRepository.Remove(productId);
-            return RedirectToAction(nameof(Index));
-        }        
+		public IActionResult Add()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult Add(AddProductViewModel addProductViewModel)
+		{
+			if (productsRepository.GetAll().FirstOrDefault(product => product.Name == addProductViewModel.Name) != null)
+			{
+				ModelState.AddModelError(string.Empty, "Продукт с таким именем уже сущствует");
+			}
+			if (!ModelState.IsValid && addProductViewModel.Images != null)
+			{
+				return View(addProductViewModel);
+			}
+			var addedImagesPaths = imagesProvider.SafeFiles(addProductViewModel.UploadedFiles, ImageFolders.Products);
+			addProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
+			var model = mapper.Map<Product>(addProductViewModel);
+			productsRepository.Add(model);
+			return RedirectToAction(nameof(Index));
+		}		      
 
         public IActionResult Edit(Guid productId)
         {
@@ -61,27 +78,10 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Add()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Add(AddProductViewModel addProductViewModel)
-        {
-            if (productsRepository.TryGetByName(addProductViewModel.Name) != null)
-            {
-                ModelState.AddModelError("", "Продукт с таким именем уже сущствует");
-            }
-            if (!ModelState.IsValid && addProductViewModel.Images != null)
-            {
-                return View(addProductViewModel);
-            }
-            var addedImagesPaths = imagesProvider.SafeFiles(addProductViewModel.UploadedFiles, ImageFolders.Products);
-			addProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
-			var model = mapper.Map<Product>(addProductViewModel);
-			productsRepository.Add(model);
-            return RedirectToAction(nameof(Index));
-        }
-    }
+		public IActionResult Remove(Guid productId)
+		{
+			productsRepository.Remove(productId);
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }

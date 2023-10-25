@@ -34,7 +34,7 @@ namespace OnlineShopWebApp.Controllers
 		{
 			var product = productsRepository.TryGetById(productId);
 			favoriteRepository.Add(User.Identity.Name, product);			
-			return RedirectToAction(nameof(Index), "Home");
+			return RedirectToAction(nameof(Index));
 		}
 
         public IActionResult Remove(Guid productId)

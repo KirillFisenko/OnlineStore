@@ -6,18 +6,31 @@ namespace OnlineShop.Db
 {
     public class DatabaseContext : DbContext
     {
+        // таблица продуктов в БД
         public DbSet<Product> Products { get; set; }
-        public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
-        public DbSet<CompareProduct> CompareProducts { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Image> Images { get; set; }        
+
+		// таблица списка избранного в БД
+		public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
+
+		// таблица списка сравнения в БД
+		public DbSet<CompareProduct> CompareProducts { get; set; }
+
+		// таблица корзин в БД
+		public DbSet<Cart> Carts { get; set; }
+
+		// таблица заказов в БД
+		public DbSet<Order> Orders { get; set; }
+
+		// таблица изображений товаров в БД
+		public DbSet<Image> Images { get; set; }        
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
+            // использование миграций
             Database.Migrate();
         }
 
+        // стартовые продукты
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Image>()
@@ -186,7 +199,9 @@ namespace OnlineShop.Db
                 ProductId = product9Id
             };
 
-            modelBuilder.Entity<Image>().HasData(image1, image1_1, image1_2, image2, image2_1, image2_2, image3, image3_1, image3_2, image4, image4_1, image4_2, image5, image5_1, image5_2, image6, image6_1, image6_2, image7, image8, image9);
+            modelBuilder.Entity<Image>().HasData(image1, image1_1, image1_2, image2, image2_1, image2_2, 
+                image3, image3_1, image3_2, image4, image4_1, image4_2, image5, image5_1, image5_2, 
+                image6, image6_1, image6_2, image7, image8, image9);
 
             modelBuilder.Entity<Product>().HasData(new List<Product>()
             {
