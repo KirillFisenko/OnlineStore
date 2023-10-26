@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
@@ -15,6 +14,7 @@ namespace OnlineShopWebApp.Controllers
 		private readonly IProductsRepository productsRepository;
 		private readonly ICompareRepository compareRepository;
 		private readonly IMapper mapper;
+
 		public CompareController(IProductsRepository productsRepository, ICompareRepository compareRepository, IMapper mapper)
 		{
 			this.productsRepository = productsRepository;

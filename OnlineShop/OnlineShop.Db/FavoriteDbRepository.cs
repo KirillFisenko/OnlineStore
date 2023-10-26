@@ -30,7 +30,7 @@ namespace OnlineShop.Db
 				.FirstOrDefaultAsync(x => x.UserId == userId && x.Product.Id == product.Id);
             if (existingProduct == null)
             {
-                databaseContext.FavoriteProducts.AddAsync(new FavoriteProduct { Product = product, UserId = userId });
+                await databaseContext.FavoriteProducts.AddAsync(new FavoriteProduct { Product = product, UserId = userId });
                 await databaseContext.SaveChangesAsync();
             }
         }

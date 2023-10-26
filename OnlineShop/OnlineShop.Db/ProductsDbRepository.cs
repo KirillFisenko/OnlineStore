@@ -30,7 +30,7 @@ namespace OnlineShop.Db
         // добавить продукт
         public async Task AddAsync(Product product)
         {
-            databaseContext.Products.AddAsync(product);
+            await databaseContext.Products.AddAsync(product);
             await databaseContext.SaveChangesAsync();
         }
 

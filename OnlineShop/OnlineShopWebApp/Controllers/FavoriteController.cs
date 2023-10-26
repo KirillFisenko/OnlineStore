@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
-using System.ComponentModel;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -34,7 +31,7 @@ namespace OnlineShopWebApp.Controllers
 		}
 
         // добавить продукт в список избранного
-        public async Task<IActionResult> Addsync(Guid productId)
+        public async Task<IActionResult> AddAsync(Guid productId)
 		{
 			var product = await productsRepository.TryGetByIdAsync(productId);
 			await favoriteRepository.AddAsync(User.Identity.Name, product);			
@@ -42,14 +39,14 @@ namespace OnlineShopWebApp.Controllers
 		}
 
         // удалить продукт из списка избранного
-        public async Task<IActionResult> Removesync(Guid productId)
+        public async Task<IActionResult> RemoveAsync(Guid productId)
         {
             await favoriteRepository.RemoveAsync(User.Identity.Name, productId);
 			return RedirectToAction(nameof(Index));
         }
 
         // очистить список избранного
-        public async Task<IActionResult> Clearsync()
+        public async Task<IActionResult> ClearAsync()
         {
             await favoriteRepository.ClearAsync(User.Identity.Name);
             return RedirectToAction(nameof(Index));

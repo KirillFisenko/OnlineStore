@@ -139,7 +139,7 @@ namespace OnlineShopWebApp.Controllers
         {
             var orders = await ordersRepository.GetAllAsync();
             var ordersFiltered = orders.Where(o => o.User.UserIdentityName == User.Identity.Name);
-            var model = orders.Select(mapper.Map<OrderViewModel>).ToList();
+            var model = ordersFiltered.Select(mapper.Map<OrderViewModel>).ToList();
             return View(model);
         }
 
