@@ -7,8 +7,10 @@ using System.Data;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-    [Area(Constants.AdminRoleName)]
-    [Authorize(Roles = Constants.AdminRoleName)]
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
+
+    // контроллер ролей
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> rolesManager;
@@ -18,21 +20,23 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             this.rolesManager = rolesManager;
         }
 
+        // отображение всех ролей
         public IActionResult Index()
         {
             var roles = rolesManager.Roles.ToList();
             return View(roles.Select(role => new RoleViewModel { Name = role.Name }).ToList());
         }
 
+        // добавить роль
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(RoleViewModel role)
+        public async Task<IActionResult> AddAsync(RoleViewModel role)
         {
-            var result = rolesManager.CreateAsync(new IdentityRole(role.Name)).Result;
+            var result = await rolesManager.CreateAsync(new IdentityRole(role.Name));
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(Index));
@@ -47,12 +51,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             return View(role);
         }
 
-        public IActionResult Remove(string name)
+        // удалить роль
+        public async Task<IActionResult> RemoveAsync(string name)
         {
             if (name != "Admin" && name != "User")
             {
-                var role = rolesManager.FindByNameAsync(name).Result;
-                rolesManager.DeleteAsync(role).Wait();
+                var role = await rolesManager.FindByNameAsync(name);
+                await rolesManager.DeleteAsync(role);
             }            
             return RedirectToAction(nameof(Index));
         }

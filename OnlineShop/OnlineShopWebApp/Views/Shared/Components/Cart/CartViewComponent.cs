@@ -5,7 +5,8 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 {
-	public class CartViewComponent : ViewComponent
+    // компонента представления счетчика товаров в корзине
+    public class CartViewComponent : ViewComponent
 	{		
 		private readonly ICartsRepository cartsRepository;
 		private readonly IMapper mapper;
@@ -15,9 +16,9 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 			this.cartsRepository = cartsRepository;
 			this.mapper = mapper;
 		}
-		public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
 		{
-			var cart = cartsRepository.TryGetByUserId(User.Identity.Name);
+			var cart = await cartsRepository.TryGetByUserIdAsync(User.Identity.Name);
 			var cartViewModel = mapper.Map<CartViewModel>(cart);			
             var productCounts = cartViewModel?.Quantity ?? 0;
 			return View("Cart", productCounts);

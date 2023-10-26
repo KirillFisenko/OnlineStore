@@ -6,29 +6,29 @@ namespace OnlineShop.Db
     // Инициализация пользователя администаратора и ролей
     public class IdentityInitializer
     {        
-        public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             var adminEmail = "proPConlineShop@gmail.com";
             var password = "adminADMIN123$";
 
             // создание роли администратора, если ее нет
-            if (roleManager.FindByNameAsync(Constants.AdminRoleName).Result == null)
+            if (await roleManager.FindByNameAsync(Constants.AdminRoleName) == null)
             {
-                roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName)).Wait();
+                await roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName));
             }
             // создание роли пользователя, если ее нет
-            if (roleManager.FindByNameAsync(Constants.UserRoleName).Result == null)
+            if (await roleManager.FindByNameAsync(Constants.UserRoleName) == null)
             {
-                roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName)).Wait();
+                await roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName));
             }
             // создание пользователя админитсратора, если его нет
-            if (roleManager.FindByNameAsync(adminEmail).Result == null)
+            if (await roleManager.FindByNameAsync(adminEmail) == null)
             {
                 var admin = new User { Email = adminEmail, UserName = adminEmail };
-                var result = userManager.CreateAsync(admin, password).Result;
+                var result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(admin, Constants.AdminRoleName).Wait();
+                    await userManager.AddToRoleAsync(admin, Constants.AdminRoleName);
                 }
             }
         }

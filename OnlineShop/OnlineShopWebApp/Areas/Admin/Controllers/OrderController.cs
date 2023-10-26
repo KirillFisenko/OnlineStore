@@ -7,8 +7,8 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-    [Area(Constants.AdminRoleName)]
-    [Authorize(Roles = Constants.AdminRoleName)]
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
     public class OrderController : Controller
     {        
         private readonly IOrdersRepository ordersRepository;
@@ -20,23 +20,27 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             this.mapper = mapper;
         }       
        
-        public IActionResult Index()
+        // отображаем все заказы
+        public async Task<IActionResult> Index()
         {
-            var orders = ordersRepository.GetAll();
+            var orders = await ordersRepository.GetAllAsync();
 			var model = orders.Select(mapper.Map<OrderViewModel>).ToList();
-			return View(model);
+			return  View(model);
         }
-        public IActionResult Details(Guid orderId)
+
+        // детали заказа
+        public async Task<IActionResult> DetailsAsync(Guid orderId)
         {
-            var order = ordersRepository.TryGetById(orderId);
+            var order = await ordersRepository.TryGetByIdAsync(orderId);
 			var model = mapper.Map<OrderViewModel>(order);
 			return View(model);
 		}
 
+        // изменить статус заказа
         [HttpPost]
-        public IActionResult UpdateStatus(Guid orderId, OrderStatusViewModel status)
+        public async Task<IActionResult> UpdateStatusAsync(Guid orderId, OrderStatusViewModel status)
         {
-            ordersRepository.UpdateStatus(orderId, (OrderStatus)(int)status);
+            await ordersRepository.UpdateStatusAsync(orderId, (OrderStatus)(int)status);
             return RedirectToAction(nameof(Index));
         }       
     }

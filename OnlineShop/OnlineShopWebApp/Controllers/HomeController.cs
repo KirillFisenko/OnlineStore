@@ -6,30 +6,33 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
+    // домашний контроллер
 	public class HomeController : Controller
 	{
-		private readonly IProductsRepository productRepository;	
+		private readonly IProductsRepository productsRepository;	
         private readonly IMapper mapper;
        
 
-        public HomeController(IProductsRepository productRepository, IMapper mapper)
+        public HomeController(IProductsRepository productsRepository, IMapper mapper)
 		{
-			this.productRepository = productRepository;		
+			this.productsRepository = productsRepository;		
             this.mapper = mapper;            
 		}
 
-		public IActionResult Index()
+        // отображение всех продуктов
+		public async Task<IActionResult> Index()
 		{			
-			var products = productRepository.GetAll();
+			var products = await productsRepository.GetAllAsync();
             var model = products.Select(mapper.Map<ProductViewModel>).ToList();
             return View(model);
         }
         
         // получить товары по категории
-        public IActionResult GetProductsByCategory(Categories categories)
+        public async Task<IActionResult> GetProductsByCategoryAsync(Categories categories)
         {
-            var products = productRepository.GetAll().Where(product => product.Categories == categories);
-            var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+            var products = await productsRepository.GetAllAsync();
+            var productsFiltered = products.Where(product => product.Categories == categories);
+            var model = productsFiltered.Select(mapper.Map<ProductViewModel>).ToList();
             return View("Index", model);
         }        
 
@@ -41,12 +44,12 @@ namespace OnlineShopWebApp.Controllers
 
         // поиск товаров
         [HttpPost]
-        public IActionResult SearchProduct(string name)
+        public async Task<IActionResult> SearchProductAsync(string name)
         {            
             if (name != null)
 			{
-                var products = productRepository.GetAll();
-                var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
+                var products = await productsRepository.GetAllAsync();
+                var findProducts = products.Where(product => product.Name.ToLower().Contains(name.ToLower()));
 				var model = findProducts.Select(mapper.Map<ProductViewModel>).ToList();
 				return View(model);
 			}

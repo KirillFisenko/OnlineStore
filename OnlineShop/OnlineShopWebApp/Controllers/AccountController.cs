@@ -4,40 +4,40 @@ using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 using OnlineShop.Db;
 using AutoMapper;
-using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
-using Microsoft.Win32;
 
 namespace OnlineShopWebApp.Controllers
 {
+    // контроллер аккаунтов
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
+        private readonly SignInManager<User> signInManager;               
+        private readonly ImagesProvider imagesProvider;
         private readonly IOrdersRepository ordersRepository;
         private readonly IMapper mapper;
-        private readonly ImagesProvider imagesProvider;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IOrdersRepository ordersRepository, IMapper mapper, ImagesProvider imagesProvider)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.ordersRepository = ordersRepository;
-            this.mapper = mapper;
+            this.ordersRepository = ordersRepository;            
             this.imagesProvider = imagesProvider;
+            this.mapper = mapper;
         }
 
+        // авторизация пользователя
         public IActionResult Login(string returnUrl)
         {
             return View(new LoginViewModel() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel login)
+        public async Task<IActionResult> LoginAsync(LoginViewModel login)
         {
             if (ModelState.IsValid)
             {
-                var result = signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
+                var result = await signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return Redirect(login.ReturnUrl ?? "/Home");
@@ -50,13 +50,14 @@ namespace OnlineShopWebApp.Controllers
             return View(login);
         }
 
+        // регистрация пользователя
         public IActionResult Register(string returnUrl)
         {
             return View(new RegisterViewModel() { ReturnUrl = returnUrl ?? "/Home" });
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel register)
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel register)
         {
             if (register.UserName == register.Password)
             {
@@ -77,12 +78,12 @@ namespace OnlineShopWebApp.Controllers
                 };
 
                 // добавляем пользователя
-                var result = userManager.CreateAsync(user, register.Password).Result;
+                var result = await userManager.CreateAsync(user, register.Password);
                 if (result.Succeeded)
                 {
                     // установка куки
-                    signInManager.SignInAsync(user, false).Wait();
-                    userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+                    await signInManager.SignInAsync(user, false);
+                    await userManager.AddToRoleAsync(user, Constants.UserRoleName);
                     return Redirect(register.ReturnUrl ?? "/Home");
                 }
                 else
@@ -96,21 +97,24 @@ namespace OnlineShopWebApp.Controllers
             return View(register);
         }
 
-        public IActionResult Logout()
+        // выход из системы пользователя
+        public async Task<IActionResult> LogoutAsync()
         {
-            signInManager.SignOutAsync().Wait();
+            // удаляем аутентификационные куки
+            await signInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public IActionResult Edit()
+        // редактирование данных пользователя самим пользователем
+        public async Task<IActionResult> EditAsync()
         {
-            var user = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
             var model = mapper.Map<EditUserByUserViewModel>(user);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(EditUserByUserViewModel editUserByUserViewModel)
+        public async Task<IActionResult> EditAsync(EditUserByUserViewModel editUserByUserViewModel)
         {
             if (editUserByUserViewModel.UploadedFile != null && !ModelState.IsValid)
             {
@@ -121,26 +125,28 @@ namespace OnlineShopWebApp.Controllers
                 var addedImagesPaths = imagesProvider.SafeFile(editUserByUserViewModel.UploadedFile, ImageFolders.Profiles);
                 editUserByUserViewModel.AvatarUrl = addedImagesPaths;
             }            
-            var user = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
             user.PhoneNumber = editUserByUserViewModel.PhoneNumber;
             user.FirstName = editUserByUserViewModel.FirstName;
             user.Address = editUserByUserViewModel.Address; 
             user.AvatarUrl = editUserByUserViewModel.AvatarUrl;
-            userManager.UpdateAsync(user).Wait();
+            await userManager.UpdateAsync(user);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public IActionResult Orders()
+        // просмотр заказов пользователем
+        public async Task<IActionResult> OrdersAsync()
         {
-            var orders = ordersRepository.GetAll()
-                .Where(o => o.User.UserIdentityName == User.Identity.Name);
+            var orders = await ordersRepository.GetAllAsync();
+            var ordersFiltered = orders.Where(o => o.User.UserIdentityName == User.Identity.Name);
             var model = orders.Select(mapper.Map<OrderViewModel>).ToList();
             return View(model);
         }
 
-        public IActionResult Details(Guid orderId)
+        // просмотр деталей заказов пользователя
+        public async Task<IActionResult> DetailsAsync(Guid orderId)
         {
-            var order = ordersRepository.TryGetById(orderId);
+            var order = await ordersRepository.TryGetByIdAsync(orderId);
             var model = mapper.Map<OrderViewModel>(order);
             return View(model);
         }

@@ -4,6 +4,7 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
+    // репозиторий продуктов в БД
     public class ProductsDbRepository : IProductsRepository
     {
         private readonly DatabaseContext databaseContext;
@@ -13,32 +14,36 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-        public List<Product> GetAll()
+        // получить все продукты
+        public async Task<List<Product>> GetAllAsync()
         {
-            return databaseContext.Products.Include(x => x.Images).ToList();
+            return await databaseContext.Products.Include(x => x.Images).ToListAsync();
         }
 
-        public Product TryGetById(Guid productId)
+        // получить продукт по id
+        public async Task<Product> TryGetByIdAsync(Guid productId)
         {
-            return databaseContext.Products.Include(x => x.Images)
-                .FirstOrDefault(product => product.Id == productId);
-        }              
-
-        public void Add(Product product)
-        {
-            databaseContext.Products.Add(product);
-            databaseContext.SaveChanges();
+            return await databaseContext.Products.Include(x => x.Images)
+                .FirstOrDefaultAsync(product => product.Id == productId);
         }
 
-        public void Edit(Product product, IFormFile[] uploadedFiles)
+        // добавить продукт
+        public async Task AddAsync(Product product)
         {
-            var currentProduct = TryGetById(product.Id);
+            databaseContext.Products.AddAsync(product);
+            await databaseContext.SaveChangesAsync();
+        }
+
+        // редактировать продукт
+        public async Task EditAsync(Product product, IFormFile[] uploadedFiles)
+        {
+            var currentProduct = await TryGetByIdAsync(product.Id);
             currentProduct.Name = product.Name;
             currentProduct.Cost = product.Cost;
             currentProduct.Description = product.Description;
             currentProduct.Categories = product.Categories;
-            
-            if(uploadedFiles != null)
+
+            if (uploadedFiles != null)
             {
                 foreach (var image in currentProduct.Images)
                 {
@@ -48,18 +53,18 @@ namespace OnlineShop.Db
                 foreach (var image in product.Images)
                 {
                     image.ProductId = product.Id;
-                    databaseContext.Images.Add(image);
+                    await databaseContext.Images.AddAsync(image);
                 }
-            }          
-
-            databaseContext.SaveChanges();
+            }
+            await databaseContext.SaveChangesAsync();
         }
 
-		public void Remove(Guid productId)
-		{
-			var product = TryGetById(productId);
-			databaseContext.Products.Remove(product);
-			databaseContext.SaveChanges();
-		}
-	}
+        // удалить продукт
+        public async Task RemoveAsync(Guid productId)
+        {
+            var product = await TryGetByIdAsync(productId);
+            databaseContext.Products.Remove(product);
+            await databaseContext.SaveChangesAsync();
+        }
+    }
 }

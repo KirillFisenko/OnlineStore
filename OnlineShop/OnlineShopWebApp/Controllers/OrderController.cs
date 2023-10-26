@@ -7,10 +7,10 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-    // контроллер заказов
+	[Authorize] // доступ есть только у авторизованных пользователей
 
-	[Authorize] // только для авторизованного пользователя
-	public class OrderController : Controller
+    // контроллер заказов
+    public class OrderController : Controller
     {
         private readonly ICartsRepository cartsRepository;
         private readonly IOrdersRepository ordersRepository;
@@ -23,26 +23,27 @@ namespace OnlineShopWebApp.Controllers
             this.mapper = mapper;
         }
 
+        // отображение формы заказа
         public IActionResult Index()
         {           
             return View();
         }
 
         [HttpPost]
-        public IActionResult Buy(UserDeliveryInfoViewModel userViewModel)
+        public async Task<IActionResult> BuyAsync(UserDeliveryInfoViewModel userViewModel)
         {
 			if (!ModelState.IsValid)
 			{
 				return View(nameof(Index), userViewModel);
 			}
-			var existingCart = cartsRepository.TryGetByUserId(User.Identity?.Name);			
+			var existingCart = await cartsRepository.TryGetByUserIdAsync(User.Identity.Name);			
 			var order = new Order
             {
                 User = mapper.Map<UserDeliveryInfo>(userViewModel),
                 Items = existingCart.Items
             };			
-			ordersRepository.Add(order);
-            cartsRepository.Clear(User.Identity?.Name);
+			await ordersRepository.AddAsync(order);
+            await cartsRepository.ClearAsync(User.Identity.Name);
 			var model = mapper.Map<OrderViewModel>(order);
 			return View(model);			
         }

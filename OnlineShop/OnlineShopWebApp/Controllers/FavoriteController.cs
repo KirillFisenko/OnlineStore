@@ -9,8 +9,10 @@ using System.ComponentModel;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize]
-	public class FavoriteController : Controller
+	[Authorize] // доступ есть только у авторизованных пользователей
+
+    // контроллер списка избранного
+    public class FavoriteController : Controller
 	{
 		private readonly IProductsRepository productsRepository;
 		private readonly IFavoriteRepository favoriteRepository;
@@ -23,29 +25,33 @@ namespace OnlineShopWebApp.Controllers
 			this.mapper = mapper;
 		}
 
-		public IActionResult Index()
+        // просмотр всего спика избранного
+        public async Task<IActionResult> Index()
 		{
-			var products = favoriteRepository.GetAll(User.Identity.Name);
+			var products = await favoriteRepository.GetAllAsync(User.Identity.Name);
 			var model = products.Select(mapper.Map<ProductViewModel>).ToList();
 			return View(model);
 		}
 
-		public IActionResult Add(Guid productId)
+        // добавить продукт в список избранного
+        public async Task<IActionResult> Addsync(Guid productId)
 		{
-			var product = productsRepository.TryGetById(productId);
-			favoriteRepository.Add(User.Identity.Name, product);			
+			var product = await productsRepository.TryGetByIdAsync(productId);
+			await favoriteRepository.AddAsync(User.Identity.Name, product);			
 			return RedirectToAction(nameof(Index));
 		}
 
-        public IActionResult Remove(Guid productId)
-        {            
-			favoriteRepository.Remove(User.Identity.Name, productId);
+        // удалить продукт из списка избранного
+        public async Task<IActionResult> Removesync(Guid productId)
+        {
+            await favoriteRepository.RemoveAsync(User.Identity.Name, productId);
 			return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Clear()
+        // очистить список избранного
+        public async Task<IActionResult> Clearsync()
         {
-            favoriteRepository.Clear(User.Identity.Name);
+            await favoriteRepository.ClearAsync(User.Identity.Name);
             return RedirectToAction(nameof(Index));
         }
     }

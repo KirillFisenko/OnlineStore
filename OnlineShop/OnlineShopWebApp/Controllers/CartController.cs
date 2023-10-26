@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize]
+	[Authorize] // доступ есть только у авторизованных пользователей
+
+	// контроллер корзины
 	public class CartController : Controller
-	{		
+	{
 		private readonly IProductsRepository productRepository;
 		private readonly ICartsRepository cartsRepository;
 		private readonly IMapper mapper;
@@ -20,32 +20,36 @@ namespace OnlineShopWebApp.Controllers
 			this.productRepository = productRepository;
 			this.cartsRepository = cartsRepository;
 			this.mapper = mapper;
-		}		
+		}
 
-		public IActionResult Index()
+		// просмотр всей корзины пользователя
+		public async Task<IActionResult> Index()
 		{
-			var cart = cartsRepository.TryGetByUserId(User.Identity.Name);
+			var cart = await cartsRepository.TryGetByUserIdAsync(User.Identity.Name);
 			var model = mapper.Map<CartViewModel>(cart);
 			return View(model);
-		}
+		}		
 
-		public IActionResult Add(Guid productId)
+		// добавить продукт в корзину
+		public async Task<IActionResult> AddAsync(Guid productId)
 		{
-			var product = productRepository.TryGetById(productId);
-			cartsRepository.Add(product, User.Identity.Name);
+			var product = await productRepository.TryGetByIdAsync(productId);
+			await cartsRepository.AddAsync(product, User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult DecreaseAmount(Guid productId)
+		// уменьшить количество товараов в корзине на 1
+		public async Task<IActionResult> DecreaseAmountAsync(Guid productId)
 		{
-			var product = productRepository.TryGetById(productId);
-			cartsRepository.DecreaseAmount(product, User.Identity.Name);
+			var product = await productRepository.TryGetByIdAsync(productId);
+			await cartsRepository.DecreaseAmountAsync(product, User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult Clear()
-		{			
-			cartsRepository.Clear(User.Identity.Name);
+		// очистить корзину пользователя
+		public async Task<IActionResult> ClearAsync()
+		{
+			await cartsRepository.ClearAsync(User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 	}

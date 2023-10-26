@@ -36,7 +36,7 @@
                 using(var fileStream = new FileStream(path, FileMode.Create))
                 {
                     file.CopyTo(fileStream);
-                }
+                }                
                 return "/images/" + folder + "/" + fileName;
             }
             return null;

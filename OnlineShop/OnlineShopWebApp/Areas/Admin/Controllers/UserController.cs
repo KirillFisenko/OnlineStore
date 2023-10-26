@@ -9,14 +9,16 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-    [Area(Constants.AdminRoleName)]
-    [Authorize(Roles = Constants.AdminRoleName)]
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
+
+    // контроллер пользователей
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
-        private readonly IMapper mapper;
+        private readonly RoleManager<IdentityRole> roleManager;       
         private readonly ImagesProvider imagesProvider;
+        private readonly IMapper mapper;
 
         public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, ImagesProvider imagesProvider)
         {
@@ -26,6 +28,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             this.imagesProvider = imagesProvider;
         }
 
+        // отображение пользователей
         public IActionResult Index()
         {
             var users = userManager.Users.ToList();
@@ -33,22 +36,25 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             return View(model);
         }
 
-        public IActionResult Details(string name)
+        // детальные сведения о пользователе
+        public async Task<IActionResult> DetailsAsync(string name)
         {
-            var user = userManager.FindByNameAsync(name).Result;
+            var user = await userManager.FindByNameAsync(name);
             var model = mapper.Map<UserViewModel>(user);
-            var userRoles = userManager.GetRolesAsync(user).Result;
+            var userRoles = await userManager.GetRolesAsync(user);
             ViewBag.IsAdmin = userRoles.Contains(Constants.AdminRoleName);
             return View(model);
         }
 
+
+        // добавить пользователя
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(RegisterViewModel register)
+        public async Task<IActionResult> AddAsync(RegisterViewModel register)
         {
             if (register.UserName == register.Password)
             {
@@ -68,10 +74,10 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                     AvatarUrl = addedImagePath
                 };
 
-                var result = userManager.CreateAsync(user, register.Password).Result;
+                var result = await userManager.CreateAsync(user, register.Password);
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+                    await userManager.AddToRoleAsync(user, Constants.UserRoleName);
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -85,26 +91,28 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             return View(register);
         }
 
-        public IActionResult Remove(string name)
+        // удалить пользователя
+        public async Task<IActionResult> RemoveAsync(string name)
         {
-            var user = userManager.FindByNameAsync(name).Result;
-            var userRoles = userManager.GetRolesAsync(user).Result;
+            var user = await userManager.FindByNameAsync(name);
+            var userRoles = await userManager.GetRolesAsync(user);
             if (!userRoles.Contains(Constants.AdminRoleName))
             {
-                userManager.DeleteAsync(user).Wait();
+                await userManager.DeleteAsync(user);
             }
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit(string name)
+        // редактировать пользователя
+        public async Task<IActionResult> EditAsync(string name)
         {
-            var user = userManager.FindByNameAsync(name).Result;
+            var user = await userManager.FindByNameAsync(name);
             var model = mapper.Map<EditUserViewModel>(user);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(EditUserViewModel editUserViewModel, string name)
+        public async Task<IActionResult> EditAsync(EditUserViewModel editUserViewModel, string name)
         {
             if (editUserViewModel.UploadedFile != null && !ModelState.IsValid)
             {
@@ -115,16 +123,17 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 var addedImagesPaths = imagesProvider.SafeFile(editUserViewModel.UploadedFile, ImageFolders.Profiles);
                 editUserViewModel.AvatarUrl = addedImagesPaths;
             }
-            var user = userManager.FindByNameAsync(name).Result;
+            var user = await userManager.FindByNameAsync(name);
             user.PhoneNumber = editUserViewModel.PhoneNumber;
             user.UserName = editUserViewModel.UserName;
             user.Address = editUserViewModel.Address;
             user.FirstName = editUserViewModel.FirstName;
             user.AvatarUrl = editUserViewModel.AvatarUrl;
-            userManager.UpdateAsync(user).Wait();
+            await userManager.UpdateAsync(user);
             return RedirectToAction(nameof(Index));
         }
 
+        // смена пароля пользователя
         public IActionResult ChangePassword(string name)
         {
             var changePassword = new ChangePasswordViewModel()
@@ -135,7 +144,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(ChangePasswordViewModel changePassword)
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordViewModel changePassword)
         {
             if (changePassword.UserName == changePassword.Password)
             {
@@ -143,19 +152,20 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                var user = userManager.FindByNameAsync(changePassword.UserName).Result;
+                var user = await userManager.FindByNameAsync(changePassword.UserName);
                 var newHashPassword = userManager.PasswordHasher.HashPassword(user, changePassword.Password);
                 user.PasswordHash = newHashPassword;
-                userManager.UpdateAsync(user).Wait();
+                await userManager.UpdateAsync(user);
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(ChangePassword));
         }
 
-        public IActionResult EditRights(string name)
+        // смена роли пользователя
+        public async Task<IActionResult> EditRightsAsync(string name)
         {
-            var user = userManager.FindByNameAsync(name).Result;
-            var userRoles = userManager.GetRolesAsync(user).Result;
+            var user = await userManager.FindByNameAsync(name);
+            var userRoles = await userManager.GetRolesAsync(user);
             var roles = roleManager.Roles.ToList();
             var model = new EditRightsViewModel
             {
@@ -167,15 +177,15 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditRights(string name, Dictionary<string, bool> userRolesViewsModel)
+        public async Task<IActionResult> EditRightsAsync(string name, Dictionary<string, bool> userRolesViewsModel)
         {
             if (ModelState.IsValid)
             {
                 var userSelectedRoles = userRolesViewsModel.Select(role => role.Key);
-                var user = userManager.FindByNameAsync(name).Result;
-                var userRoles = userManager.GetRolesAsync(user).Result;
-                userManager.RemoveFromRolesAsync(user, userRoles).Wait();
-                userManager.AddToRolesAsync(user, userSelectedRoles).Wait();
+                var user = await userManager.FindByNameAsync(name);
+                var userRoles = await userManager.GetRolesAsync(user);
+                await userManager.RemoveFromRolesAsync(user, userRoles);
+                await userManager.AddToRolesAsync(user, userSelectedRoles);
                 return Redirect($"/Admin/User/Details?name={name}");
             }
             return Redirect($"/Admin/User/EditRights?name={name}");

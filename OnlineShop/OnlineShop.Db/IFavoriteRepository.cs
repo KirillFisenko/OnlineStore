@@ -6,15 +6,15 @@ namespace OnlineShop.Db
 	public interface IFavoriteRepository
 	{
 		// получить список избранных продуктов пользователя
-		public List<Product> GetAll(string userId);
+		Task<List<Product>> GetAllAsync(string userId);
 
-		// добавить в список избранного пользователя продукт
-		void Add(string userId, Product product);
+        // добавить в список избранного пользователя продукт
+        Task AddAsync(string userId, Product product);
 
-		// удалить из списка избранного пользователя продукт
-		public void Remove(string userId, Guid productId);
+        // удалить из списка избранного пользователя продукт
+        Task RemoveAsync(string userId, Guid productId);
 
-		// очистить список избранного пользователя
-		public void Clear(string userId);        
+        // очистить список избранного пользователя
+        Task ClearAsync(string userId);        
 	}
 }

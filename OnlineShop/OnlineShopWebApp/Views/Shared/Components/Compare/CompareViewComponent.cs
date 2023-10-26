@@ -3,7 +3,8 @@ using OnlineShop.Db;
 
 namespace OnlineShopWebApp.Views.Shared.ViewComponents.CompareViewComponent
 {
-	public class CompareViewComponent : ViewComponent
+    // компонента представления счетчика товаров в списке сравнения
+    public class CompareViewComponent : ViewComponent
 	{		
 		private readonly ICompareRepository compareRepository;
 
@@ -11,9 +12,10 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.CompareViewComponent
 		{			
 			this.compareRepository = compareRepository;
 		}
-		public IViewComponentResult Invoke()
+		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			var productsCount = compareRepository.GetAll(User.Identity.Name)?.Count() ?? 0;			
+			var products = await compareRepository.GetAllAsync(User.Identity.Name);
+			var productsCount = products?.Count() ?? 0;			
 			return View("Compare", productsCount);
 		}
 	}

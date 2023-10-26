@@ -17,9 +17,10 @@ namespace OnlineShopWebApp.Controllers
 			this.mapper = mapper;
 		}
 
-		public IActionResult Index(Guid productId)
+		// отображение продукта
+		public async Task<IActionResult> Index(Guid productId)
 		{
-            var product = productsRepository.TryGetById(productId);
+            var product = await productsRepository.TryGetByIdAsync(productId);
 			var model = mapper.Map<ProductViewModel>(product);
 			return View(model);
 		}        

@@ -3,6 +3,7 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
+    // репозиторий заказов в БД
     public class OrdersDbRepository : IOrdersRepository
     {
         private readonly DatabaseContext databaseContext;
@@ -12,38 +13,42 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-		public List<Order> GetAll()
+        // получить все заказы
+		public async Task<List<Order>> GetAllAsync()
 		{
-			return databaseContext.Orders
+			return await databaseContext.Orders
 				.Include(x => x.User)
 				.Include(x => x.Items)
 				.ThenInclude(x => x.Product)
-				.ToList();
+				.ToListAsync();
 		}
 
-		public Order TryGetById(Guid orderId)
+        // получить заказ по id
+		public async Task<Order> TryGetByIdAsync(Guid orderId)
 		{
-			return databaseContext.Orders
+			return await databaseContext.Orders
 				.Include(x => x.User)
 				.Include(x => x.Items)
 				.ThenInclude(x => x.Product)
-				.FirstOrDefault(o => o.Id == orderId);
+				.FirstOrDefaultAsync(o => o.Id == orderId);
 		}
 
-		public void Add(Order order)
+        // добавить заказ
+        public async Task AddAsync(Order order)
         {
             databaseContext.Orders.Add(order);
-            databaseContext.SaveChanges();
-        }       
+            await databaseContext.SaveChangesAsync();
+        }
 
-        public void UpdateStatus(Guid orderId, OrderStatus newStatus)
+        // обновить статус заказа
+        public async Task UpdateStatusAsync(Guid orderId, OrderStatus newStatus)
         {
-            var order = TryGetById(orderId);
+            var order = await TryGetByIdAsync(orderId);
             if (order != null)
             {
                 order.Status = newStatus;
-            }            
-            databaseContext.SaveChanges();
+            }
+            await databaseContext.SaveChangesAsync();
         }
     }
 }

@@ -14,48 +14,48 @@ namespace OnlineShop.Db
 		}
 
 		// получить список сравнения продуктов пользователя
-		public List<Product> GetAll(string userId)
+		public async Task<List<Product>> GetAllAsync(string userId)
 		{
-			return databaseContext.CompareProducts
+			return await databaseContext.CompareProducts
 				.Where(u => u.UserId == userId)
 				.Include(x => x.Product)
 				.Select(x => x.Product)
-				.ToList();
+				.ToListAsync();
 		}
 
 		// добавить в список сравнения пользователя продукт
-		public void Add(string userId, Product product)
+		public async Task AddAsync(string userId, Product product)
 		{
-			var existingProduct = databaseContext.CompareProducts
-				.FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
+			var existingProduct = await databaseContext.CompareProducts
+				.FirstOrDefaultAsync(x => x.UserId == userId && x.Product.Id == product.Id);
 			if (existingProduct == null)
 			{
 				databaseContext.CompareProducts.Add(new CompareProduct { Product = product, UserId = userId });
-				databaseContext.SaveChanges();
+                await databaseContext.SaveChangesAsync();
 			}
 		}
 
 		// удалить из списка сравнения пользователя продукт
-		public void Remove(string userId, Guid productId)
+		public async Task RemoveAsync(string userId, Guid productId)
 		{
-			var removingProduct = databaseContext.CompareProducts
-				.FirstOrDefault(u => u.UserId == userId && u.Product.Id == productId);
+			var removingProduct = await databaseContext.CompareProducts
+				.FirstOrDefaultAsync(u => u.UserId == userId && u.Product.Id == productId);
 			
 			if (removingProduct != null)
 			{
 				databaseContext.CompareProducts.Remove(removingProduct);
 			}
-			databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
 		}
 
 		// очистить список сравнения пользователя
-		public void Clear(string userId)
+		public async Task ClearAsync(string userId)
 		{
-			var userCompareProducts = databaseContext.CompareProducts
+			var userCompareProducts = await databaseContext.CompareProducts
 				.Where(u => u.UserId == userId)
-				.ToList();
+				.ToListAsync();
 			databaseContext.CompareProducts.RemoveRange(userCompareProducts);
-			databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
 		}
 	}
 }

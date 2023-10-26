@@ -5,10 +5,19 @@ namespace OnlineShop.Db
 {
 	public interface IProductsRepository
 	{
-		List<Product> GetAll();
-		Product TryGetById(Guid id);       
-        void Remove(Guid id);
-        void Add(Product product);
-        void Edit(Product product, IFormFile[] uploadedFiles);        
+        // получить все продукты
+        Task<List<Product>> GetAllAsync();
+
+        // получить продукт по id
+        Task<Product> TryGetByIdAsync(Guid productId);
+
+        // добавить продукт
+        Task AddAsync(Product product);
+
+        // редактировать продукт
+        Task EditAsync(Product product, IFormFile[] uploadedFiles);
+
+        // удалить продукт
+        Task RemoveAsync(Guid productId);
     }
 }

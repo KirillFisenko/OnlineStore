@@ -14,18 +14,18 @@ namespace OnlineShop.Db
         }
 
 		// получить корзину пользователя
-        public Cart TryGetByUserId(string? userId)
+        public async Task<Cart> TryGetByUserIdAsync(string? userId)
 		{
-			return databaseContext.Carts
+			return await databaseContext.Carts
 				.Include(x => x.Items)
 				.ThenInclude(x => x.Product)
-				.FirstOrDefault(cart => cart.UserId == userId);
+				.FirstOrDefaultAsync(cart => cart.UserId == userId);
 		}
 
 		// добавить продукт в корзину пользователя
-		public void Add(Product product, string? userId)
+		public async Task AddAsync(Product product, string? userId)
 		{
-			var existingCart = TryGetByUserId(userId);
+			var existingCart = await TryGetByUserIdAsync(userId);
 			if (existingCart == null)
 			{
 				var newCart = new Cart
@@ -40,13 +40,13 @@ namespace OnlineShop.Db
 							Quantity = 1,
 							Product = product							
 						}
-					};				
-                databaseContext.Carts.Add(newCart);
+					};
+                await databaseContext.Carts.AddAsync(newCart);
 			}
 			else
 			{
 				var existingCartItem = existingCart.Items
-					.FirstOrDefault(item => item.Product?.Id == product.Id);
+                    .FirstOrDefault(item => item.Product?.Id == product.Id);
 				if (existingCartItem != null)
 				{
 					existingCartItem.Quantity++;
@@ -60,13 +60,13 @@ namespace OnlineShop.Db
 					});
 				}
 			}
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
 
 		// уменьшить количество товара в корзине, если 1 шт. - удалить товар, если корзина пустая - удалить ее
-		public void DecreaseAmount(Product product, string userId)
+		public async Task DecreaseAmountAsync(Product product, string userId)
 		{
-			var existingCart = TryGetByUserId(userId);			
+			var existingCart = await TryGetByUserIdAsync(userId);			
 			var existingCartItem = existingCart?.Items?
 				.FirstOrDefault(item => item.Product?.Id == product.Id);
 			if(existingCartItem == null)
@@ -82,15 +82,15 @@ namespace OnlineShop.Db
 			{
                 databaseContext.Carts.Remove(existingCart);
 			}
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
 
 		// очистить корзину пользователя
-		public void Clear(string userId)
+		public async Task ClearAsync(string userId)
 		{
-			var existingCart = TryGetByUserId(userId);
-			databaseContext.Carts.Remove(existingCart);
-			databaseContext.SaveChanges();
+			var existingCart = await TryGetByUserIdAsync(userId);
+            databaseContext.Carts.Remove(existingCart);
+            await databaseContext.SaveChangesAsync();
 		}
 	}
 }
