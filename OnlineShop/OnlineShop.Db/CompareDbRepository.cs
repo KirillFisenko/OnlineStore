@@ -30,7 +30,7 @@ namespace OnlineShop.Db
 				.FirstOrDefaultAsync(x => x.UserId == userId && x.Product.Id == product.Id);
 			if (existingProduct == null)
 			{
-				await databaseContext.CompareProducts.AddAsync(new CompareProduct { Product = product, UserId = userId });
+				databaseContext.CompareProducts.Add(new CompareProduct { Product = product, UserId = userId });
                 await databaseContext.SaveChangesAsync();
 			}
 		}

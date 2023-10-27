@@ -30,7 +30,7 @@ namespace OnlineShop.Db
         // добавить продукт
         public async Task AddAsync(Product product)
         {
-            await databaseContext.Products.AddAsync(product);
+            databaseContext.Products.Add(product);
             await databaseContext.SaveChangesAsync();
         }
 
@@ -53,7 +53,7 @@ namespace OnlineShop.Db
                 foreach (var image in product.Images)
                 {
                     image.ProductId = product.Id;
-                    await databaseContext.Images.AddAsync(image);
+                    databaseContext.Images.Add(image);
                 }
             }
             await databaseContext.SaveChangesAsync();

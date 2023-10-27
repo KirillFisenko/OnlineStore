@@ -62,7 +62,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                var addedImagePath = imagesProvider.SafeFile(register.UploadedFile, ImageFolders.Profiles);
+                var addedImagePath = imagesProvider.SafeFileAsync(register.UploadedFile, ImageFolders.Profiles);
 
                 var user = new User
                 {
@@ -120,7 +120,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             if (editUserViewModel.UploadedFile != null)
             {
-                var addedImagesPaths = imagesProvider.SafeFile(editUserViewModel.UploadedFile, ImageFolders.Profiles);
+                var addedImagesPaths = imagesProvider.SafeFileAsync(editUserViewModel.UploadedFile, ImageFolders.Profiles);
                 editUserViewModel.AvatarUrl = addedImagesPaths;
             }
             var user = await userManager.FindByNameAsync(name);

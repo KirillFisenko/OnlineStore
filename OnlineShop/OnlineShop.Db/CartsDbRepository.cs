@@ -41,7 +41,7 @@ namespace OnlineShop.Db
 							Product = product							
 						}
 					};
-                await databaseContext.Carts.AddAsync(newCart);
+                databaseContext.Carts.Add(newCart);
 			}
 			else
 			{
@@ -86,7 +86,7 @@ namespace OnlineShop.Db
         }
 
 		// очистить корзину пользователя
-		public async Task ClearAsync(string userId)
+		public async Task ClearAsync(string? userId)
 		{
 			var existingCart = await TryGetByUserIdAsync(userId);
             databaseContext.Carts.Remove(existingCart);

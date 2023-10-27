@@ -36,7 +36,7 @@ namespace OnlineShop.Db
         // добавить заказ
         public async Task AddAsync(Order order)
         {
-            await databaseContext.Orders.AddAsync(order);
+            databaseContext.Orders.Add(order);
             await databaseContext.SaveChangesAsync();
         }
 
