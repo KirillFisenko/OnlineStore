@@ -58,7 +58,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             if (editProductViewModel.UploadedFiles != null)
             {
-                var addedImagesPaths = imagesProvider.SafeFilesAsync(editProductViewModel.UploadedFiles, ImageFolders.Products);
+                var addedImagesPaths = imagesProvider.SafeFiles(editProductViewModel.UploadedFiles, ImageFolders.Products);
                 editProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
 			}
 			var model = mapper.Map<Product>(editProductViewModel);
@@ -85,7 +85,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             {
                 return View(addProductViewModel);
             }
-            var addedImagesPaths = imagesProvider.SafeFilesAsync(addProductViewModel.UploadedFiles, ImageFolders.Products);
+            var addedImagesPaths = imagesProvider.SafeFiles(addProductViewModel.UploadedFiles, ImageFolders.Products);
 			addProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
 			var model = mapper.Map<Product>(addProductViewModel);
 			await productsRepository.AddAsync(model);

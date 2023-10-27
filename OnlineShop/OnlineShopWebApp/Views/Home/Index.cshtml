@@ -48,13 +48,22 @@
 		</div>			
 
 		<div class="row">
+
+			@if (Model.Count == 0)
+			{
+				<div class="text-center my-xl-3">
+					<h3 class="bg-warning-subtle text-emphasis-warning ">Скоро здесь появятся новые товары</h3>
+					<a class="btn btn-outline-warning my-xl-3" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Перейти ко всем товарам</i></a>
+				</div>
+			}
+			
 			@foreach (var product in Model)
 			{
 				<div class="col-lg-4 mb-3">
 					<div class="card box-shadow h-100 w-100">
 						<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
 							<div class="scale p-2">
-								<img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@product.Images.FirstOrDefault(image => image.Url.Contains("_") == false).Url" alt="Изображение товара">
+								<img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@product.Images.FirstOrDefault().Url" alt="Изображение товара">
 							</div>
 						</a>
 						<div class="card-body">
