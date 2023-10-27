@@ -2,11 +2,19 @@
 
 namespace OnlineShop.Db
 {
+	// интерфейс списка избранных товаров
 	public interface IFavoriteRepository
 	{
-		void Add(string userId, Product product);
-		public void Remove(string userId, Guid productId);
-        public void Clear(string userId);
-        public List<Product> GetAll(string userId);
+		// получить список избранных продуктов пользователя
+		Task<List<Product>> GetAllAsync(string userId);
+
+        // добавить в список избранного пользователя продукт
+        Task AddAsync(string userId, Product product);
+
+        // удалить из списка избранного пользователя продукт
+        Task RemoveAsync(string userId, Guid productId);
+
+        // очистить список избранного пользователя
+        Task ClearAsync(string userId);        
 	}
 }

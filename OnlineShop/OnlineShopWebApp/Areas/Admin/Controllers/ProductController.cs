@@ -1,87 +1,94 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-	[Area(Constants.AdminRoleName)]
-	[Authorize(Roles = Constants.AdminRoleName)]
-	public class ProductController : Controller
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
+    
+    // контроллер продуктов
+    public class ProductController : Controller
     {
-        private readonly IProductsRepository productsRepository;       
-        public ProductController(IProductsRepository productsRepository)
+        private readonly IProductsRepository productsRepository;
+        private readonly ImagesProvider imagesProvider;
+        private readonly IMapper mapper;
+
+        public ProductController(IProductsRepository productsRepository, ImagesProvider imagesProvider, IMapper mapper)
         {
-            this.productsRepository = productsRepository;            
-        }       
-                
-        public IActionResult Index()
-        {
-            var products = productsRepository.GetAll();            
-            return View(products.ToProductViewModels());
+            this.productsRepository = productsRepository;
+            this.imagesProvider = imagesProvider;
+            this.mapper = mapper;
         }
 
-        public IActionResult Remove(Guid productId)
+        // отобразить все продукты
+        public async Task<IActionResult> Index()
         {
-            productsRepository.Remove(productId);
+            var products = await productsRepository.GetAllAsync();
+            var model = products.Select(mapper.Map<ProductViewModel>).ToList();			          
+			return View(model);
+        }
+
+        // удалить продукт
+        public async Task<IActionResult> RemoveAsync(Guid productId)
+        {
+            await productsRepository.RemoveAsync(productId);
             return RedirectToAction(nameof(Index));
-        }
+        }        
 
-        public IActionResult Edit(Guid productId)
+        // редактировать продукт
+        public async Task<IActionResult> EditAsync(Guid productId)
         {
-            var product = productsRepository.TryGetById(productId);
-            var productViewModel = product.ToProductViewModel();
-			return View(productViewModel);
+            var product = await productsRepository.TryGetByIdAsync(productId);
+			var model = mapper.Map<EditProductViewModel>(product);
+			return View(model);
         }
-
+        
         [HttpPost]
-        public IActionResult Edit(ProductViewModel product, Guid productId)
+        public async Task<IActionResult> EditAsync(EditProductViewModel editProductViewModel)
         {
-            if (!ModelState.IsValid)
+            if (editProductViewModel.UploadedFiles != null && !ModelState.IsValid)
             {
-                return View(product);
+                return View(editProductViewModel);
             }
-
-            var prduct = new Product
+            if (editProductViewModel.UploadedFiles != null)
             {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-
-            productsRepository.Edit(prduct, productId);
+                var addedImagesPaths = imagesProvider.SafeFilesAsync(editProductViewModel.UploadedFiles, ImageFolders.Products);
+                editProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
+			}
+			var model = mapper.Map<Product>(editProductViewModel);
+			await productsRepository.EditAsync(model, editProductViewModel.UploadedFiles);
             return RedirectToAction(nameof(Index));
         }
 
+        // добавить продукт
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(ProductViewModel product)
+        public async Task<IActionResult> AddAsync(AddProductViewModel addProductViewModel)
         {
-            if (productsRepository.TryGetByName(product.Name) != null)
+            var products = await productsRepository.GetAllAsync();
+            var findProducts = products.Where(product => product.Name.ToLower() == addProductViewModel.Name.ToLower());
+            if (findProducts != null)
             {
                 ModelState.AddModelError("", "Продукт с таким именем уже сущствует");
             }
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && addProductViewModel.Images != null)
             {
-                return View(product);
+                return View(addProductViewModel);
             }
-
-            var prductDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-
-            productsRepository.Add(prductDb);
+            var addedImagesPaths = imagesProvider.SafeFilesAsync(addProductViewModel.UploadedFiles, ImageFolders.Products);
+			addProductViewModel.Images = addedImagesPaths.Select(path => new ImageViewModel { Url = path }).ToList();
+			var model = mapper.Map<Product>(addProductViewModel);
+			await productsRepository.AddAsync(model);
             return RedirectToAction(nameof(Index));
         }
     }

@@ -1,44 +1,54 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize]
-	public class FavoriteController : Controller
+	[Authorize] // доступ есть только у авторизованных пользователей
+
+    // контроллер списка избранного
+    public class FavoriteController : Controller
 	{
 		private readonly IProductsRepository productsRepository;
 		private readonly IFavoriteRepository favoriteRepository;
+		private readonly IMapper mapper;
 
-		public FavoriteController(IProductsRepository productsRepository, IFavoriteRepository favoriteRepository)
+		public FavoriteController(IProductsRepository productsRepository, IFavoriteRepository favoriteRepository, IMapper mapper)
 		{
 			this.productsRepository = productsRepository;
-			this.favoriteRepository = favoriteRepository;	
+			this.favoriteRepository = favoriteRepository;
+			this.mapper = mapper;
 		}
 
-		public IActionResult Index()
+        // просмотр всего спика избранного
+        public async Task<IActionResult> Index()
 		{
-			var products = favoriteRepository.GetAll(User.Identity.Name);
-			return View(products.ToProductViewModels());
+			var products = await favoriteRepository.GetAllAsync(User.Identity.Name);
+			var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+			return View(model);
 		}
 
-		public IActionResult Add(Guid productId)
+        // добавить продукт в список избранного
+        public async Task<IActionResult> AddAsync(Guid productId)
 		{
-			var product = productsRepository.TryGetById(productId);
-			favoriteRepository.Add(User.Identity.Name, product);
+			var product = await productsRepository.TryGetByIdAsync(productId);
+			await favoriteRepository.AddAsync(User.Identity.Name, product);			
 			return RedirectToAction(nameof(Index));
-        }
+		}
 
-        public IActionResult Remove(Guid productId)
-        {            
-			favoriteRepository.Remove(User.Identity.Name, productId);
-			return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult Clear()
+        // удалить продукт из списка избранного
+        public async Task<IActionResult> RemoveAsync(Guid productId)
         {
-            favoriteRepository.Clear(User.Identity.Name);
+            await favoriteRepository.RemoveAsync(User.Identity.Name, productId);
+			return RedirectToAction(nameof(Index));
+        }
+
+        // очистить список избранного
+        public async Task<IActionResult> ClearAsync()
+        {
+            await favoriteRepository.ClearAsync(User.Identity.Name);
             return RedirectToAction(nameof(Index));
         }
     }

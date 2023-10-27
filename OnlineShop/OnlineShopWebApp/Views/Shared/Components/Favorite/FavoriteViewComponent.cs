@@ -3,7 +3,8 @@ using OnlineShop.Db;
 
 namespace OnlineShopWebApp.Views.Shared.ViewComponents.FavoriteViewComponent
 {
-	public class FavoriteViewComponent : ViewComponent
+    // компонента представления счетчика товаров в списке сравнения
+    public class FavoriteViewComponent : ViewComponent
 	{		
 		private readonly IFavoriteRepository favoriteRepository;
 
@@ -11,9 +12,10 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.FavoriteViewComponent
 		{			
 			this.favoriteRepository = favoriteRepository;
 		}
-		public IViewComponentResult Invoke()
+		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			var productsCount = favoriteRepository.GetAll(User.Identity.Name)?.Count() ?? 0;			
+            var products = await favoriteRepository.GetAllAsync(User.Identity.Name);
+            var productsCount = products?.Count() ?? 0;			
 			return View("Favorite", productsCount);
 		}
 	}

@@ -1,24 +1,24 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .textId {
@@ -34,9 +34,67 @@ body {
 .titleName {
     color: #000000;
     text-decoration: none;
-    font-weight: 500;   
+    font-weight: 500;
 }
 
 .price {
     color: #DAA520
+}
+
+/* Увелечение изображения */
+.scale {
+    display: inline-block; /* Строчно-блочный элемент */
+    overflow: hidden; /* Скрываем всё за контуром */
+}
+
+    .scale img {
+        transition: 1s; /* Время эффекта */
+        display: block; /* Убираем небольшой отступ снизу */
+    }
+
+        .scale img:hover {
+            transform: scale(1.2); /* Увеличиваем масштаб */
+        }
+
+/* Увелечение текста */
+/* Текст слева */
+.gain-left {
+    transition: 0.1s; /* Время эффекта */
+    text-align: left;
+}
+
+    .gain-left:hover {
+        transform: scale(1.02); /* Увеличиваем масштаб */
+    }
+
+/* Текст по центру */
+.gain-center {
+    transition: 0.1s; /* Время эффекта */
+    text-align: center;
+}
+
+    .gain-center:hover {
+        transform: scale(1.05); /* Увеличиваем масштаб */
+    }
+
+/* Цвет текста */
+.change-text {
+}
+
+    .change-text:hover {
+        color: orangered; /* Меняем цвет текста */
+    }
+
+/* Анимация аватарки */
+.avatar {
+    border: 3px solid #DAA520;
+}
+
+    .avatar:hover {
+        border: 0px solid #dbd11f; /* Ширина, вид и цвет рамки */
+    }
+
+
+.borderProduct {
+    border: 1px solid #cccccc
 }

@@ -2,11 +2,19 @@
 
 namespace OnlineShop.Db
 {
+	// интерфейс репозитория списка сравнения
 	public interface ICompareRepository
 	{
-		void Add(string userId, Product product);
-		public void Remove(string userId, Guid productId);
-		public void Clear(string userId);
-		public List<Product> GetAll(string userId);
+        // получить список сравнения продуктов пользователя
+        Task<List<Product>> GetAllAsync(string userId);
+
+        // добавить в список сравнения пользователя продукт
+        Task AddAsync(string userId, Product product);
+
+        // удалить из списка сравнения пользователя продукт
+        Task RemoveAsync(string userId, Guid productId);
+
+        // очистить список сравнения пользователя
+        Task ClearAsync(string userId);		
 	}
 }

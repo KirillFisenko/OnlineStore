@@ -3,57 +3,63 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
+using System.Data;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-	[Area(Constants.AdminRoleName)]
-	[Authorize(Roles = Constants.AdminRoleName)]
-	public class RoleController : Controller
-	{
-		private readonly RoleManager<IdentityRole> rolesManager;
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
 
-		public RoleController(RoleManager<IdentityRole> rolesManager)
-		{
-			this.rolesManager = rolesManager;
-		}
+    // контроллер ролей
+    public class RoleController : Controller
+    {
+        private readonly RoleManager<IdentityRole> rolesManager;
 
-		public IActionResult Index()
-		{
-			var roles = rolesManager.Roles.ToList();
-			return View(roles.Select(x => new RoleViewModel { Name = x.Name }).ToList());
-		}
+        public RoleController(RoleManager<IdentityRole> rolesManager)
+        {
+            this.rolesManager = rolesManager;
+        }
 
-		public IActionResult Add()
-		{
-			return View();
-		}
+        // отображение всех ролей
+        public IActionResult Index()
+        {
+            var roles = rolesManager.Roles.ToList();
+            return View(roles.Select(role => new RoleViewModel { Name = role.Name }).ToList());
+        }
 
-		[HttpPost]
-		public IActionResult Add(RoleViewModel role)
-		{
-			var result = rolesManager.CreateAsync(new IdentityRole(role.Name)).Result;
-			if(result.Succeeded)
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			else
-			{
-				foreach (var error in result.Errors)
-				{
-					ModelState.AddModelError(string.Empty, error.Description);
-				}
-			}
-			return View(role);
-		}
+        // добавить роль
+        public IActionResult Add()
+        {
+            return View();
+        }
 
-		public IActionResult Remove(string name)
-		{
-			var role = rolesManager.FindByNameAsync(name).Result;
-			if(role != null)
-			{
-				rolesManager.DeleteAsync(role).Wait();
-			}			
-			return RedirectToAction(nameof(Index));
-		}
-	}
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(RoleViewModel role)
+        {
+            var result = await rolesManager.CreateAsync(new IdentityRole(role.Name));
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(role);
+        }
+
+        // удалить роль
+        public async Task<IActionResult> RemoveAsync(string name)
+        {
+            if (name != "Admin" && name != "User")
+            {
+                var role = await rolesManager.FindByNameAsync(name);
+                await rolesManager.DeleteAsync(role);
+            }            
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }

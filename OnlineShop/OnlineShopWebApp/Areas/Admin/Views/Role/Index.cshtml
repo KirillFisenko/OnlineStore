@@ -2,46 +2,76 @@
 
 <div class="row">
 
-    <div class="col-lg-3">
-        <div class="my-4">
-            @await Html.PartialAsync("MenuAdministrator")
-        </div>
-    </div>
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("MenuAdministrator")
+		</div>
+	</div>
 
-    <div class="col-lg-9 my-4">
+	<div class="col-lg-9 my-4">
+		<div class="row">
+			<div class="col-4">
+				<a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Role" asp-action="Add"><i class="bi bi-database-add"> Добавить роль</i></a>
+			</div>
+			<div class="col-8">
+				<p class="text-end text-danger">*удалить роль Admin и User нельзя</p>
+			</div>
+		</div>
+		@if (Model.Count() == 0)
+		{
+			<div class="text-center my-xl-5">
+				<h3 class="bg-warning-subtle text-emphasis-warning ">Список ролей пуст</h3>
+			</div>
+		}
+		else
+		{
+			<div class="my-4">
+				<h4 class="bg-warning-subtle text-emphasis-warning">Список ролей</h4>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Имя роли</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var role in Model)
+						{
+							<tr>
+								<td>@role.Name</td>
+								<td class="text-end">
+									@if (role.Name != "Admin" && role.Name != "User")
+									{
+										<!-- Кнопка-триггер модального окна удаления позиции избранного -->
+										<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-trash-fill"> Удалить роль</i></button>
 
-        <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Role" asp-action="Add"><i class="bi bi-database-add"> Добавить роль</i></a>
-
-        @if (Model.Count() == 0)
-        {
-            <div class="text-center my-xl-5">
-                <h3 class="bg-warning-subtle text-emphasis-warning ">Список ролей пуст</h3>
-            </div>
-        }
-        else
-        {
-            <div class="my-4">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Список ролей</h4>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Имя роли</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var role in Model)
-                        {
-                            <tr>
-                                <td>@role.Name</td>
-                                <td class="col-4 text-end">
-                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name"><i class="bi bi-trash-fill"> Удалить роль</i></a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        }
-    </div>
+										<!-- Модальное окно для очистки позиции избранного -->
+										<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="exampleModalLabel">Удаление роли @role.Name</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+													</div>
+													<div class="modal-body text-start">Вы уверены, что хотите удалить данную роль?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+														<a type="button" class="btn btn-warning" asp-area="Admin" asp-controller="Role" asp-action="Remove" asp-route-name="@role.Name">Удалить</a>
+													</div>
+												</div>
+											</div>
+										</div>										
+									}
+									else
+									{
+										<button type="button" class="btn btn-warning" disabled><i class="bi bi-trash-fill"> Удалить роль</i></button>
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+	</div>
 </div>

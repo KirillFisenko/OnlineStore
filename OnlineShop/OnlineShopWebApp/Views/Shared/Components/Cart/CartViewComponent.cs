@@ -1,21 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Views.Shared.ViewComponents.CartViewComponent
 {
-	public class CartViewComponent : ViewComponent
+    // компонента представления счетчика товаров в корзине
+    public class CartViewComponent : ViewComponent
 	{		
 		private readonly ICartsRepository cartsRepository;
+		private readonly IMapper mapper;
 
-		public CartViewComponent(ICartsRepository cartsRepository)
+		public CartViewComponent(ICartsRepository cartsRepository, IMapper mapper)
 		{			
 			this.cartsRepository = cartsRepository;
+			this.mapper = mapper;
 		}
-		public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
 		{
-			var cart = cartsRepository.TryGetById(User.Identity.Name);
-			var cartViewModel = cart.ToCartViewModel();
+			var cart = await cartsRepository.TryGetByUserIdAsync(User.Identity.Name);
+			var cartViewModel = mapper.Map<CartViewModel>(cart);			
             var productCounts = cartViewModel?.Quantity ?? 0;
 			return View("Cart", productCounts);
 		}		

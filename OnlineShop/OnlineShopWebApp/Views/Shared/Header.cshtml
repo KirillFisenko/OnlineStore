@@ -1,63 +1,74 @@
-﻿<header class="p-3 bg-dark sticky-top">
-	<div class="container">
-		<div class="d-flex flex-wrap align-items-center justify-content-between">
+﻿<header class="p-2 bg-dark sticky-top">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
 
-			<div class="d-flex flex-wrap justify-content-center">
-				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
-					<li ><a asp-controller="Home" asp-area="" asp-action="Index" class="nav-link px-2 text-warning">Домашняя</a></li>
-					<li><a asp-controller="Home" asp-area="" asp-action="About" class="nav-link px-2 text-white">О Компании</a></li>
-					
-					@* если пользователь администратор - появиться панель управления администратора *@
-					@if (User.IsInRole(Constants.AdminRoleName))
-					{
-						<li><a asp-area="Admin" asp-controller="Order" asp-action="Index" class="nav-link px-2 text-white">Администратор</a></li>
-					}					
-				</ul>
-			</div>
+            <div class="d-flex flex-wrap justify-content-center align-items-center">
+                <ul class="nav col-12 col-lg-auto me-lg-auto ">
+                    <li><a asp-controller="Home" asp-area="" asp-action="Index" class="nav-link text-warning"><p class="gain-center">Домашняя</p></a></li>
+                    <li><a asp-controller="Home" asp-area="" asp-action="About" class="nav-link text-white"><p class="gain-center">О Компании</p></a></li>
 
-			<div class="d-flex flex-wrap justify-content-center">
-				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-inline-flex" role="search" method="post">
-					<input name="name" type="search" class="form-control form-control-dark text-bg-dark" placeholder="Поиск..." aria-label="Search">
-					<button class="btn btn-dark" type="submit" asp-area="" asp-controller="Home" asp-action="Search"><i class="bi bi-search"></i></button>
-				</form>
+                    @* если пользователь администратор - появиться панель управления администратора *@
+                    @if (User.IsInRole(Constants.AdminRoleName))
+                    {
+                        <li><a asp-area="Admin" asp-controller="Order" asp-action="Index" class="nav-link text-white"><p class="gain-center">Администратор</p></a></li>
+                    }
+                </ul>
+            </div>
 
-				<div class="text-center">
-					@* если пользователь вошел, появится кнопка выйти и его имя (email), иначе войти и регистрация *@
-					@if (User.Identity.IsAuthenticated)
-					{
-						<a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
-						<a type="button" class="btn btn-warning" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-person"> @User.Identity.Name</i></a>
-					}
-					else
-					{
-						<a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
-						<a type="button" class="btn btn-warning" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
-					}					
-				</div>
-			</div>
+            <div class="d-flex flex-wrap justify-content-center">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-inline-flex" role="search" method="post">
+                    <input name="name" type="search" class="form-control form-control-dark text-bg-dark" placeholder="Поиск..." aria-label="Search">
+                    <button class="btn btn-dark ms-1" type="submit" asp-area="" asp-controller="Home" asp-action="SearchProduct"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
 
-			<div class="d-flex flex-wrap justify-content-center">
-				<ul class="nav col-12 col-lg-auto my-2 my-md-0 text-small text-center">
-					<li>
-						<a asp-area="" asp-controller="Favorite" asp-action="Index" class="nav-link text-white">
-							<i class="bi d-block mx-auto mb-1 bi-heart"><span class="badge rounded-pill">@await Component.InvokeAsync("Favorite")</span></i>
-							Избранное
-						</a>						
-					</li>
-					<li>
-						<a asp-area="" asp-controller="Compare" asp-action="Index" class="nav-link text-white">
-							<i class="bi d-block mx-auto mb-1 bi-clipboard2-plus"><span class="badge rounded-pill">@await Component.InvokeAsync("Compare")</span></i>
-							Сравнение
-						</a>
-					</li>
-					<li>
-						<a asp-area="" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
-							<i class="bi d-block mx-auto mb-1 bi-cart4"><span class="badge rounded-pill">@await Component.InvokeAsync("Cart")</span></i>
-							Корзина							
-						</a>						
-					</li>
-				</ul>
-			</div>			
-		</div>
-	</div>
+            <div class="d-flex">
+                @* если пользователь вошел, появится меню пользователя *@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a data-bs-toggle="dropdown" type="button" aria-expanded="false">
+                        <img class="rounded-circle z-depth-0 avatar" width="45" height="45"
+                             src="@await Component.InvokeAsync("Account")" alt="аватар">
+                    </a>                   
+                    <a class="nav-link text-warning" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <p class="gain-center">@User.Identity.Name</p>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Edit">Личные данные</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Orders">Заказы</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <a type="button" class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                    <a type="button" class="btn btn-outline-warning" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                }
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-center align-items-center">
+                <ul class="nav col-12 col-lg-auto my-2 my-md-0 text-small text-center">
+                    <li>
+                        <a asp-area="" asp-controller="Favorite" asp-action="Index" class="nav-link text-white">
+                            <i class="bi d-block mx-auto mb-1 bi-heart"><span class="badge rounded-pill">@await Component.InvokeAsync("Favorite")</span></i>
+                            <p class="change-text gain-center">Избранное</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Compare" asp-action="Index" class="nav-link text-white">
+                            <i class="bi d-block mx-auto mb-1 bi-clipboard2-plus"><span class="badge rounded-pill">@await Component.InvokeAsync("Compare")</span></i>
+                            <p class="change-text gain-center">Сравнение</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
+                            <i class="bi d-block mx-auto mb-1 bi-cart4"><span class="badge rounded-pill">@await Component.InvokeAsync("Cart")</span></i>
+                            <p class="change-text gain-center">Корзина</p>
+                        </a>
+                    </li>
+                </ul>               
+            </div>
+        </div>
+    </div>
 </header>

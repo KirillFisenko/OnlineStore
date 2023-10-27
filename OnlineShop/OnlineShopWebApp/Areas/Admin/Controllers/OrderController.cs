@@ -1,38 +1,46 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-    [Area(Constants.AdminRoleName)]
-    [Authorize(Roles = Constants.AdminRoleName)]
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
     public class OrderController : Controller
     {        
         private readonly IOrdersRepository ordersRepository;
-        
-        public OrderController(IOrdersRepository ordersRepository)
+		private readonly IMapper mapper;
+
+		public OrderController(IOrdersRepository ordersRepository, IMapper mapper)
         {            
-            this.ordersRepository = ordersRepository;            
+            this.ordersRepository = ordersRepository; 
+            this.mapper = mapper;
         }       
        
-        public IActionResult Index()
+        // отображаем все заказы
+        public async Task<IActionResult> Index()
         {
-            var orders = ordersRepository.GetAll();
-            return View(orders.Select(order => order.ToOrderViewModel()).ToList());
-        }
-        public IActionResult Details(Guid orderId)
-        {
-            var order = ordersRepository.TryGetById(orderId);
-            return View(order.ToOrderViewModel());
+            var orders = await ordersRepository.GetAllAsync();
+			var model = orders.Select(mapper.Map<OrderViewModel>).ToList();
+			return  View(model);
         }
 
-        [HttpPost]
-        public IActionResult UpdateStatus(Guid orderId, OrderStatusViewModel status)
+        // детали заказа
+        public async Task<IActionResult> DetailsAsync(Guid orderId)
         {
-            ordersRepository.UpdateStatus(orderId, (OrderStatus)(int)status);
+            var order = await ordersRepository.TryGetByIdAsync(orderId);
+			var model = mapper.Map<OrderViewModel>(order);
+			return View(model);
+		}
+
+        // изменить статус заказа
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatusAsync(Guid orderId, OrderStatusViewModel status)
+        {
+            await ordersRepository.UpdateStatusAsync(orderId, (OrderStatus)(int)status);
             return RedirectToAction(nameof(Index));
         }       
     }

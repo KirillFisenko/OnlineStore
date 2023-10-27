@@ -8,26 +8,50 @@
     </div>
 
     <div class="col-lg-9 my-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <div class="row g-3">
+            <div class="col-12 g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>
+                <input type="hidden" name="name" value="@Model.UserName" />
 
-                <div class="col-12">
+                <div class="col-6 my-4">
+                    <label class="my-2"></label>
+                    <input type="hidden" name="AvatarUrl" value="@Model.AvatarUrl" />
+                    <img class="rounded-circle z-depth-0" src="@Model.AvatarUrl" alt="" height="100" width="100">
+                </div>
+
+                <div class="col-6 my-4">
+                    <label>Загрузить новый аватар:</label>
+                    <input name="UploadedFile" class="form-control" type="file" />
+                </div>
+
+                <div class="col-6 my-4">
                     <label asp-for="UserName">Email:</label>
                     <input asp-for="UserName" type="email" class="form-control" value="@Model.UserName" />
                     <span asp-validation-for="UserName" />
-                </div>                
+                </div>         
 
-                <div class="col-12">
-                    <label asp-for="Phone">Телефон:</label>
-                    <input asp-for="Phone" type="text" class="form-control" value="@Model.Phone" />
-                    <span asp-validation-for="Phone" />
+                <div class="col-6 my-4">
+                    <label asp-for="PhoneNumber">Телефон:</label>
+                    <input asp-for="PhoneNumber" type="text" class="form-control" value="@Model.PhoneNumber" />
+                    <span asp-validation-for="PhoneNumber" />
+                </div>
+
+                <div class="col-6 my-4">
+                    <label asp-for="FirstName">Имя:</label>
+                    <input asp-for="FirstName" type="text" class="form-control" value="@Model.FirstName" />
+                    <span asp-validation-for="FirstName" />
+                </div>
+
+                <div class="col-6 my-4">
+                    <label asp-for="Address">Адресс:</label>
+                    <input asp-for="Address" type="text" class="form-control" value="@Model.Address" />
+                    <span asp-validation-for="Address" />
                 </div>
             </div>
 
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-name="@Model.UserName">Сохранить</button>
-            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
+            <button type="submit" class="btn btn-warning my-4" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-name="@Model.UserName">Сохранить</button>
+            <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
 
         </form>
     </div>

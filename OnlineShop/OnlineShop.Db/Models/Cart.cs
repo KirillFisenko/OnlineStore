@@ -1,14 +1,18 @@
 ﻿namespace OnlineShop.Db.Models
 {
+    // модель корзины в БД 
     public class Cart
-    {
+    {        
         public Guid Id { get; set; }
-        public string UserId { get; set; }
-        public List<CartItem> Items { get; set; }
-        public DateTime CreatedDateTime { get; set; }
+
+		// id пользователя
+		public string? UserId { get; set; }
+
+		// список карточек товаров
+		public List<CartItem> Items { get; set; }
+       
         public Cart()
         {
-            CreatedDateTime = DateTime.Now;
             Items = new List<CartItem>();
         }
     }

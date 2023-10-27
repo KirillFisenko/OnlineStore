@@ -1,7 +1,11 @@
 ﻿@model OrderViewModel;
 
 <div class="text-center my-xl-3">
-    <h3 class="bg-warning-subtle text-emphasis-warning ">Уважаемый @Model.User.Name, ваш заказ № @Model.Id успешно создан!</h3>
+    <h3 class="bg-warning-subtle text-emphasis-warning ">Уважаемый @Model.User.Name, ваш заказ № @Model.Id.ToString().Split('-').Last() успешно создан!</h3>
+</div>
+<div class="text-center">
+    Информацию о заказах вы можете найти в разделе
+    <a asp-area="" asp-controller="Account" asp-action="Orders">Заказы</a>
 </div>
 
 <div class="row align-items-md-stretch">
@@ -12,10 +16,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="col-5">Название</th>
-                            <th class="col-2">Цена</th>
-                            <th class="col-2">Количество</th>
-                            <th class="col-3">Сумма</th>
+                            <th>Название</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,10 +47,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="col-5">ФИО</th>
-                            <th class="col-2">Телефон</th>
-                            <th class="col-2">E-mail</th>
-                            <th class="col-3">Адрес</th>
+                            <th>ФИО</th>
+                            <th>Телефон</th>
+                            <th>E-mail</th>
+                            <th>Адрес</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,5 +68,5 @@
 </div>
 
 <div class="text-center my-xl-3">
-    <a class="w-100 btn btn-lg btn-outline-warning my-4" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
+    <a class="btn btn-lg btn-outline-warning my-4" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
 </div>

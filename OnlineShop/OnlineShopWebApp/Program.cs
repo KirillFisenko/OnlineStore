@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
+using OnlineShopWebApp.Helpers;
 
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -23,17 +24,21 @@ builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
 builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
+builder.Services.AddTransient<ImagesProvider>();
+
+// сервис для автомаппинга
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // настройка параметров локализации запросов
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-	var supportedCultures = new[]
-	{
-		new CultureInfo("en-US")
-	};
-	options.DefaultRequestCulture = new RequestCulture("en-US");
-	options.SupportedCultures = supportedCultures;
-	options.SupportedUICultures = supportedCultures;
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en-US")
+    };
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
 });
 
 // получаем строку подключения из файла конфигурации
@@ -47,19 +52,19 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(c
 
 // указываем тип пользователя и роли
 builder.Services.AddIdentity<User, IdentityRole>()
-				// устанавливаем тип хранилища - наш контекст
-				.AddEntityFrameworkStores<IdentityContext>();
+                // устанавливаем тип хранилища - наш контекст
+                .AddEntityFrameworkStores<IdentityContext>();
 
 // настройка cookie
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.ExpireTimeSpan = TimeSpan.FromHours(8);
-	options.LoginPath = "/Account/Login";
-	options.LogoutPath = "/Account/Logout";
-	options.Cookie = new CookieBuilder
-	{
-		IsEssential = true
-	};
+    options.ExpireTimeSpan = TimeSpan.FromHours(8);
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.Cookie = new CookieBuilder
+    {
+        IsEssential = true
+    };
 });
 
 // создание экземпляра приложения
@@ -68,11 +73,11 @@ var app = builder.Build();
 // если приложение не находится в режиме разработки
 if (!app.Environment.IsDevelopment())
 {
-	// подключение обработчика исключений
-	app.UseExceptionHandler("/Home/Error");
+    // подключение обработчика исключений
+    app.UseExceptionHandler("/Home/Error");
 
-	// подключение HSTS
-	app.UseHsts();
+    // подключение HSTS
+    app.UseHsts();
 }
 
 // подключение локализации запросов
@@ -82,7 +87,13 @@ app.UseRequestLocalization();
 app.UseSerilogRequestLogging();
 
 // подключение статических файлов
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    OnPrepareResponse = ctx =>
+    {
+        ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+    }
+});
 
 // подключение маршрутизации
 app.UseRouting();
@@ -95,13 +106,13 @@ app.UseAuthorization();
 
 // определение маршрута контроллера для area
 app.MapControllerRoute(
-	name: "MyArea",
-	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 // определение маршрута по умолчанию
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // инициализация администратора
 using (var serviceScope = app.Services.CreateScope())
@@ -109,7 +120,7 @@ using (var serviceScope = app.Services.CreateScope())
     var services = serviceScope.ServiceProvider;
     var userManager = services.GetRequiredService<UserManager<User>>();
     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    IdentityInitializer.Initialize(userManager, rolesManager);
+    await IdentityInitializer.InitializeAsync(userManager, rolesManager);
 }
 
 // запуск приложения

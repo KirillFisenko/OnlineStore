@@ -2,54 +2,87 @@
 
 <div class="row">
 
-    <div class="col-lg-3">
-        <div class="my-4">
-            @await Html.PartialAsync("MenuAdministrator")
-        </div>
-    </div>
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("MenuAdministrator")
+		</div>
+	</div>
 
-    <div class="col-lg-9 my-4">
-        <form method="post">
-            <div class="my-4">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Заказ № @Model.Id</h4>
-                <table class="table">
-                    <tr>
-                        <th class="col-lg-3">Дата заказа:</th>
-                        <td class="col-lg-9">@Model.CreateDateTime</td>
-                    </tr>                   
-                    <tr>
-                        <th>Адрес:</th>
-                        <td>@Model.User.Address</td>
-                    </tr>
-                    <tr>
-                        <th>Получатель:</th>
-                        <td>@Model.User.Name</td>
-                    </tr>
-                    <tr>
-                        <th>Телефон:</th>
-                        <td>@Model.User.Phone</td>
-                    </tr>
-                    <tr>
-                        <th>Email:</th>
-                        <td>@Model.User.Email</td>
-                    </tr>
-                    <tr>
-                        <th>Сумма заказа:</th>
-                        <td>@Model.Amount &#8381;</td>
-                    </tr>
-                    <tr>
-                        <th>Статус заказа:</th>
-                        <td>
-                            <select asp-for="@Model.Status"
-                                    asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()"
-                                    class="form-control-sm">
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <button type="submit" class="btn btn-warning" asp-area="Admin" asp-controller="Order" asp-action="UpdateStatus" asp-route-orderId="@Model.Id">Сохранить</button>
-            <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Order" asp-action="Index">Отмена</a>
-        </form>
-    </div>
+	<div class="col-lg-9 my-4">
+		<form method="post">
+			<div class="my-4">
+				<h4 class="bg-warning-subtle text-emphasis-warning">Заказ № @Model.Id.ToString().Split('-').Last()</h4>
+				<table class="table">
+					<tr>
+						<th>Полный Id заказа:</th>
+						<td>@Model.Id</td>
+					</tr>
+					<tr>
+						<th class="col-lg-3">Дата заказа:</th>
+						<td class="col-lg-9">@Model.CreateDateTime</td>
+					</tr>
+					<tr>
+						<th>Адрес:</th>
+						<td>@Model.User.Address</td>
+					</tr>
+					<tr>
+						<th>Получатель:</th>
+						<td>@Model.User.Name</td>
+					</tr>
+					<tr>
+						<th>Телефон:</th>
+						<td>@Model.User.Phone</td>
+					</tr>
+					<tr>
+						<th>Email:</th>
+						<td>@Model.User.Email</td>
+					</tr>
+					<tr>
+						<th>УЗ заказчика:</th>
+						<td>@Model.User.UserIdentityName</td>
+					</tr>
+					<tr>
+						<th>Сумма заказа:</th>
+						<td>@Model.Amount &#8381;</td>
+					</tr>
+					<tr>
+						<th>Статус заказа:</th>
+						<td>
+							<select asp-for="@Model.Status"
+									asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()"
+									class="form-control-sm">
+							</select>
+						</td>
+					</tr>
+				</table>
+				<br />
+				<h4 class="bg-warning-subtle text-emphasis-warning">Состав заказа</h4>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="col-6">Название</th>
+								<th class="col-2">Цена</th>
+								<th class="col-1">Количество</th>
+								<th class="col-3">Сумма</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model.Items)
+							{
+								<tr>
+									<td>@item.Product.Name</td>
+									<td>@item.Product.Cost &#8381;</td>
+									<td>@item.Quantity</td>
+									<td>@item.Amount &#8381;</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-warning" asp-area="Admin" asp-controller="Order" asp-action="UpdateStatus" asp-route-orderId="@Model.Id">Сохранить</button>
+			<a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Order" asp-action="Index">Отмена</a>
+		</form>
+	</div>
 </div>

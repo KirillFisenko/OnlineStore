@@ -10,10 +10,10 @@
     <div class="col-lg-9 my-4">
         <form method="post">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <div class="row g-3">
+            <div class="col-12 g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Добавление роли</h4>
 
-                <div class="col-12">
+                <div class="col-6">
                     <label asp-for="Name">Название роли:</label>
                     <input asp-for="Name" type="text" class="form-control" placeholder="Admin" />
                     <span asp-validation-for="Name" />
@@ -21,8 +21,8 @@
                 
             </div>
 
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="Role" asp-action="Add">Сохранить</button>
-            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="Role" asp-action="Index">Отмена</a>
+            <button type="submit" class="btn btn-warning my-4" asp-area="Admin" asp-controller="Role" asp-action="Add">Сохранить</button>
+            <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Role" asp-action="Index">Отмена</a>
 
         </form>
     </div>

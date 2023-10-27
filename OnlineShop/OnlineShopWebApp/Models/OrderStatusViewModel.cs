@@ -2,7 +2,8 @@
 
 namespace OnlineShopWebApp.Models
 {
-    public enum OrderStatusViewModel
+	// перечесление статусов заказа для представления
+	public enum OrderStatusViewModel
     {
         [Display(Name = "Создан")]
         Created,
