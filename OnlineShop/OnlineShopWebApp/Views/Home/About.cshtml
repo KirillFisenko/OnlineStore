@@ -14,24 +14,5 @@
             </div>
         </div>
     </div>
-    <div id="map" style="width: 600px; height: 400px"></div>
+    <iframe src="https://yandex.ru/map-widget/v1/?um=mymaps%3AqP0siT98UaQ-bWuycU7J3hqgc9r6KjAE&amp;source=constructor" width="640" height="480" frameborder="0"></iframe>
 </div>
-
-<script type="text/javascript">
-    // Функция ymaps.ready() будет вызвана, когда
-    // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
-    ymaps.ready(init);
-    function init() {
-        // Создание карты.
-        var myMap = new ymaps.Map("map", {
-            // Координаты центра карты.
-            // Порядок по умолчанию: «широта, долгота».
-            // Чтобы не определять координаты центра карты вручную,
-            // воспользуйтесь инструментом Определение координат.
-            center: [55.76, 37.64],
-            // Уровень масштабирования. Допустимые значения:
-            // от 0 (весь мир) до 19.
-            zoom: 7
-        });
-    }
-</script>
