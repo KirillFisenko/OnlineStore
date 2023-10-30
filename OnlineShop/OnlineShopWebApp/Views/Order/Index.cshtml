@@ -33,13 +33,13 @@
 
                 <div class="my-4">
                     <label asp-for="Address">Адрес*</label>
-                    <input asp-for="Address" type="text" id="suggest" class="form-control" />
+                    <input asp-for="Address" type="text" id="suggest" class="form-control" placeholder="г. Москва, ул. Тверская, д. 1" />
                     <span asp-validation-for="Address" />
                 </div>                
 
-                <input type="button" value="показать карту" id="toggle" />
+                <input type="button" class="btn btn-outline-warning" value="показать карту" id="toggle" />
 
-                <div id="map" style="width: 400px; height: 200px"></div>
+                <div id="map" class="my-2" style="width: 500px; height: 300px"></div>
 
                 <button class="btn btn-lg btn-warning my-4" type="submit" asp-controller="Order" asp-action="Buy"><i class="bi bi-check-circle-fill"> Оформить заказ</i></button>
                 <a class="btn btn-lg btn-outline-warning my-4" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить покупки</i></a>
@@ -89,7 +89,7 @@
                 else {
                     myMap.destroy();
                     myMap = null;
-                    $("#toggle").attr('value', 'Показать карту снова');
+                    $("#toggle").attr('value', 'Показать карту');
                 }
             }
         });
