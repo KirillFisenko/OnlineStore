@@ -6,6 +6,8 @@ using System.Globalization;
 using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
 using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Services;
+using Microsoft.Extensions.Configuration;
 
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +43,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
 // получаем строку подключения из файла конфигурации
 string connection = builder.Configuration.GetConnectionString("online_shop");
 
@@ -53,7 +57,8 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(c
 // указываем тип пользователя и роли
 builder.Services.AddIdentity<User, IdentityRole>()
                 // устанавливаем тип хранилища - наш контекст
-                .AddEntityFrameworkStores<IdentityContext>();
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
 
 // настройка cookie
 builder.Services.ConfigureApplicationCookie(options =>
