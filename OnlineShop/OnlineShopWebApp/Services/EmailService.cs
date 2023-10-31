@@ -1,6 +1,7 @@
-﻿using MailKit;
-using MimeKit;
-using System.Net.Mail;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
+
 
 namespace OnlineShopWebApp.Services
 {
@@ -8,17 +9,17 @@ namespace OnlineShopWebApp.Services
     {
         private readonly MailSettings mailSettings;
 
-        public EmailService(IOptions<MailService> mailSettings)
+        public EmailService(IOptions<MailSettings> mailSettings)
         {
-            this.mailSettings = mailSettings;
+            this.mailSettings = mailSettings.Value;
         }
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress(_mailSettings.DisplayName, _mailSettings.Mail));
-            emailMessage.To.Add(new MailboxAddress(_mailSettings.DisplayName, email));
+            emailMessage.From.Add(new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail));
+            emailMessage.To.Add(new MailboxAddress(mailSettings.DisplayName, email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -27,8 +28,8 @@ namespace OnlineShopWebApp.Services
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync(_mailSettings.Host, _mailSetting.Port);
-                await client.AuthenticateAsync(_mailSettings.Mail, _mailSetting.Password);
+                await client.ConnectAsync(mailSettings.Host, mailSettings.Port);
+                await client.AuthenticateAsync(mailSettings.Mail, mailSettings.Password);
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }

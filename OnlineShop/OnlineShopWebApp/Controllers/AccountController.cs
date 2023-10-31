@@ -94,7 +94,7 @@ namespace OnlineShopWebApp.Controllers
                         new
                         {
                             userId = user.Id,
-                            code = code
+                            Code = code
                         },
                         protocol: HttpContext.Request.Scheme);
                     await emailService.SendEmailAsync(register.UserName, "Подтвердите свой профиль",

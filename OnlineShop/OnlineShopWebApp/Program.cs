@@ -7,7 +7,6 @@ using OnlineShop.Db.Models;
 using Microsoft.AspNetCore.Identity;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Services;
-using Microsoft.Extensions.Configuration;
 
 // создание нового экземпляра web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +26,7 @@ builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddTransient<IFavoriteRepository, FavoriteDbRepository>();
 builder.Services.AddTransient<ICompareRepository, CompareDbRepository>();
 builder.Services.AddTransient<ImagesProvider>();
+builder.Services.AddTransient<EmailService>();
 
 // сервис для автомаппинга
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -59,6 +59,8 @@ builder.Services.AddIdentity<User, IdentityRole>()
                 // устанавливаем тип хранилища - наш контекст
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
+
+builder.Services.AddHttpContextAccessor();
 
 // настройка cookie
 builder.Services.ConfigureApplicationCookie(options =>
