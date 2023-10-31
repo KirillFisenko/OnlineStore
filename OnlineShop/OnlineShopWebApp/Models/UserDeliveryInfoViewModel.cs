@@ -17,8 +17,8 @@ namespace OnlineShopWebApp.Models
 		[StringLength(20, MinimumLength = 5, ErrorMessage = "Поле Телефон должно содержать от 5 до 20 символов")]
 		public string? Phone { get; set; }
 
-        [Required(ErrorMessage = "Поле Адрес должно быть заполнено")]
-		[StringLength(200, MinimumLength = 5, ErrorMessage = "Поле Адрес должно содержать от 5 до 200 символов")]
+  //      [Required(ErrorMessage = "Поле Адрес должно быть заполнено")]
+		//[StringLength(200, MinimumLength = 5, ErrorMessage = "Поле Адрес должно содержать от 5 до 200 символов")]
 		public string? Address { get; set; }
 
 		// имя пользователя, под чей УЗ делается заказ

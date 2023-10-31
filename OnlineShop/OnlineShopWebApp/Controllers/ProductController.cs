@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
-{
+{	
 	// контроллер продукта
-    public class ProductController : Controller
+	public class ProductController : Controller
     {
 		private readonly IProductsRepository productsRepository;
 		private readonly IMapper mapper;

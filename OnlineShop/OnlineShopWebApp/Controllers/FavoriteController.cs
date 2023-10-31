@@ -8,8 +8,8 @@ namespace OnlineShopWebApp.Controllers
 {
 	[Authorize] // доступ есть только у авторизованных пользователей
 
-    // контроллер списка избранного
-    public class FavoriteController : Controller
+	// контроллер списка избранного
+	public class FavoriteController : Controller
 	{
 		private readonly IProductsRepository productsRepository;
 		private readonly IFavoriteRepository favoriteRepository;

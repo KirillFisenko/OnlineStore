@@ -42,7 +42,7 @@
 							<tr>
 								<td>@i</td>
 								<td><a asp-area="" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a></td>
-								<td><img width="60" height="54" src="@product.Images.FirstOrDefault(image => image.Url.Contains("_") == false).Url" alt="Изображение товара"></td>
+								<td><img width="60" height="54" src="@product.Images.FirstOrDefault().Url" alt="Изображение товара"></td>
 								<td>@product.Cost &#8381;</td>
 								<td>@EnumHelper.GetDisplayName(product.Categories)</td>
 								<td class="text-end">
