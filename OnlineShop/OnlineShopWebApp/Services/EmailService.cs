@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace OnlineShopWebApp.Services
 {
+    // сервис для отправки email
     public class EmailService : IMailService
     {
         private readonly MailSettings mailSettings;

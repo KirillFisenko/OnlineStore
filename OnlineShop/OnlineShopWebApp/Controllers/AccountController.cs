@@ -89,17 +89,17 @@ namespace OnlineShopWebApp.Controllers
                     await signInManager.SignInAsync(user, false);
                     await userManager.AddToRoleAsync(user, Constants.UserRoleName);
 
+                    // подтверждение почты
                     var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callBackUrl = Url.Action("ConfirmEmail", "Account",
                         new
                         {
                             userId = user.Id,
-                            Code = code
+                            сode = code
                         },
                         protocol: HttpContext.Request.Scheme);
                     await emailService.SendEmailAsync(register.UserName, "Подтвердите свой профиль",
-                        $"Подтвердите регистрацию, перейдя <a href='{callBackUrl}'>по ссылке</a>");
-                    //return Redirect(register.ReturnUrl ?? "/Home");
+                        $"Подтвердите регистрацию, перейдя <a href='{callBackUrl}'>по ссылке</a>");                   
                     return View("ConfirmEmail");
                 }
                 else
@@ -111,6 +111,26 @@ namespace OnlineShopWebApp.Controllers
                 }
             }
             return View(register);
+        }
+
+        // подтверждение почты
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View();
+            }
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null || user.EmailConfirmed)
+            {
+                return View();
+            }
+            var result = await userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+            {
+                return View("ConfirmedEmail");
+            }
+            return View("Error");
         }
 
         // выход из системы пользователя
@@ -141,7 +161,8 @@ namespace OnlineShopWebApp.Controllers
                 var callBackUrl = Url.Action("ResetPassword", "Account", new
                 {
                     userId = user.Id,
-                    Code = code
+                    email = model.Email,
+                    code = code
                 }, protocol: HttpContext.Request.Scheme);
                 await emailService.SendEmailAsync(model.Email, "Сброс пароля",
                          $"Для сброса пароля, перейдите <a href='{callBackUrl}'>по ссылке</a>");
@@ -151,8 +172,9 @@ namespace OnlineShopWebApp.Controllers
         }
 
         // сброс пароля
-        public IActionResult ResetPassword(string code)
+        public IActionResult ResetPassword(string code, string email)
         {
+            ViewData["email"] = email;
             return code == null ? View("Error") : View();
         }
 
@@ -177,7 +199,7 @@ namespace OnlineShopWebApp.Controllers
             var result = await userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return View("Index");
+                return View("ConfirmedPassword");
             }
             foreach (var error in result.Errors)
             {

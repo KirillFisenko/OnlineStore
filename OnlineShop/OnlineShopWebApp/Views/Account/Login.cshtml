@@ -21,12 +21,16 @@
                         <span asp-validation-for="UserName" />
                     </div>
 
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-1">
                         <input asp-for="Password" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
                         <label asp-for="Password">Пароль</label>
                         <span asp-validation-for="Password" />
                     </div>
-                                       
+                        
+                    <div class="mb-3">
+                        <a asp-controller="Account" asp-action="ForgotPassword">Забыли пароль?</a>
+                    </div>                    
+
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Model.ReturnUrl">Войти</button>
 
                     <div class="form-check mb-2">
@@ -34,9 +38,7 @@
                         <label class="form-check-label" for="rememberMe">
                             Запомнить меня?
                         </label>
-                    </div>
-
-                    <a class="" asp-controller="Account" asp-action="ForgotPassword">Забыли пароль?</a>
+                    </div>                    
 
                     <h2 class="fs-5 mb-3 text-center">ИЛИ</h2>
                     <a class="w-100 mb-2 btn btn-lg rounded-3 btn-outline-warning" type="submit" asp-controller="Account" asp-action="Register" asp-route-ReturnUrl="@Model.ReturnUrl">Зарегистрироваться</a>
