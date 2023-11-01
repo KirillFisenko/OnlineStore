@@ -58,6 +58,7 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(c
 builder.Services.AddIdentity<User, IdentityRole>()
                 // устанавливаем тип хранилища - наш контекст
                 .AddEntityFrameworkStores<IdentityContext>()
+                // генерация токенов, которые отсылаются в письме для подтверждения
                 .AddDefaultTokenProviders();
 
 builder.Services.AddHttpContextAccessor();

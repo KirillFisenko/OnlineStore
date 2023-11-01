@@ -114,6 +114,7 @@ namespace OnlineShopWebApp.Controllers
             return View(register);
         }
 
+        // подтверждение почты через личный кабинет
         public async Task<IActionResult> ConfirmEmailByUser(string userEmail)
         {            
             var user = await userManager.FindByNameAsync(userEmail);
@@ -130,7 +131,7 @@ namespace OnlineShopWebApp.Controllers
             return View("ConfirmEmail");
         }
 
-        // подтверждение почты
+        // подтверждение почты при регистрации
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
             var error = "Что-то пошло не так, попробуйте сначала. Возможно ваша почта уже подтверждена или пользователь не найден";
