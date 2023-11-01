@@ -12,7 +12,17 @@
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
             <div class="col-12 g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование пользователя</h4>
-
+                @if (!Model.EmailConfirmed)
+                {
+                    <div class="my-4">
+                        <label>Необходимо подтверждение почты @User.Identity.Name -</label>
+                        <a asp-area="" asp-controller="Account" asp-action="ConfirmEmailByUser" asp-route-userEmail="@User.Identity.Name">подтвердить</a>
+                    </div>
+                }
+                else
+                {
+                    <label>@User.Identity.Name - подтвержден</label>
+                }
                 <div class="col-6 my-4">
                     <label class="my-2"></label>
                     <input type="hidden" name="AvatarUrl" value="@Model.AvatarUrl" />

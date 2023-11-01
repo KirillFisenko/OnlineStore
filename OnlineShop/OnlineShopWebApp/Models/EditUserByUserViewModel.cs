@@ -6,6 +6,9 @@
         // номер телефона
         public string? PhoneNumber { get; set; }
 
+        // подтвержден ли Email
+        public bool EmailConfirmed { get; set; }
+
         // имя
         public string? FirstName { get; set; }
 

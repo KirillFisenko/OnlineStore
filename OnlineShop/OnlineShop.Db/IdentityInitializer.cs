@@ -30,7 +30,7 @@ namespace OnlineShop.Db
                 {
                     await userManager.AddToRoleAsync(admin, Constants.AdminRoleName);
                 }
-            }
+            }            
         }
     }
 }

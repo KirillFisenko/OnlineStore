@@ -7,6 +7,7 @@ using AutoMapper;
 using OnlineShopWebApp.Helpers;
 using Microsoft.Win32;
 using OnlineShopWebApp.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -14,7 +15,7 @@ namespace OnlineShopWebApp.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;               
+        private readonly SignInManager<User> signInManager;
         private readonly ImagesProvider imagesProvider;
         private readonly IOrdersRepository ordersRepository;
         private readonly EmailService emailService;
@@ -24,7 +25,7 @@ namespace OnlineShopWebApp.Controllers
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.ordersRepository = ordersRepository;            
+            this.ordersRepository = ordersRepository;
             this.imagesProvider = imagesProvider;
             this.mapper = mapper;
             this.emailService = emailService;
@@ -95,12 +96,12 @@ namespace OnlineShopWebApp.Controllers
                         new
                         {
                             userId = user.Id,
-                            сode = code
+                            Code = code
                         },
                         protocol: HttpContext.Request.Scheme);
                     await emailService.SendEmailAsync(register.UserName, "Подтвердите свой профиль",
-                        $"Подтвердите регистрацию, перейдя <a href='{callBackUrl}'>по ссылке</a>");                   
-                    return View("ConfirmEmail");
+                        $"Подтвердите регистрацию, перейдя <a href='{callBackUrl}'>по ссылке</a>");                    
+                    return View("ConfirmEmail"); // уведомление, что на почту направлено сообщение
                 }
                 else
                 {
@@ -113,24 +114,41 @@ namespace OnlineShopWebApp.Controllers
             return View(register);
         }
 
+        public async Task<IActionResult> ConfirmEmailByUser(string userEmail)
+        {            
+            var user = await userManager.FindByNameAsync(userEmail);
+            var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callBackUrl = Url.Action("ConfirmEmail", "Account",
+                new
+                {
+                    userId = user.Id,
+                    Code = code
+                },
+                protocol: HttpContext.Request.Scheme);
+            await emailService.SendEmailAsync(userEmail, "Подтвердите свой профиль",
+                $"Подтвердите регистрацию, перейдя <a href='{callBackUrl}'>по ссылке</a>");
+            return View("ConfirmEmail");
+        }
+
         // подтверждение почты
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
+            var error = "Что-то пошло не так, попробуйте сначала. Возможно ваша почта уже подтверждена или пользователь не найден";
             if (userId == null || code == null)
             {
-                return View();
+                return View("Error", error);
             }
             var user = await userManager.FindByIdAsync(userId);
             if (user == null || user.EmailConfirmed)
             {
-                return View();
+                return View("Error", error);
             }
             var result = await userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
             {
-                return View("ConfirmedEmail");
+                return View("ConfirmedEmail"); // уведомление, что почта подтверждена
             }
-            return View("Error");
+            return View("Error", error);
         }
 
         // выход из системы пользователя
@@ -153,16 +171,17 @@ namespace OnlineShopWebApp.Controllers
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
-                if(user == null || !(await userManager.IsEmailConfirmedAsync(user)))
+                if (user == null || !(await userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return View("ForgotPasswordConfirmation");
+                    ModelState.AddModelError(string.Empty, "Такой пользователь не найден, либо почта не подтверждена");
+                    return View(model);
                 }
                 var code = await userManager.GeneratePasswordResetTokenAsync(user);
                 var callBackUrl = Url.Action("ResetPassword", "Account", new
-                {
+                { 
                     userId = user.Id,
                     email = model.Email,
-                    code = code
+                    Code = code
                 }, protocol: HttpContext.Request.Scheme);
                 await emailService.SendEmailAsync(model.Email, "Сброс пароля",
                          $"Для сброса пароля, перейдите <a href='{callBackUrl}'>по ссылке</a>");
@@ -175,31 +194,26 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult ResetPassword(string code, string email)
         {
             ViewData["email"] = email;
-            return code == null ? View("Error") : View();
+            return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid) 
+            var er = "Что-то пошло не так, попробуйте сначала";
+            if (!ModelState.IsValid)
             {
-                return View(model); 
+                return View(model);
             }
             var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return View("ResetPasswordConfirmation");
-            }
-            var confirmPasswords = await userManager.CheckPasswordAsync(user, model.Password);
-            if (confirmPasswords)
-            {
-                ModelState.AddModelError(string.Empty, "Старый пароль не должен совпадать с новым");
-                return View(model);
-            }
+                return View("Error", er);
+            }   
             var result = await userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return View("ConfirmedPassword");
+                return View("ConfirmedPassword"); // сообщение, что пароль изменен
             }
             foreach (var error in result.Errors)
             {
@@ -228,11 +242,11 @@ namespace OnlineShopWebApp.Controllers
             {
                 var addedImagesPaths = imagesProvider.SafeFile(editUserByUserViewModel.UploadedFile, ImageFolders.Profiles);
                 editUserByUserViewModel.AvatarUrl = addedImagesPaths;
-            }            
+            }
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             user.PhoneNumber = editUserByUserViewModel.PhoneNumber;
             user.FirstName = editUserByUserViewModel.FirstName;
-            user.Address = editUserByUserViewModel.Address; 
+            user.Address = editUserByUserViewModel.Address;
             user.AvatarUrl = editUserByUserViewModel.AvatarUrl;
             await userManager.UpdateAsync(user);
             return RedirectToAction(nameof(HomeController.Index), "Home");
