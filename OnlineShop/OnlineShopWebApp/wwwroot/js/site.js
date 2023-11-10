@@ -32,13 +32,12 @@ function init() {
                         checkZoomRange: true
                     });
                 });
-
-                $("#toggle").attr('value', 'Скрыть карту');
+                $("#toggle").attr('value', 'Скрыть карту');                
             }
             else {
                 myMap.destroy();
                 myMap = null;
-                $("#toggle").attr('value', 'Показать карту');
+                $("#toggle").attr('value', 'Показать карту');                
             }
         }
     });
