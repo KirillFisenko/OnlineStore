@@ -25,7 +25,7 @@ namespace OnlineShopWebApp.Views.Shared.ViewComponents.AccountViewComponent
 			if (userAvatar == null)
 			{
 				userAvatar = "/images/Profiles/default.png";
-            }
+			}
 			return View("Account", userAvatar);
 		}		
 	}
