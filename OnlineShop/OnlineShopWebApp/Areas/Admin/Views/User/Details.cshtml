@@ -10,30 +10,54 @@
 
     <div class="col-lg-9 my-4">
         <form method="post">
-            <div class="my-4">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Пользователь @Model.Name</h4>
-                <table class="table">
+            <div class="">
+                <h4 class="bg-warning-subtle text-emphasis-warning">Пользователь: @Model.UserName</h4>
+                @if (ViewBag.IsAdmin)
+                {
+                    <p class="text-end text-danger">*удалить УЗ Admin нельзя</p>
+                }
+                <img class="rounded-circle border-warning z-depth-0" width="80" height="80"
+                     src="@Model.AvatarUrl" alt="">
+                <table class="table">                                     
                     <tr>
                         <th class="col-3">Email:</th>
-                        <td class ="col-9">@Model.Name</td>
+                        <td class="col-9">@Model.UserName</td>
                     </tr>
-                   
+                    <tr>
+                        <th class="col-3">Email подтвержден:</th>
+                        <td class="col-9">@Model.EmailConfirmed</td>
+                    </tr>
                     <tr>
                         <th>Телефон:</th>
-                        <td>@Model.Phone</td>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>                    
+                    <tr>
+                        <th>Имя:</th>
+                        <td>@Model.FirstName</td>
                     </tr>
-                    
+                    <tr>
+                        <th>Адресс:</th>
+                        <td>@Model.Address</td>
+                    </tr>
                 </table>
-                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
+                <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-name="@Model.Name">Смена пароля</a></li>
-                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-name="@Model.Name">Редактирование данных</a></li>
-                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-name="@Model.Name">Права доступа</a></li>
+                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-name="@Model.UserName">Смена пароля</a></li>
+                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-name="@Model.UserName">Редактирование данных</a></li>
+                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-name="@Model.UserName">Права доступа</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <!-- Кнопка-триггер модального окна -->
-                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить пользователя</button></li>
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <li><button type="button" class="dropdown-item" disabled>Удалить пользователя</button></li>
+                    }
+                    else
+                    {
+                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить пользователя</button></li>
+                    }
                 </ul>
-            </div>            
+                <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
+            </div>
         </form>
     </div>
 </div>
@@ -43,7 +67,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Удаление пользователя @Model.Name</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Удаление пользователя @Model.UserName</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
@@ -51,7 +75,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <a type="button" asp-area="Admin" class="btn btn-warning" asp-controller="User" asp-action="Remove" asp-route-name="@Model.Name">Удалить</a>
+                <a type="button" asp-area="Admin" class="btn btn-warning" asp-controller="User" asp-action="Remove" asp-route-name="@Model.UserName">Удалить</a>
             </div>
         </div>
     </div>

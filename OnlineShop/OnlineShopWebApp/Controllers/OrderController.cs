@@ -1,46 +1,51 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize]
-	public class OrderController : Controller
+	[Authorize] // доступ есть только у авторизованных пользователей
+
+    // контроллер заказов
+    public class OrderController : Controller
     {
         private readonly ICartsRepository cartsRepository;
         private readonly IOrdersRepository ordersRepository;
+		private readonly IMapper mapper;
 
-        public OrderController(ICartsRepository cartsRepository, IOrdersRepository ordersRepository)
+		public OrderController(ICartsRepository cartsRepository, IOrdersRepository ordersRepository, IMapper mapper)
         {
             this.cartsRepository = cartsRepository;
             this.ordersRepository = ordersRepository;
+            this.mapper = mapper;
         }
 
+        // отображение формы заказа
         public IActionResult Index()
         {           
             return View();
         }
 
         [HttpPost]
-        public IActionResult Buy(UserDeliveryInfoViewModel userViewModel)
+        public async Task<IActionResult> BuyAsync(UserDeliveryInfoViewModel userViewModel)
         {
 			if (!ModelState.IsValid)
 			{
 				return View(nameof(Index), userViewModel);
 			}
-			var existingCart = cartsRepository.TryGetById(User.Identity.Name);           
-
-            var order = new Order
+			var existingCart = await cartsRepository.TryGetByUserIdAsync(User.Identity.Name);			
+			var order = new Order
             {
-                User = userViewModel.ToUser(),
+                User = mapper.Map<UserDeliveryInfo>(userViewModel),
                 Items = existingCart.Items
             };			
-			ordersRepository.Add(order);
-            cartsRepository.Clear(User.Identity.Name);
-            return View(order.ToOrderViewModel());
+			await ordersRepository.AddAsync(order);
+            await cartsRepository.ClearAsync(User.Identity.Name);
+			var model = mapper.Map<OrderViewModel>(order);
+			return View(model);			
         }
     }
 }

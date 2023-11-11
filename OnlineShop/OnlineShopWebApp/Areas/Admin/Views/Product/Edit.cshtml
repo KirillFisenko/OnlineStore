@@ -1,46 +1,91 @@
-﻿@model ProductViewModel
+﻿@model EditProductViewModel
 
 <div class="row">
-    <div class="col-lg-3">
-        <div class="my-4">
-            @await Html.PartialAsync("MenuAdministrator")
-        </div>
-    </div>
+	<div class="col-lg-3">
+		<div class="my-4">
+			@await Html.PartialAsync("MenuAdministrator")
+		</div>
+	</div>
 
-    <div class="col-lg-9 my-4">
-        <form method="post">
-            <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <div class="row g-3">
-                <h4 class="bg-warning-subtle text-emphasis-warning">Редактирование товара</h4>
-                
-                <div class="col-12">
-                    <label asp-for="Name">Название товара:</label>
-                    <input asp-for="Name" type="text" class="form-control" value="@Model.Name" />
-                    <span asp-validation-for="Name" />
-                </div>
+	<div class="col-lg-9 my-4">
+		<form method="post" enctype="multipart/form-data">
+			<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+			<input type="hidden" name="Id" value="@Model?.Id" />
+			<div class="col-12 g-3">
+				<h4 class="bg-warning-subtle text-emphasis-warning">Редактирование товара</h4>
 
-                <div class="col-12">
-                    <label asp-for="Cost">Цена товара, руб.:</label>
-                    <input asp-for="Cost" type="text" class="form-control" value="@Model.Cost" />
-                    <span asp-validation-for="Cost" />
-                </div>
+				<div class="col-9 my-3">
+					<label asp-for="Name">Название товара:</label>
+					<input asp-for="Name" type="text" class="form-control" value="@Model.Name" />
+					<span asp-validation-for="Name" />
+				</div>
 
-                <div class="col-12">
-                    <label asp-for="ImagePath">Изорбражение товара:</label>
-                    <input asp-for="ImagePath" type="text" class="form-control" value="@Model.ImagePath" />
-                    <span asp-validation-for="ImagePath" />
-                </div>
+				<div class="col-9 my-3">
+					<label asp-for="Cost">Цена товара, руб.:</label>
+					<input asp-for="Cost" type="text" class="form-control" value="@Model.Cost" />
+					<span asp-validation-for="Cost" />
+				</div>
 
-                <div class="col-12">
-                    <label asp-for="Description">Описание:</label>
-                    <input asp-for="Description" type="text" class="form-control" value="@Model.Description" />
-                    <span asp-validation-for="Description" />
-                </div>
-            </div>          
+				<div class="col-9 my-3">
+					<label asp-for="Description">Описание:</label>
+					<input asp-for="Description" type="text" class="form-control" value="@Model.Description" />
+					<span asp-validation-for="Description" />
+				</div>
 
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-productid="@Model.Id">Сохранить</button>
-            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Index">Отмена</a>
+				<div class="col-9 my-3">
+					<label asp-for="Categories">Категория:</label>
+					<select asp-for="@Model.Categories"
+							asp-items="@Html.GetEnumSelectList<CategoriesViewModel>()"
+							class="form-control-sm">
+					</select>
+				</div>
 
-        </form>        
-    </div>
-</div>
+				<div class="col-5 my-3">
+					<label class="my-2">Изображения:</label>
+					<input type="hidden" name="Images" value="@Model.Images" />
+					<div id="carouselExampleAutoplaying" class="carousel carousel-dark slide borderProduct" data-bs-ride="carousel">
+						<div class="carousel-indicators">
+							<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+							@if (Model.Images.Count() > 1)
+							{
+								@for (var i = 1; i < Model.Images.Count(); i++)
+								{
+									<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="@i" aria-label="Slide @i+1"></button>
+								}
+							}
+						</div>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img src="@Model.Images.FirstOrDefault().Url" class="mx-auto d-block rounded w-100" alt="Изображение карусели">
+							</div>
+							@if (Model.Images.Count() > 1)
+							{
+								@for (var i = 1; i < Model.Images.Count(); i++)
+								{
+									<div class="carousel-item">
+										<img src="@Model.Images[i].Url" class="mx-auto d-block rounded w-100" alt="Изображение карусели">
+									</div>
+								}
+							}
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Предыдущий</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Следующий</span>
+						</button>
+					</div>
+				</div>
+
+				<div class="col-9 my-3">
+					<label>Загрузить новые изображения:</label>
+					<input name="UploadedFiles" class="form-control" type="file" multiple accept="image/*" value="@Model.UploadedFiles" />
+				</div>
+			</div>
+			<button type="submit" class="btn btn-warning my-4" asp-area="Admin" asp-controller="Product" asp-action="Edit">Сохранить</button>
+			<a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Index">Отмена</a>
+		</form>
+	</div>
+</div>		

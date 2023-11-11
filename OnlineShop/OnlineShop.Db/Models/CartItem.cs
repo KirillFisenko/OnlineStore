@@ -1,9 +1,14 @@
 ﻿namespace OnlineShop.Db.Models
 {
-	public class CartItem
+    // модель карточки товара в БД 
+    public class CartItem
 	{
 		public Guid Id { get; set; }
-		public Product Product { get; set; }		
+
+		// продукт
+		public Product? Product { get; set; }
+
+		// количество продукта
 		public int Quantity { get; set; }
 	}
 }

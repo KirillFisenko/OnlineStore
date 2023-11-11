@@ -3,7 +3,8 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
-    public class FavoriteDbRepository : IFavoriteRepository
+	// репозиторий списка избранных товаров пользователя
+	public class FavoriteDbRepository : IFavoriteRepository
     {
         private readonly DatabaseContext databaseContext;
 
@@ -12,41 +13,49 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-        public void Add(string userId, Product product)
+		// получить список избранных продуктов пользователя
+		public async Task<List<Product>> GetAllAsync(string userId)
+		{
+			return await databaseContext.FavoriteProducts
+				.Where(u => u.UserId == userId)
+				.Include(x => x.Product)
+				.Select(x => x.Product)
+				.ToListAsync();
+		}
+
+		// добавить в список избранного пользователя продукт
+		public async Task AddAsync(string userId, Product product)
         {
-            var existingProduct = databaseContext.FavoriteProducts
-				.FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
+            var existingProduct = await databaseContext.FavoriteProducts
+				.FirstOrDefaultAsync(x => x.UserId == userId && x.Product.Id == product.Id);
             if (existingProduct == null)
             {
                 databaseContext.FavoriteProducts.Add(new FavoriteProduct { Product = product, UserId = userId });
-                databaseContext.SaveChanges();
+                await databaseContext.SaveChangesAsync();
             }
         }
 
-        public void Remove(string userId, Guid productId)
+		// удалить из списка избранного пользователя продукт
+		public async Task RemoveAsync(string userId, Guid productId)
         {
-            var removingFavorite = databaseContext.FavoriteProducts
-				.FirstOrDefault(u => u.UserId == userId && u.Product.Id == productId);
-            databaseContext.FavoriteProducts.Remove(removingFavorite);
-            databaseContext.SaveChanges();
-        }
-		
-		public void Clear(string userId)
-        {
-            var userFavoriteProducts = databaseContext.FavoriteProducts
-				.Where(u => u.UserId == userId)
-                .ToList();
-            databaseContext.FavoriteProducts.RemoveRange(userFavoriteProducts);
-            databaseContext.SaveChanges();
+            var removingProduct = await databaseContext.FavoriteProducts
+				.FirstOrDefaultAsync(u => u.UserId == userId && u.Product.Id == productId);
+			
+            if (removingProduct != null)
+            {
+				databaseContext.FavoriteProducts.Remove(removingProduct);
+			}
+            await databaseContext.SaveChangesAsync();
         }
 
-        public List<Product> GetAll(string userId)
+		// очистить список избранного пользователя
+		public async Task ClearAsync(string userId)
         {
-            return databaseContext.FavoriteProducts
+            var userFavoriteProducts = await databaseContext.FavoriteProducts
 				.Where(u => u.UserId == userId)
-                .Include(x => x.Product)
-                .Select(x => x.Product)
-                .ToList();
-        }
+                .ToListAsync();
+            databaseContext.FavoriteProducts.RemoveRange(userFavoriteProducts);
+            await databaseContext.SaveChangesAsync();
+        }       
     }
 }

@@ -9,26 +9,57 @@
 	</div>
 
 	<div class="col-lg-9">
-		<div class="row my-4 d-flex align-items-lg-center">
-
+		<div class="row my-4 d-flex">
 			<div class="col-5">
-				<img class="card-img-top img-fluid" src="@Model.ImagePath">
+				<div id="carouselExampleAutoplaying" class="carousel carousel-dark slide" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						@if (Model.Images.Count() > 1)
+						{
+							@for (var i = 1; i < Model.Images.Count(); i++)
+							{
+								<button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="@i" aria-label="Slide @i+1"></button>
+							}
+						}
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="@Model.Images.FirstOrDefault().Url" class="d-block img-fluid w-100 rounded" alt="Изображение карусели">
+						</div>
+						@if (Model.Images.Count() > 1)
+						{
+							@for (var i = 1; i < Model.Images.Count(); i++)
+							{
+								<div class="carousel-item">
+									<img src="@Model.Images[i].Url" class="d-block img-fluid w-100 rounded" alt="Изображение карусели">
+								</div>
+							}
+						}
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Предыдущий</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Следующий</span>
+					</button>
+				</div>
 			</div>
 
-			<div class="col-1"></div>
-
-			<div class="col-6">
+			<div class="col-7">
+				<p>@EnumHelper.GetDisplayName(Model.Categories)</p>
 				<h4>@Model.Name</h4>
 				<h5>@Model.Cost &#8381;</h5>
+				<p class="textId">ID: @Model.Id.ToString().Split('-').Last()</p>
 				<p>@Model.Description</p>
-				<div class="btn-group d-flex align-items-end justify-content-around" >
+				<div class="btn-group d-flex align-items-end justify-content-around">
 					<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-cart"> Купить</i></a>
 					<a class="btn btn-outline-warning" asp-controller="Favorite" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-heart"> Отложить</i></a>
 					<a class="btn btn-outline-warning" asp-controller="Compare" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-clipboard2-plus"> Сравнить</i></a>
-					<a class="btn btn-outline-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Продолжить</i></a>
+					<a class="btn btn-outline-warning" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Назад</i></a>
 				</div>
 			</div>
 		</div>
-
 	</div>
 </div>

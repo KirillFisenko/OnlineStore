@@ -3,6 +3,7 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
+    // репозиторий заказов в БД
     public class OrdersDbRepository : IOrdersRepository
     {
         private readonly DatabaseContext databaseContext;
@@ -12,38 +13,42 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-        public void Add(Order order)
+        // получить все заказы
+		public async Task<List<Order>> GetAllAsync()
+		{
+			return await databaseContext.Orders
+				.Include(x => x.User)
+				.Include(x => x.Items)
+				.ThenInclude(x => x.Product)
+				.ToListAsync();
+		}
+
+        // получить заказ по id
+		public async Task<Order> TryGetByIdAsync(Guid orderId)
+		{
+			return await databaseContext.Orders
+				.Include(x => x.User)
+				.Include(x => x.Items)
+				.ThenInclude(x => x.Product)
+				.FirstOrDefaultAsync(o => o.Id == orderId);
+		}
+
+        // добавить заказ
+        public async Task AddAsync(Order order)
         {
             databaseContext.Orders.Add(order);
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
 
-        public List<Order> GetAll()
+        // обновить статус заказа
+        public async Task UpdateStatusAsync(Guid orderId, OrderStatus newStatus)
         {
-            return databaseContext.Orders
-                .Include(x => x.User)
-                .Include(x => x.Items)
-                .ThenInclude(x => x.Product)
-                .ToList();
-        }
-
-        public Order TryGetById(Guid orderId)
-        {
-            return databaseContext.Orders
-                .Include(x => x.User)
-                .Include(x => x.Items)
-                .ThenInclude(x => x.Product)                
-                .FirstOrDefault(o => o.Id == orderId);
-        }
-
-        public void UpdateStatus(Guid orderId, OrderStatus newStatus)
-        {
-            var order = TryGetById(orderId);
+            var order = await TryGetByIdAsync(orderId);
             if (order != null)
             {
                 order.Status = newStatus;
-            }            
-            databaseContext.SaveChanges();
+            }
+            await databaseContext.SaveChangesAsync();
         }
     }
 }

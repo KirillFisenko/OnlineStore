@@ -3,31 +3,37 @@ using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
-	public class IdentityInitializer
-	{
-		public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
-		{
-			var adminEmail = "admin@gmail.com";
-			var password = "adminADMIN123$";
-			if (roleManager.FindByNameAsync(Constants.AdminRoleName).Result == null)
-			{
-				roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName)).Wait();
-			}
-			if (roleManager.FindByNameAsync(Constants.UserRoleName).Result == null)
-			{
-				roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName)).Wait();
-			}
-			if (roleManager.FindByNameAsync(adminEmail).Result == null)
-			{
-				var admin = new User { Email = adminEmail, UserName = adminEmail };
-				var result = userManager.CreateAsync(admin, password).Result;
-				if(result.Succeeded)
-				{
-					userManager.AddToRoleAsync(admin, Constants.AdminRoleName).Wait();
-				}
-			}
-		}
-	}
+    // Инициализация пользователя администаратора и ролей
+    public class IdentityInitializer
+    {        
+        public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            var adminEmail = "proPConlineShop@gmail.com";
+            var password = "adminADMIN123$";
+
+            // создание роли администратора, если ее нет
+            if (await roleManager.FindByNameAsync(Constants.AdminRoleName) == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName));
+            }
+            // создание роли пользователя, если ее нет
+            if (await roleManager.FindByNameAsync(Constants.UserRoleName) == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName));
+            }
+            // создание пользователя админитсратора, если его нет
+            if (await roleManager.FindByNameAsync(adminEmail) == null)
+            {
+                var admin = new User { Email = adminEmail, UserName = adminEmail };
+                var result = await userManager.CreateAsync(admin, password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, Constants.AdminRoleName);
+                }
+            }            
+        }
+    }
 }
 // Add-Migration Inizialization -context DatabaseContext
 // Add-Migration Identity -context IdentityContext -OutputDir Migrations/Identity
+//fisenko.92@bk.ru

@@ -1,43 +1,54 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
-	[Authorize]
-	public class CompareController : Controller
+	[Authorize] // доступ есть только у авторизованных пользователей
+
+	// контроллер списка сравнения
+    public class CompareController : Controller
 	{
 		private readonly IProductsRepository productsRepository;
-		private readonly ICompareRepository compareRepository;		
-		public CompareController(IProductsRepository productsRepository, ICompareRepository compareRepository)
+		private readonly ICompareRepository compareRepository;
+		private readonly IMapper mapper;
+
+		public CompareController(IProductsRepository productsRepository, ICompareRepository compareRepository, IMapper mapper)
 		{
 			this.productsRepository = productsRepository;
 			this.compareRepository = compareRepository;
+			this.mapper = mapper;
 		}
 
-		public IActionResult Index()
+		// просмотр всего спика сравнения
+		public async Task<IActionResult> Index()
 		{
-			var products = compareRepository.GetAll(User.Identity.Name);
-			return View(products.ToProductViewModels());
+			var products = await compareRepository.GetAllAsync(User.Identity.Name);
+			var model = products.Select(mapper.Map<ProductViewModel>).ToList();
+			return View(model);
 		}
 
-		public IActionResult Add(Guid productId)
+		// добавить продукт в список сравнения
+		public async Task<IActionResult> AddAsync(Guid productId)
 		{
-			var product = productsRepository.TryGetById(productId);
-			compareRepository.Add(User.Identity.Name, product);
+			var product = await productsRepository.TryGetByIdAsync(productId);
+			await compareRepository.AddAsync(User.Identity.Name, product);
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult Remove(Guid productId)
+		// удалить продукт из списка сравнения
+		public async Task<IActionResult> RemoveAsync(Guid productId)
 		{
-			compareRepository.Remove(User.Identity.Name, productId);
+			await compareRepository.RemoveAsync(User.Identity.Name, productId);
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult Clear()
+		// очистить список сравнения
+		public async Task<IActionResult> ClearAsync()
 		{
-			compareRepository.Clear(User.Identity.Name);
+			await compareRepository.ClearAsync(User.Identity.Name);
 			return RedirectToAction(nameof(Index));
 		}
 	}

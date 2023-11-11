@@ -1,4 +1,4 @@
-﻿@model ProductViewModel
+﻿@model AddProductViewModel
 
 <div class="row">
     <div class="col-lg-3">
@@ -8,39 +8,48 @@
     </div>
 
     <div class="col-lg-9 my-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-            <div class="row g-3">
+            <div class="col-12 g-3">
                 <h4 class="bg-warning-subtle text-emphasis-warning">Добавление товара</h4>
-                
-                <div class="col-12">
+
+                <div class="col-9 my-3">
                     <label asp-for="Name">Название товара:</label>
                     <input asp-for="Name" type="text" class="form-control" placeholder="NVIDIA GeForce RTX 4090 ASUS 24Gb" />
                     <span asp-validation-for="Name" />
                 </div>
 
-                <div class="col-12">
+                <div class="col-9 my-3">
                     <label asp-for="Cost">Цена товара, руб.:</label>
                     <input asp-for="Cost" type="number" class="form-control" placeholder="23523" />
                     <span asp-validation-for="Cost" />
                 </div>
 
-                <div class="col-12">
-                    <label asp-for="ImagePath">Изорбражение товара:</label>
-                    <input asp-for="ImagePath" type="text" class="form-control" placeholder="/images/NVIDIA GeForce RTX 4090 ASUS 24Gb.webp" />
-                    <span asp-validation-for="ImagePath" />
-                </div>
-
-                <div class="col-12">
+                <div class="col-9 my-3">
                     <label asp-for="Description">Описание:</label>
                     <input asp-for="Description" type="text" class="form-control" placeholder="PCI-E 4.0; 1500 МГц; 1815 МГц; 8 Гб; GDDR6; 14000 МГц; 256 бит; 2xHDMI, 2xDisplayPort" />
                     <span asp-validation-for="Description" />
                 </div>
-            </div>          
 
-            <button type="submit" class="w-100 btn btn-lg btn-warning my-4" asp-area="Admin" asp-controller="Product" asp-action="Add">Сохранить</button>
-            <a class="w-100 btn btn-lg btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Index">Отмена</a>
+                <div class="col-9 my-3">
+                    <label asp-for="Categories">Категория:</label>
+                    <select asp-for="@Model.Categories"
+                            asp-items="@Html.GetEnumSelectList<CategoriesViewModel>()"
+                            class="form-control-sm">
+                    </select>                  
+                </div>
 
-        </form>        
+                <div class="col-9 my-3">
+                    <label asp-for="UploadedFiles">Загрузить изображения:</label>
+                    <input asp-for="UploadedFiles" type="text" class="form-control" type="file" multiple accept="image/*" />
+                    <span asp-validation-for="UploadedFiles" />
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-warning my-4" asp-area="Admin" asp-controller="Product" asp-action="Add">Сохранить</button>
+            <a class="btn btn-outline-warning" asp-area="Admin" asp-controller="Product" asp-action="Index">Отмена</a>
+
+        </form>
     </div>
 </div>

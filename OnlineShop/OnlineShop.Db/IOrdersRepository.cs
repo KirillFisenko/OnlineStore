@@ -2,11 +2,19 @@
 
 namespace OnlineShop.Db
 {
+    // интерфейс заказов
     public interface IOrdersRepository
     {
-        void Add(Order order);
-        List<Order> GetAll();
-        Order TryGetById(Guid id);
-        void UpdateStatus(Guid id, OrderStatus newStatus);
+        // получить все заказы
+        Task<List<Order>> GetAllAsync();
+
+        // получить заказ по id
+        Task<Order> TryGetByIdAsync(Guid orderId);
+
+        // добавить заказ
+        Task AddAsync(Order order);
+
+        // обновить статус заказа
+        Task UpdateStatusAsync(Guid orderId, OrderStatus newStatus);
     }
 }

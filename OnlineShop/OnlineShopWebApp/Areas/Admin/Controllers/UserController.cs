@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
@@ -8,145 +9,186 @@ using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-	[Area(Constants.AdminRoleName)]
-	[Authorize(Roles = Constants.AdminRoleName)]
-	public class UserController : Controller
-	{
-		private readonly UserManager<User> userManager;
-		private readonly RoleManager<IdentityRole> roleManager;
-		
-		public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
-		{
-			this.userManager = userManager;
-			this.roleManager = roleManager;			
-		}
+    [Area(Constants.AdminRoleName)] // область в проекте Admin
+    [Authorize(Roles = Constants.AdminRoleName)] // доступ есть только у администратора
 
-		public IActionResult Index()
-		{
-			var users = userManager.Users.ToList();
-			return View(users.Select(x => x.ToUserViewModel()).ToList());
-		}
+    // контроллер пользователей
+    public class UserController : Controller
+    {
+        private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;       
+        private readonly ImagesProvider imagesProvider;
+        private readonly IMapper mapper;
 
-		public IActionResult Add()
-		{
-			return View();
-		}
+        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, ImagesProvider imagesProvider)
+        {
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.mapper = mapper;
+            this.imagesProvider = imagesProvider;
+        }
 
-		[HttpPost]
-		public IActionResult Add(Register register)
-		{
-			if (register.UserName == register.Password)
-			{
-				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
-			}
-			if (ModelState.IsValid)
-			{
-				User user = new User { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
-				var result = userManager.CreateAsync(user, register.Password).Result;
-				if (result.Succeeded)
-				{
-					userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
-					return RedirectToAction(nameof(Index));
-				}
-				else
-				{
-					foreach (var error in result.Errors)
-					{
-						ModelState.AddModelError(string.Empty, error.Description);
-					}
-				}
-			}
-			return View(register);
-		}
-		
-		public IActionResult Details(string name)
-		{
-			var user = userManager.FindByNameAsync(name).Result;
-			return View(user.ToUserViewModel());
-		}
+        // отображение пользователей
+        public IActionResult Index()
+        {
+            var users = userManager.Users.ToList();
+            var model = users.Select(mapper.Map<UserViewModel>).ToList();
+            return View(model);
+        }
 
-		public IActionResult Remove(string name)
-		{
-			var user = userManager.FindByNameAsync(name).Result;
-			userManager.DeleteAsync(user).Wait();
-			return RedirectToAction(nameof(Index));
-		}
+        // детальные сведения о пользователе
+        public async Task<IActionResult> DetailsAsync(string name)
+        {
+            var user = await userManager.FindByNameAsync(name);
+            var model = mapper.Map<UserViewModel>(user);
+            var userRoles = await userManager.GetRolesAsync(user);
+            ViewBag.IsAdmin = userRoles.Contains(Constants.AdminRoleName);
+            return View(model);
+        }
 
-		public IActionResult Edit(string name)
-		{
-			var user = userManager.FindByNameAsync(name).Result;
-			return View(user.ToEditUserViewModel());
-		}
 
-		[HttpPost]
-		public IActionResult Edit(EditUserViewModel editUserViewModel, string name)
-		{
-			if (ModelState.IsValid)
-			{
-				var user = userManager.FindByNameAsync(name).Result;				
-				user.PhoneNumber = editUserViewModel.Phone;
-				user.UserName = editUserViewModel.UserName;				
-				userManager.UpdateAsync(user).Wait();
-				return RedirectToAction(nameof(Index));
-			}
-			return View(editUserViewModel);
-		}
+        // добавить пользователя
+        public IActionResult Add()
+        {
+            return View();
+        }
 
-		public IActionResult ChangePassword(string name)
-		{
-			var changePassword = new ChangePasswordViewModel()
-			{
-				UserName = name
-			};
-			return View(changePassword);
-		}
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(RegisterViewModel register)
+        {
+            if (register.UserName == register.Password)
+            {
+                ModelState.AddModelError(string.Empty, "Имя пользователя и пароль не должны совпадать");
+            }
+            if (ModelState.IsValid)
+            {
+                var addedImagePath = imagesProvider.SafeFile(register.UploadedFile, ImageFolders.Profiles);
 
-		[HttpPost]
-		public IActionResult ChangePassword(ChangePasswordViewModel changePassword)
-		{
-			if (changePassword.UserName == changePassword.Password)
-			{
-				ModelState.AddModelError("", "Имя пользователя и пароль не должны совпадать");
-			}
+                var user = new User
+                {
+                    Email = register.UserName,
+                    UserName = register.UserName,
+                    PhoneNumber = register.PhoneNumber,
+                    FirstName = register.FirstName,
+                    Address = register.Address,
+                    AvatarUrl = addedImagePath
+                };
 
-			if (ModelState.IsValid)
-			{
-				var user = userManager.FindByNameAsync(changePassword.UserName).Result;
-				var newHashPassword = userManager.PasswordHasher.HashPassword(user, changePassword.Password);
-				user.PasswordHash = newHashPassword;
-				userManager.UpdateAsync(user).Wait();
-				return RedirectToAction(nameof(Index));
-			}
-			return RedirectToAction(nameof(ChangePassword));
-		}
-		
-		public IActionResult EditRights(string name)
-		{
-			var user = userManager.FindByNameAsync(name).Result;
-			var userRoles = userManager.GetRolesAsync(user).Result;
-			var roles = roleManager.Roles.ToList();
-			var model = new EditRightsViewModel
-			{
-				UserName = user.UserName,
-				UserRoles = userRoles.Select(x => new RoleViewModel { Name = x }).ToList(),
-				AllRoles = roles.Select(x => new RoleViewModel { Name = x.Name }).ToList()
-			};
-			return View(model);
-		}
+                var result = await userManager.CreateAsync(user, register.Password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Constants.UserRoleName);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(register);
+        }
 
-		[HttpPost]
-		public IActionResult EditRights(string name, Dictionary<string, bool> userRolesViewsModel)
-		{			
-			if (ModelState.IsValid)
-			{
-				var userSelectedRoles = userRolesViewsModel.Select(x => x.Key);
-				var user = userManager.FindByNameAsync(name).Result;
-				var userRoles = userManager.GetRolesAsync(user).Result;
-				userManager.RemoveFromRolesAsync(user, userRoles).Wait();
-				userManager.AddToRolesAsync(user, userSelectedRoles).Wait();
-				return Redirect($"/Admin/User/Details?name={name}");
-			}
-			return Redirect($"/Admin/User/EditRights?name={name}");
-		}
-	}
+        // удалить пользователя
+        public async Task<IActionResult> RemoveAsync(string name)
+        {
+            var user = await userManager.FindByNameAsync(name);
+            var userRoles = await userManager.GetRolesAsync(user);
+            if (!userRoles.Contains(Constants.AdminRoleName))
+            {
+                await userManager.DeleteAsync(user);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        // редактировать пользователя
+        public async Task<IActionResult> EditAsync(string name)
+        {
+            var user = await userManager.FindByNameAsync(name);
+            var model = mapper.Map<EditUserViewModel>(user);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(EditUserViewModel editUserViewModel, string name)
+        {
+            if (editUserViewModel.UploadedFile != null && !ModelState.IsValid)
+            {
+                return View(editUserViewModel);
+            }
+            if (editUserViewModel.UploadedFile != null)
+            {
+                var addedImagesPaths = imagesProvider.SafeFile(editUserViewModel.UploadedFile, ImageFolders.Profiles);
+                editUserViewModel.AvatarUrl = addedImagesPaths;
+            }
+            var user = await userManager.FindByNameAsync(name);
+            user.PhoneNumber = editUserViewModel.PhoneNumber;
+            user.UserName = editUserViewModel.UserName;
+            user.Address = editUserViewModel.Address;
+            user.FirstName = editUserViewModel.FirstName;
+            user.AvatarUrl = editUserViewModel.AvatarUrl;
+            await userManager.UpdateAsync(user);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // смена пароля пользователя
+        public IActionResult ChangePassword(string name)
+        {
+            var changePassword = new ChangePasswordViewModel()
+            {
+                UserName = name
+            };
+            return View(changePassword);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordViewModel changePassword)
+        {
+            if (changePassword.UserName == changePassword.Password)
+            {
+                ModelState.AddModelError(string.Empty, "Имя пользователя и пароль не должны совпадать");
+            }
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByNameAsync(changePassword.UserName);
+                var newHashPassword = userManager.PasswordHasher.HashPassword(user, changePassword.Password);
+                user.PasswordHash = newHashPassword;
+                await userManager.UpdateAsync(user);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(ChangePassword));
+        }
+
+        // смена роли пользователя
+        public async Task<IActionResult> EditRightsAsync(string name)
+        {
+            var user = await userManager.FindByNameAsync(name);
+            var userRoles = await userManager.GetRolesAsync(user);
+            var roles = roleManager.Roles.ToList();
+            var model = new EditRightsViewModel
+            {
+                UserName = user.UserName,
+                UserRoles = userRoles.Select(role => new RoleViewModel { Name = role }).ToList(),
+                AllRoles = roles.Select(role => new RoleViewModel { Name = role.Name }).ToList()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRightsAsync(string name, Dictionary<string, bool> userRolesViewsModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var userSelectedRoles = userRolesViewsModel.Select(role => role.Key);
+                var user = await userManager.FindByNameAsync(name);
+                var userRoles = await userManager.GetRolesAsync(user);
+                await userManager.RemoveFromRolesAsync(user, userRoles);
+                await userManager.AddToRolesAsync(user, userSelectedRoles);
+                return Redirect($"/Admin/User/Details?name={name}");
+            }
+            return Redirect($"/Admin/User/EditRights?name={name}");
+        }
+    }
 }

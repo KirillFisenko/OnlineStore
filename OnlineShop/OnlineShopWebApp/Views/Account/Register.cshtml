@@ -1,4 +1,5 @@
-﻿@model Register
+﻿@model RegisterViewModel
+
 <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalRegister">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content rounded-4 shadow">
@@ -8,7 +9,7 @@
 			</div>			
 
 			<div class="modal-body p-5 pt-0">
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 					
 					@* на какую страницу перейти после регистрации *@
@@ -16,26 +17,47 @@
 					
 					<div class="form-floating mb-3">
 						<input asp-for="UserName" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
-						<label asp-for="UserName">Email</label>
+						<label asp-for="UserName">Email*</label>
 						<span asp-validation-for="UserName" />
 					</div>
+
 					<div class="form-floating mb-3">
 						<input asp-for="Password" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
-						<label asp-for="Password">Пароль</label>
+						<label asp-for="Password">Пароль*</label>
 						<span asp-validation-for="Password" />
 					</div>
+
 					<div class="form-floating mb-3">
 						<input asp-for="ConfirmPassword" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
-						<label asp-for="ConfirmPassword">Повторите пароль</label>
+						<label asp-for="ConfirmPassword">Повторите пароль*</label>
 						<span asp-validation-for="ConfirmPassword" />
-					</div>					
+					</div>		
+					
 					<div class="form-floating mb-3">
-						<input asp-for="Phone" type="text" class="form-control rounded-3" id="floatingInput" placeholder="+79265463469">
-						<label asp-for="Phone">Телефон</label>
-						<span asp-validation-for="Phone" />
+						<input asp-for="PhoneNumber" type="text" class="form-control rounded-3" id="floatingInput" placeholder="+79265463469">
+						<label asp-for="PhoneNumber">Телефон*</label>
+						<span asp-validation-for="PhoneNumber" />
+					</div>	
+
+					<div class="form-floating mb-3">
+						<input asp-for="FirstName" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Кирилл">
+						<label asp-for="FirstName">Имя</label>
+						<span asp-validation-for="FirstName" />
+					</div>
+
+					<div class="form-floating mb-3">
+						<input asp-for="Address" type="text" class="form-control rounded-3" id="floatingInput" placeholder="г. Москва">
+						<label asp-for="Address">Адресс</label>
+						<span asp-validation-for="Address" />
 					</div>					
+
+					<div class="col-12 mb-3">
+						<label>Загрузить аватар:</label>
+						<input name="UploadedFile" class="form-control" type="file" />
+					</div>
+
 					<button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
-					<small class="text-body-secondary">Нажав кнопку "Зарегистрироваться", вы соглашаетесь с условиями использования.</small>					
+					
 				</form>
 			</div>
 		</div>

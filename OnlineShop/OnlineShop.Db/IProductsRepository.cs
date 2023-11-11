@@ -1,14 +1,23 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.AspNetCore.Http;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db
 {
 	public interface IProductsRepository
 	{
-		List<Product> GetAll();
-		Product TryGetById(Guid id);
-        Product TryGetByName(string name);
-        void Remove(Guid id);
-        void Add(Product product);
-        void Edit(Product product, Guid productId);        
+        // получить все продукты
+        Task<List<Product>> GetAllAsync();
+
+        // получить продукт по id
+        Task<Product> TryGetByIdAsync(Guid productId);
+
+        // добавить продукт
+        Task AddAsync(Product product);
+
+        // редактировать продукт
+        Task EditAsync(Product product, IFormFile[] uploadedFiles);
+
+        // удалить продукт
+        Task RemoveAsync(Guid productId);
     }
 }

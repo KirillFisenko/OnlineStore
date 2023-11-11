@@ -3,9 +3,9 @@
 <div class="row">
 
 	<div class="col-lg-3">
-		<div class="my-4">	
+		<div class="my-4">
 			<a class="titleName" asp-controller="Home" asp-action="Index">
-				<img src="/images/mainIcon.png" alt="иконка" width="40" height="34" class="d-inline-block align-text-top"> ProPC
+				<img src="/images/Index/mainIcon.png" alt="иконка" width="40" height="34" class="d-inline-block align-text-top"> ProPC
 			</a>
 			@await Html.PartialAsync("LeftMenu")
 		</div>
@@ -22,29 +22,19 @@
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[0].Id *@">
-						<img src="/images/pa_rtx4080_GP_1920_680_183.jpg" class="d-block img-fluid" alt="Изображение карусели">
-					</a>
+					<img src="/images/Carousel/pa_rtx4080_GP_1920_680_183.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
 				</div>
 				<div class="carousel-item">
-					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[1].Id *@">
-					<img src="/images/pa_ow2s6_1920_680_01_ru_412.jpg" class="d-block img-fluid" alt="Изображение карусели">
-					</a>
+					<img src="/images/Carousel/pa_ow2s6_1920_680_01_ru_412.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
 				</div>
 				<div class="carousel-item">
-					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[2].Id *@">
-					<img src="/images/pa_rtx4060Ti_js_1920_680_01_en_717.jpg" class="d-block img-fluid" alt="Изображение карусели">
-					</a>
+					<img src="/images/Carousel/pa_rtx4060Ti_js_1920_680_01_en_717.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
 				</div>
 				<div class="carousel-item">
-					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[3].Id *@">
-					<img src="/images/pa_rtx4070_1920_680_01_en_302.jpg" class="d-block img-fluid" alt="Изображение карусели">
-					</a>
+					<img src="/images/Carousel/pa_rtx4070_1920_680_01_en_302.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
 				</div>
 				<div class="carousel-item">
-					<a @* asp-controller="Product" asp-action="Index" asp-route-productId="@Model[4].Id *@">
-					<img src="/images/pa_rtx4080_70Ti_js_1920_680_02_ru_162.jpg" class="d-block img-fluid" alt="Изображение карусели">
-					</a>
+					<img src="/images/Carousel/pa_rtx4080_70Ti_js_1920_680_02_ru_162.jpg" class="d-block img-fluid rounded" alt="Изображение карусели">
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -55,27 +45,40 @@
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Следующий</span>
 			</button>
-		</div>
+		</div>			
 
 		<div class="row">
+
+			@if (Model.Count == 0)
+			{
+				<div class="text-center my-xl-3">
+					<h3 class="bg-warning-subtle text-emphasis-warning ">Скоро здесь появятся новые товары</h3>
+					<a class="btn btn-outline-warning my-xl-3" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-90deg-left"> Перейти ко всем товарам</i></a>
+				</div>
+			}
+			
 			@foreach (var product in Model)
 			{
-				<div class="col-lg-4 mb-4">
-					<div class="card box-shadow h-70">
-						<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><img class="card-img-top rounded mx-auto d-block w-50 h-50" src="@product.ImagePath" alt="Изображение товара"></a>
+				<div class="col-lg-4 mb-3">
+					<div class="card box-shadow h-100 w-100">
+						<a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
+							<div class="scale p-2">
+								<img class="card-img-top rounded mx-auto d-block w-50 h-50 scale" src="@product.Images.FirstOrDefault().Url" alt="Изображение товара">
+							</div>
+						</a>
 						<div class="card-body">
 							<h5 class="price">@product.Cost &#8381;</h5>
-							<p class="textId">ID: @product.Id</p>
+							<p class="textId">ID: @product.Id.ToString().Split('-').Last()</p>
 							<p class="card-title">
-								<a class="titleName" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">@product.Name</a>
+								<a class="titleName" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><p class="gain-left">@product.Name</p></a>
 							</p>
 							<p class="textDescription">@product.Description</p>
 						</div>
-						<div class="card-body d-flex align-items-end justify-content-around">
-							<a class="btn btn-outline-warning" title="Подробнее о товаре" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><i class="bi bi-info-square"></i></a>
-							<a class="btn btn-outline-warning" title="Добавить в избранное" asp-controller="Favorite" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-heart"></i></a>
-							<a class="btn btn-outline-warning" title="Сравнить" asp-controller="Compare" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-clipboard2-plus"></i></a>
-							<a class="btn btn-warning" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> В корзину</a>
+						<div class="d-flex flex-wrap align-items-end justify-content-around p-2">
+							<a class="btn btn-outline-warning flex-fill m-1" title="Подробнее о товаре" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id"><i class="bi bi-info"></i></a>
+							<a class="btn btn-outline-warning flex-fill m-1" title="Добавить в избранное" asp-controller="Favorite" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-heart"></i></a>
+							<a class="btn btn-outline-warning flex-fill m-1" title="Сравнить" asp-controller="Compare" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-clipboard2-plus"></i></a>
+							<a class="btn btn-warning flex-fill m-1" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id"><i class="bi bi-cart"></i> В корзину</a>
 						</div>
 					</div>
 				</div>
