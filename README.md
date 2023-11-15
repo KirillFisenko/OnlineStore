@@ -4,7 +4,7 @@
 Ссылка на приложение: https://a22081-3f7d.b.d-f.pw/
 
 ## Используемые технологии и библиотеки
-- ASP.NET CORE Framework
+- ASP.NET CORE
 - шаблон Model-View-Controller (MVC)
 - Razor pages
 - Bootstrap
