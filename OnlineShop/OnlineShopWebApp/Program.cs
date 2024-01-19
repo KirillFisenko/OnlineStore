@@ -46,7 +46,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 // получаем строку подключения из файла конфигурации
-string connection = builder.Configuration.GetConnectionString("online_shop");
+string connection = builder.Configuration.GetConnectionString("docker");
 
 // добавляем контекст DatabaseContext в качестве сервиса в приложение
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
