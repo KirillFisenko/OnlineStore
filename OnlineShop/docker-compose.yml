@@ -1,5 +1,4 @@
 version: '3.4'
-
 services:
   mssqlserver:
     container_name: online_shop_app_db
@@ -10,11 +9,11 @@ services:
     
   onlineshopwebapp:
     container_name: online_shop_app_mvc
-    image: ${DOCKER_REGISTRY-}onlineshopwebapp
+    image: ${DOCKER_REGISTRY-}kirillfisenko/online_shop_web_app:latest
     build:
       context: .
-      dockerfile: OnlineShopWebApp/Dockerfile
+      dockerfile: Dockerfile
     ports:
-      - 80:80
+      - 5000:80
     depends_on:
-      - mssqlserver
+      - mssqlserver   
