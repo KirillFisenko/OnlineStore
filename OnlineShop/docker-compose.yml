@@ -9,11 +9,12 @@ services:
     
   onlineshopwebapp:
     container_name: online_shop_app_mvc
-    image: ${DOCKER_REGISTRY-}kirillfisenko/online_shop_web_app:latest
+    image: ${DOCKER_REGISTRY-}online_shop_web_app
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: OnlineShopWebApp/Dockerfile
     ports:
       - 5000:80
     depends_on:
       - mssqlserver   
+    restart: unless-stopped

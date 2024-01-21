@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopWebApp", "OnlineS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Db", "OnlineShop.Db\OnlineShop.Db.csproj", "{0AF9DFCA-816E-4E39-A3A1-94C25012C160}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A410BCE9-41C8-406A-A65A-48643D65A862}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B6BC7412-FC79-4E78-B1BD-C55F5EC07BCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{0AF9DFCA-816E-4E39-A3A1-94C25012C160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AF9DFCA-816E-4E39-A3A1-94C25012C160}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AF9DFCA-816E-4E39-A3A1-94C25012C160}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A410BCE9-41C8-406A-A65A-48643D65A862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A410BCE9-41C8-406A-A65A-48643D65A862}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A410BCE9-41C8-406A-A65A-48643D65A862}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A410BCE9-41C8-406A-A65A-48643D65A862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6BC7412-FC79-4E78-B1BD-C55F5EC07BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6BC7412-FC79-4E78-B1BD-C55F5EC07BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6BC7412-FC79-4E78-B1BD-C55F5EC07BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6BC7412-FC79-4E78-B1BD-C55F5EC07BCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
