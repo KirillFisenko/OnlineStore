@@ -18,6 +18,7 @@ Docker образ БД: https://hub.docker.com/_/microsoft-mssql-server
 - LINQ
 - MS SQL Server
 - Entity Framework (EF)
+- Docker
 - ASP.NET Identity (система аутентификации и авторизации)
 - MimeKit (работа с электронной почтой)
 - Serilog (журналы для диагностики)
