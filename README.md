@@ -2,7 +2,10 @@
 Веб-приложение интернет-магазина.\
 Опубликовано на хостинге "DEPLOY -F"\
 Ссылка на приложение: https://a22176-de34.p.d-f.pw/
-
+Опубликовано на облачном сервере reg.ru\
+Ссылка на приложение: http://kirillfisenko.ru/
+Docker контейнер: https://hub.docker.com/repository/docker/kirillfisenko/online_shop_web_app/general
+Для БД https://hub.docker.com/_/microsoft-mssql-server
 ## Используемые технологии и библиотеки
 - ASP.NET CORE
 - шаблон Model-View-Controller (MVC)
