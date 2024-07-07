@@ -1,6 +1,6 @@
 # Online Store
 Веб-приложение интернет-магазина.\
-\
+
 
 Docker образ приложения: https://hub.docker.com/repository/docker/kirillfisenko/online_shop_web_app/general \
 Docker образ БД: https://hub.docker.com/_/microsoft-mssql-server 
