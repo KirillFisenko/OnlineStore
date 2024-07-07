@@ -1,12 +1,7 @@
 # Online Store
 Веб-приложение интернет-магазина.\
 \
-Опубликовано на хостинге "DEPLOY -F"\
-Ссылка на приложение: https://a22176-de34.p.d-f.pw \
-\
-Опубликовано на облачном сервере reg.ru\
-Ссылка на приложение: http://kirillfisenko.ru \
-\
+
 Docker образ приложения: https://hub.docker.com/repository/docker/kirillfisenko/online_shop_web_app/general \
 Docker образ БД: https://hub.docker.com/_/microsoft-mssql-server 
 ## Используемые технологии и библиотеки
